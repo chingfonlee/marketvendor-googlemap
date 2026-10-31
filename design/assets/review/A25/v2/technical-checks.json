@@ -1,0 +1,17 @@
+{
+  "width": 2244,
+  "height": 2804,
+  "pixel_format": "Format24bppRgb",
+  "opaque": true,
+  "source_width": 1122,
+  "source_height": 1402,
+  "normalization": "HighQualityBicubic resize to requested canvas; opaque RGB encoding only",
+  "label_box_size": [
+    360,
+    230
+  ],
+  "candidate_sha256": "84D12DB56E53BE26FF452A8D99470A350B0D0567C4B1A7671D6E7AF3513977F7",
+  "formal_asset_sha256_before_promotion": "9B0905C448619B9F7AD0039C722E3EC8344CA07E17AF87E9B454286E9E0A2E08",
+  "formal_asset_sha256": "84D12DB56E53BE26FF452A8D99470A350B0D0567C4B1A7671D6E7AF3513977F7",
+  "delivery_status": "User accepted first candidate with documented deviations; promoted without further image edits"
+}
