@@ -19,7 +19,7 @@
 | 頁首右上 | 「我是攤商，補交 Google 地圖連結」入口 |
 | 左上 | 總數、已完成、待確認、未提交，以及完成率圓環 |
 | 左下 | 搜尋、縣市選單、市場選單、狀態按鈕（全部／已完成／待確認／未提交） |
-| 中間 | A25 手繪台灣底圖，加上 8 個有參與縣市的標籤。**標籤只顯示名稱** |
+| 中間 | A25 手繪台灣底圖，加上 8 個有參與縣市的標籤。標籤是圓角卡片，顯示**名稱、市場數、攤商數** |
 | 右上 | 所選縣市的市場清單：市場名稱、攤商數、各狀態數量 |
 | 右下 | 所選市場的攤商清單：店名、狀態、Google 地圖連結 |
 | 手機 | 地圖在上，市場清單和攤商清單用可拖拉的底部面板 |
@@ -120,7 +120,7 @@
 | 1 | SVG 元件盤點 | Claude | `SVG_COMPONENTS.md`：每個元件標明沿用、調整或新增，對到本計畫的畫面和開關 | 修訂中 |
 | 2 | 底圖 | 出圖 Codex，驗收 Claude | 已改用使用者提供的水彩底圖，FSRCNN 放大成 2048×3072（SHA-256 開頭 `c3586c0f`），見 [BASEMAP_REVIEW.md](BASEMAP_REVIEW.md) | ✅ |
 | 3 | 圖層架構 | Claude | 地圖內：底圖、裝飾、縣市標籤（8 個）、選取效果。地圖外：統計、篩選、市場清單、攤商清單。寫清楚篩選狀態和連動規則（§2） | [LAYER_ARCHITECTURE.md](LAYER_ARCHITECTURE.md) ✅ |
-| 4 | 縣市標籤位置 | Claude | 8 個縣市的大約位置寫在 `design/assets/final/map-taiwan-base.labels.json`（viewBox 0 0 1024 1536，和底圖 SHA 綁定），疊圖由 `design/tools/label_overlay.ps1` 產生；桌機和手機尺寸都不重疊（手機不需另外錯開） | [COUNTY_LABELS.md](COUNTY_LABELS.md) 完成，待驗收 |
+| 4 | 縣市標籤位置 | Claude | 圓角卡片（名稱、市場數、攤商數）；8 個縣市的大約位置寫在 `design/assets/final/map-taiwan-base.labels.json`（viewBox 0 0 1024 1536，和底圖 SHA 綁定），預覽由 `design/tools/label_overlay.ps1` 產生；桌機和手機尺寸都不重疊 | [COUNTY_LABELS.md](COUNTY_LABELS.md) 完成，待驗收 |
 | 5 | 響應式版面 | Claude | 桌機照 §2；手機用底部面板，可點範圍至少 44px；平板版的處理方式 | 待開始 |
 | 6 | 正式資料匯入 | Claude | 照 §4；匯入報告的總數是 347（217／130／0），三種狀態加總等於總數，和總表各市場攤數一致；跑兩次結果相同；公開 JSON 沒有個資 | 待開始 |
 | 7 | 網頁重組 | Claude | 讀正式 JSON；§2 的互動規則全部做到；三種狀態按鈕；圓環依縣市重算；地圖可縮放 | 等 3～6 |
