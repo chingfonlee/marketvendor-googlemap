@@ -1,0 +1,26 @@
+# 金鑰
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Excel 開檔時的暫存檔
+~$*.xlsx
+~$*.xls
+
+# 攤商名單含負責人、電話等個資，不進 git
+data/*.xlsx
+data/*.xls
+data/*.csv
+
+# Claude Code 本機資料
+.claude/
+
+# 生圖中間檔：PNG 只留本機，說明與紀錄（.md、.json）照常進 git
+design/assets/generated/*.png
+design/assets/review/**/*.png
+design/assets/review/*.jpg

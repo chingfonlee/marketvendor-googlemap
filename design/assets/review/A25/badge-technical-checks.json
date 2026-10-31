@@ -1,0 +1,211 @@
+{
+  "regions": [
+    {
+      "name": "基隆",
+      "native_rectangle": [
+        845,
+        90,
+        905,
+        150
+      ]
+    },
+    {
+      "name": "台北",
+      "native_rectangle": [
+        760,
+        120,
+        820,
+        180
+      ]
+    },
+    {
+      "name": "新北",
+      "native_rectangle": [
+        655,
+        70,
+        715,
+        130
+      ]
+    },
+    {
+      "name": "桃園",
+      "native_rectangle": [
+        560,
+        175,
+        620,
+        235
+      ]
+    },
+    {
+      "name": "新竹縣",
+      "native_rectangle": [
+        500,
+        275,
+        560,
+        335
+      ]
+    },
+    {
+      "name": "新竹市",
+      "native_rectangle": [
+        415,
+        255,
+        475,
+        315
+      ]
+    },
+    {
+      "name": "宜蘭",
+      "native_rectangle": [
+        835,
+        300,
+        895,
+        360
+      ]
+    },
+    {
+      "name": "苗栗",
+      "native_rectangle": [
+        400,
+        400,
+        460,
+        460
+      ]
+    },
+    {
+      "name": "台中",
+      "native_rectangle": [
+        380,
+        510,
+        440,
+        570
+      ]
+    },
+    {
+      "name": "彰化",
+      "native_rectangle": [
+        300,
+        610,
+        360,
+        670
+      ]
+    },
+    {
+      "name": "南投",
+      "native_rectangle": [
+        540,
+        590,
+        600,
+        650
+      ]
+    },
+    {
+      "name": "雲林",
+      "native_rectangle": [
+        280,
+        715,
+        340,
+        775
+      ]
+    },
+    {
+      "name": "嘉義市",
+      "native_rectangle": [
+        300,
+        815,
+        360,
+        875
+      ]
+    },
+    {
+      "name": "嘉義縣",
+      "native_rectangle": [
+        420,
+        820,
+        480,
+        880
+      ]
+    },
+    {
+      "name": "台南",
+      "native_rectangle": [
+        310,
+        930,
+        370,
+        990
+      ]
+    },
+    {
+      "name": "高雄",
+      "native_rectangle": [
+        430,
+        1020,
+        490,
+        1080
+      ]
+    },
+    {
+      "name": "屏東",
+      "native_rectangle": [
+        450,
+        1140,
+        510,
+        1200
+      ]
+    },
+    {
+      "name": "花蓮",
+      "native_rectangle": [
+        750,
+        540,
+        810,
+        600
+      ]
+    },
+    {
+      "name": "台東",
+      "native_rectangle": [
+        650,
+        880,
+        710,
+        940
+      ]
+    },
+    {
+      "name": "澎湖",
+      "native_rectangle": [
+        150,
+        760,
+        210,
+        820
+      ]
+    },
+    {
+      "name": "金門",
+      "native_rectangle": [
+        70,
+        470,
+        130,
+        530
+      ]
+    },
+    {
+      "name": "馬祖",
+      "native_rectangle": [
+        70,
+        150,
+        130,
+        210
+      ]
+    }
+  ],
+  "width": 2244,
+  "generated_original_size": [
+    1122,
+    1402
+  ],
+  "badge_region_count": 22,
+  "opaque": true,
+  "height": 2804,
+  "sha256": "9B0905C448619B9F7AD0039C722E3EC8344CA07E17AF87E9B454286E9E0A2E08"
+}

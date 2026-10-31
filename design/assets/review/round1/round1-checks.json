@@ -1,0 +1,11 @@
+{
+  "changed_final_files": [
+    "design\\assets\\final\\map-taiwan-market.png",
+    "design\\assets\\final\\category\\desserts.png"
+  ],
+  "unchanged_final_files": 30,
+  "all_32_dimensions_backgrounds_pass": true,
+  "A04_unchanged": true,
+  "map_outside_allowed_boxes_changed_pixels": 0,
+  "status": "ready-for-user-review"
+}

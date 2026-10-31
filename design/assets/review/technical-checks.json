@@ -1,0 +1,578 @@
+[
+  {
+    "id": "A01",
+    "path": "design/assets/final/map-taiwan-market.png",
+    "size": [
+      2244,
+      2804
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      255,
+      255,
+      255,
+      255
+    ],
+    "subject_extent": 1.0,
+    "sha256": "c2e192ef6a627595f7ada645dffa631a56ec0493891eae2795abb6e45190accf"
+  },
+  {
+    "id": "A03",
+    "path": "design/assets/final/bg-login.png",
+    "size": [
+      3072,
+      2048
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      255,
+      255,
+      255,
+      255
+    ],
+    "subject_extent": 1.0,
+    "sha256": "3315d6a46fd584e7e9448fdc940becdc9622bc0c8f825ee1a6ceca3f3e7fb562"
+  },
+  {
+    "id": "A04",
+    "path": "design/assets/final/bg-login-mobile.png",
+    "size": [
+      780,
+      960
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      255,
+      255,
+      255,
+      255
+    ],
+    "subject_extent": 1.0,
+    "sha256": "0c12315b5ce8597b3899f2a2537232c28666324b8c0406cb67f264189e0826a8"
+  },
+  {
+    "id": "A05",
+    "path": "design/assets/final/bg-form.png",
+    "size": [
+      2896,
+      1996
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      255,
+      255,
+      255,
+      255
+    ],
+    "subject_extent": 1.0,
+    "sha256": "d0bc833bf3001c1ba0f2da9eb5114ce69cb5c572d47d445f788a2e22515cd533"
+  },
+  {
+    "id": "A06",
+    "path": "design/assets/final/hero-form-title.png",
+    "size": [
+      940,
+      200
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "subject_extent": 0.96,
+    "sha256": "35a08ea1dff56598277927cfa065a7dfddf9a647b7d5c52e9f06e3e1eab1d57e"
+  },
+  {
+    "id": "A07",
+    "path": "design/assets/final/hero-login-title.png",
+    "size": [
+      1120,
+      390
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "subject_extent": 0.96,
+    "sha256": "509de5597a72c5ac425bdcbdcc6b45ebae72a85d3086c432064c0d06883543c8"
+  },
+  {
+    "id": "A08",
+    "path": "design/assets/final/logo-stall.png",
+    "size": [
+      352,
+      312
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "subject_extent": 0.962,
+    "sha256": "7e4694e521f3ed8f96e4db78ef516427579dc9151a5ef8f9600fe5c3c7470e53"
+  },
+  {
+    "id": "A09",
+    "path": "design/assets/final/mascot-chef.png",
+    "size": [
+      340,
+      220
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "subject_extent": 0.959,
+    "sha256": "f2779289abb4c7d65500f84a8f868d5f8c458992e653a5458c16eabd318026e6"
+  },
+  {
+    "id": "A10",
+    "path": "design/assets/final/mascot-cat-map.png",
+    "size": [
+      348,
+      256
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "subject_extent": 0.961,
+    "sha256": "a4afd36e7213a7408c160c6532e25f0ded715359aa2222d497edde9c0ac230f3"
+  },
+  {
+    "id": "A11",
+    "path": "design/assets/final/mascot-cat-wave.png",
+    "size": [
+      280,
+      280
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "subject_extent": 0.961,
+    "sha256": "80acb2eb15861434e5d0db59e814aebd4344bb017a93a9c6c1cc9f2e80f91c21"
+  },
+  {
+    "id": "A12",
+    "path": "design/assets/final/mascot-cat-boat.png",
+    "size": [
+      290,
+      170
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "subject_extent": 0.959,
+    "sha256": "86d387e77a9a0195c8b3750f20e0e9fdc03c5b2d559650128659b0561d43aecc"
+  },
+  {
+    "id": "A13",
+    "path": "design/assets/final/mascot-cat-megaphone.png",
+    "size": [
+      320,
+      254
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "subject_extent": 0.959,
+    "sha256": "c85f4105121a75714a0530f3eb923aeb65651b1a3fdd0de207121357b481612d"
+  },
+  {
+    "id": "A14",
+    "path": "design/assets/final/mascot-cat-heart.png",
+    "size": [
+      350,
+      248
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "subject_extent": 0.96,
+    "sha256": "d6218c6bcee79c5111d325e4c450d8342a1b0ea7fc2af62866aed67dd6ef1565"
+  },
+  {
+    "id": "A15",
+    "path": "design/assets/final/mascot-girl-vendor.png",
+    "size": [
+      480,
+      420
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "subject_extent": 0.96,
+    "sha256": "a6437a777f59f0d075bdb48e4c865a45a60100d4103457b3e0a40482a5ea9596"
+  },
+  {
+    "id": "A16",
+    "path": "design/assets/final/mascot-girl-stall.png",
+    "size": [
+      680,
+      570
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "subject_extent": 0.96,
+    "sha256": "6bd6c2a8a9175db5bf0ddc5bd106b1ee85283ca27153ac991fb3100ffbc78e5a"
+  },
+  {
+    "id": "A17",
+    "path": "design/assets/final/stall-placeholder.png",
+    "size": [
+      724,
+      470
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      255,
+      255,
+      255,
+      255
+    ],
+    "subject_extent": 1.0,
+    "sha256": "ad553e31016dc978d3ed6c8c4bbcc9cf81309066d2ff86913f3bccf78c82e685"
+  },
+  {
+    "id": "A18-vegetables",
+    "path": "design/assets/final/category/vegetables.png",
+    "size": [
+      128,
+      128
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "subject_extent": 0.797,
+    "sha256": "95c164ba475ad6d9101cfb916eb8280051a6a0c331e0c6435be79a232b33e029"
+  },
+  {
+    "id": "A18-fruit",
+    "path": "design/assets/final/category/fruit.png",
+    "size": [
+      128,
+      128
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "subject_extent": 0.797,
+    "sha256": "8bc675dae290a1698945909616e8561a3112a0dc6d4f5c53268bf82b779bea17"
+  },
+  {
+    "id": "A18-meat",
+    "path": "design/assets/final/category/meat.png",
+    "size": [
+      128,
+      128
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "subject_extent": 0.797,
+    "sha256": "98050125df2b9b1fa90022dd49922a8c6205005f682cc1e1a0e0e1ea1d7cb2b4"
+  },
+  {
+    "id": "A18-seafood",
+    "path": "design/assets/final/category/seafood.png",
+    "size": [
+      128,
+      128
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "subject_extent": 0.797,
+    "sha256": "8515d0a72b84ccc39dbb020fabcb31d94d09a5e5e590ea685c49a504225458b4"
+  },
+  {
+    "id": "A18-deli",
+    "path": "design/assets/final/category/deli.png",
+    "size": [
+      128,
+      128
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "subject_extent": 0.797,
+    "sha256": "01c09fe147e044e666446a0b7337e3baffe8559d9da05c1fe184ff43118f226e"
+  },
+  {
+    "id": "A18-snacks",
+    "path": "design/assets/final/category/snacks.png",
+    "size": [
+      128,
+      128
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "subject_extent": 0.797,
+    "sha256": "b96ac76f932b42e5873ca5324c6e5c59f93cc627da3f3772b7b2e14e050e9c29"
+  },
+  {
+    "id": "A18-drinks",
+    "path": "design/assets/final/category/drinks.png",
+    "size": [
+      128,
+      128
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "subject_extent": 0.797,
+    "sha256": "b2ed176168c9c974e90db4b3a86e226e702b1c16e49529dba0814e69e8c92f37"
+  },
+  {
+    "id": "A18-desserts",
+    "path": "design/assets/final/category/desserts.png",
+    "size": [
+      128,
+      128
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "subject_extent": 0.797,
+    "sha256": "b9661ff5fb02203456d698ac03dc6b53f4b16ba0382c46642b815c88ee68ee3a"
+  },
+  {
+    "id": "A18-dry-goods",
+    "path": "design/assets/final/category/dry-goods.png",
+    "size": [
+      128,
+      128
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "subject_extent": 0.797,
+    "sha256": "a5821744362c11238d3680fc1cafe1b314e8f5c358188a4d8b119c31badc84e8"
+  },
+  {
+    "id": "A18-flowers",
+    "path": "design/assets/final/category/flowers.png",
+    "size": [
+      128,
+      128
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "subject_extent": 0.797,
+    "sha256": "b8608d5a105eb8e9a9afb236f63fa466661e75d439a943e17edac37a2edcd910"
+  },
+  {
+    "id": "A19",
+    "path": "design/assets/final/illus-auto-check.png",
+    "size": [
+      376,
+      354
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "subject_extent": 0.96,
+    "sha256": "e84da112f08fca67df6ad44eb510d09b344a5921f87eb64125d33e86e43fb7fa"
+  },
+  {
+    "id": "A20",
+    "path": "design/assets/final/empty-state.png",
+    "size": [
+      400,
+      320
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "subject_extent": 0.959,
+    "sha256": "067422b7cbfffb3995d341700f582c85dfb844a0d600126efd3af32ff448bbe1"
+  },
+  {
+    "id": "A21",
+    "path": "design/assets/final/error-state.png",
+    "size": [
+      400,
+      320
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "subject_extent": 0.96,
+    "sha256": "5fa752d4da068c9350cce9bb24b6e5e6e181c537c3199058921e8e78e658e689"
+  },
+  {
+    "id": "A22",
+    "path": "design/assets/final/map-city-labels.png",
+    "size": [
+      2244,
+      2804
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "subject_extent": 0.933,
+    "sha256": "746299befff7cc4fcdb0071559449deee04c7688d7f1d53ab8c8e3721c3d3456"
+  },
+  {
+    "id": "A23",
+    "path": "design/assets/final/map-headline-front.png",
+    "size": [
+      700,
+      380
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "subject_extent": 0.96,
+    "sha256": "1194ded4010a7b8849334a63946dc6b64bff767e06b69be19c446b7770f91a5b"
+  },
+  {
+    "id": "A24",
+    "path": "design/assets/final/map-headline-admin.png",
+    "size": [
+      680,
+      250
+    ],
+    "size_pass": true,
+    "background_pass": true,
+    "corners_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "subject_extent": 0.96,
+    "sha256": "c01dd2c8ad1585541feb7032c80f88b5c27ca070bde1b4fb392f7aac4d65057d"
+  }
+]

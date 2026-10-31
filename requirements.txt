@@ -1,0 +1,9 @@
+# 攤商名單核對 Google Places（Places API New）
+pandas>=2.2
+openpyxl>=3.1   # .xlsx
+xlrd>=2.0       # 舊版 .xls
+httpx>=0.27     # 呼叫 Places API
+python-dotenv>=1.0
+rapidfuzz>=3.9  # 店名相似度
+tenacity>=9.0   # 429 / 逾時重試
+tqdm>=4.66      # 進度條

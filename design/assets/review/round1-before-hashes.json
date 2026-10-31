@@ -1,0 +1,130 @@
+[
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\bg-form.png",
+    "sha256": "D0BC833BF3001C1BA0F2DA9EB5114CE69CB5C572D47D445F788A2E22515CD533"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\bg-login-mobile.png",
+    "sha256": "0C12315B5CE8597B3899F2A2537232C28666324B8C0406CB67F264189E0826A8"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\bg-login.png",
+    "sha256": "3315D6A46FD584E7E9448FDC940BECDC9622BC0C8F825EE1A6CECA3F3E7FB562"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\empty-state.png",
+    "sha256": "067422B7CBFFFB3995D341700F582C85DFB844A0D600126EFD3AF32FF448BBE1"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\error-state.png",
+    "sha256": "5FA752D4DA068C9350CCE9BB24B6E5E6E181C537C3199058921E8E78E658E689"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\hero-form-title.png",
+    "sha256": "35A08EA1DFF56598277927CFA065A7DFDDF9A647B7D5C52E9F06E3E1EAB1D57E"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\hero-login-title.png",
+    "sha256": "509DE5597A72C5AC425BDCBDCC6B45EBAE72A85D3086C432064C0D06883543C8"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\illus-auto-check.png",
+    "sha256": "E84DA112F08FCA67DF6AD44EB510D09B344A5921F87EB64125D33E86E43FB7FA"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\logo-stall.png",
+    "sha256": "7E4694E521F3ED8F96E4DB78EF516427579DC9151A5EF8F9600FE5C3C7470E53"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\map-city-labels.png",
+    "sha256": "746299BEFFF7CC4FCDB0071559449DEEE04C7688D7F1D53AB8C8E3721C3D3456"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\map-headline-admin.png",
+    "sha256": "C01DD2C8AD1585541FEB7032C80F88B5C27CA070BDE1B4FB392F7AAC4D65057D"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\map-headline-front.png",
+    "sha256": "1194DED4010A7B8849334A63946DC6B64BFF767E06B69BE19C446B7770F91A5B"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\map-taiwan-market.png",
+    "sha256": "82005AE284770A6A7D8F0ACFACA2ADE1AB0345E71195A0B445A4EF65F9A429F7"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\mascot-cat-boat.png",
+    "sha256": "86D387E77A9A0195C8B3750F20E0E9FDC03C5B2D559650128659B0561D43AECC"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\mascot-cat-heart.png",
+    "sha256": "D6218C6BCEE79C5111D325E4C450D8342A1B0EA7FC2AF62866AED67DD6EF1565"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\mascot-cat-map.png",
+    "sha256": "A4AFD36E7213A7408C160C6532E25F0DED715359AA2222D497EDDE9C0AC230F3"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\mascot-cat-megaphone.png",
+    "sha256": "C85F4105121A75714A0530F3EB923AEB65651B1A3FDD0DE207121357B481612D"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\mascot-cat-wave.png",
+    "sha256": "80ACB2EB15861434E5D0DB59E814AEBD4344BB017A93A9C6C1CC9F2E80F91C21"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\mascot-chef.png",
+    "sha256": "F2779289ABB4C7D65500F84A8F868D5F8C458992E653A5458C16EABD318026E6"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\mascot-girl-stall.png",
+    "sha256": "6BD6C2A8A9175DB5BF0DDC5BD106B1EE85283CA27153AC991FB3100FFBC78E5A"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\mascot-girl-vendor.png",
+    "sha256": "A6437A777F59F0D075BDB48E4C865A45A60100D4103457B3E0A40482A5EA9596"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\stall-placeholder.png",
+    "sha256": "AD553E31016DC978D3ED6C8C4BBCC9CF81309066D2FF86913F3BCCF78C82E685"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\category\\deli.png",
+    "sha256": "01C09FE147E044E666446A0B7337E3BAFFE8559D9DA05C1FE184FF43118F226E"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\category\\desserts.png",
+    "sha256": "C785D3A339D7EB2883B3AC973B47D36C4331989237EB812587FBE2A6F68D1EA7"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\category\\drinks.png",
+    "sha256": "B2ED176168C9C974E90DB4B3A86E226E702B1C16E49529DBA0814E69E8C92F37"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\category\\dry-goods.png",
+    "sha256": "A5821744362C11238D3680FC1CAFE1B314E8F5C358188A4D8B119C31BADC84E8"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\category\\flowers.png",
+    "sha256": "B8608D5A105EB8E9A9AFB236F63FA466661E75D439A943E17EDAC37A2EDCD910"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\category\\fruit.png",
+    "sha256": "8BC675DAE290A1698945909616E8561A3112A0DC6D4F5C53268BF82B779BEA17"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\category\\meat.png",
+    "sha256": "98050125DF2B9B1FA90022DD49922A8C6205005F682CC1E1A0E0E1EA1D7CB2B4"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\category\\seafood.png",
+    "sha256": "8515D0A72B84CCC39DBB020FABCB31D94D09A5E5E590EA685C49A504225458B4"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\category\\snacks.png",
+    "sha256": "B96AC76F932B42E5873CA5324C6E5C59F93CC627DA3F3772B7B2E14E050E9C29"
+  },
+  {
+    "path": "C:\\Users\\user\\claudecode\\googlemap-store\\design\\assets\\final\\category\\vegetables.png",
+    "sha256": "95C164BA475AD6D9101CFB916EB8280051A6A0C331E0C6435BE79A232B33E029"
+  }
+]
