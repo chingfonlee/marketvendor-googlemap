@@ -123,15 +123,19 @@ web/
     tokens.css        色彩、字級、間距變數（來自 atoms/color-tokens.svg）
     layout.css        四個區塊的版面（任務 5）
     components.css    標籤、卡片、按鈕、清單
+    submit.css        補交頁（卡片樣式沿用 login-card-*.svg）
   js/
     state.js          狀態和動作（§3）
     data.js           讀取 JSON、計算各範圍的統計
     map.js            地圖平面、縮放拖曳、標籤
     panels.js         進度卡、篩選、市場清單、攤商清單
+    submit.js         補交頁：三層選單、確認／貼新網址、模擬送出
+    urlcheck.js       Google 地圖網址檢查（規則同 import_excel.py 的 check_url）
     devtools.js       開發開關（任務 9），只在開發環境載入
   data/               匯入程式產生的 JSON
   assets/
     map-base.webp     底圖（網頁用壓縮版）
+    bg-form.webp      補交頁背景
     icons.svg         圖示 sprite（攤車、建築、外部連結、補交等）
     market-type/      3 張市場類型縮圖
     mascots/          吉祥物

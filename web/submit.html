@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>補交 Google 地圖連結・台灣攤商地圖</title>
+<meta name="description" content="攤商確認或補交自己店家的 Google 地圖連結，不用註冊">
+<link rel="icon" href="assets/logo.webp">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/submit.css">
+<script type="module" src="js/submit.js"></script>
+</head>
+<body class="submit-page" data-loading>
+
+<header class="sp-header">
+  <a class="sp-brand" href="./" aria-label="國際友善力・台灣攤商地圖 首頁">
+    <img src="assets/logo.webp" alt="" width="40" height="40">
+    <span class="sp-brand-title">國際友善力<span class="sp-dot">・</span>台灣攤商地圖</span>
+  </a>
+  <a class="sp-back" href="./">
+    <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#chevron-left"/></svg>
+    <span>回地圖總覽</span>
+  </a>
+</header>
+
+<main class="sp-main">
+  <section class="sp-card" aria-labelledby="sp-title">
+    <p class="sp-mode" hidden></p>
+
+    <div class="sp-form-view">
+      <h1 id="sp-title" class="sp-title">補交 Google 地圖連結</h1>
+      <p class="sp-lead">不用註冊。選好你的店，確認現有的連結，或貼上正確的 Google 地圖網址。</p>
+
+      <form id="sp-form" novalidate>
+        <fieldset class="sp-step">
+          <legend class="sp-step-title"><span class="sp-step-no">1</span>選擇你的店</legend>
+          <label class="sp-field">
+            <span class="sp-field-label"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#pin"/></svg>縣市</span>
+            <select id="sp-county" required></select>
+          </label>
+          <label class="sp-field">
+            <span class="sp-field-label"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#market"/></svg>市場</span>
+            <select id="sp-market" required disabled></select>
+          </label>
+          <label class="sp-field">
+            <span class="sp-field-label"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#store"/></svg>攤商</span>
+            <select id="sp-vendor" required disabled></select>
+          </label>
+        </fieldset>
+
+        <section class="sp-step sp-current" aria-labelledby="sp-current-title" hidden>
+          <h2 id="sp-current-title" class="sp-step-title"><span class="sp-step-no">2</span>目前的連結</h2>
+          <div class="sp-current-box">
+            <span class="badge"></span>
+            <p class="sp-current-text"></p>
+          </div>
+        </section>
+
+        <fieldset class="sp-step sp-actions" hidden>
+          <legend class="sp-step-title"><span class="sp-step-no">3</span>選一個操作</legend>
+          <label class="sp-choice">
+            <input type="radio" name="action" value="confirm">
+            <span class="sp-choice-body">
+              <b><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#check"/></svg>這是我的店</b>
+              <small class="sp-choice-hint" data-for="confirm"></small>
+            </span>
+          </label>
+          <label class="sp-choice">
+            <input type="radio" name="action" value="update">
+            <span class="sp-choice-body">
+              <b><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#edit"/></svg><span class="sp-update-label">不對／沒有，我貼正確的網址</span></b>
+              <small class="sp-choice-hint" data-for="update"></small>
+            </span>
+          </label>
+
+          <div class="sp-url" hidden>
+            <label class="sp-url-label" for="sp-url">Google 地圖網址</label>
+            <input id="sp-url" type="url" inputmode="url" autocomplete="off" spellcheck="false"
+                   placeholder="https://maps.app.goo.gl/…" aria-describedby="sp-url-help sp-url-error">
+            <p id="sp-url-help" class="sp-url-help">在 Google 地圖點開你的店，按「分享」→「複製連結」，再貼到這裡。</p>
+            <p id="sp-url-error" class="sp-url-error" aria-live="polite"></p>
+          </div>
+        </fieldset>
+
+        <p class="sp-privacy">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#alert"/></svg>
+          <span>不收任何聯絡資料。會記錄送出時間與 IP，只用來防止重複和濫用。</span>
+        </p>
+        <p class="sp-form-error" role="alert"></p>
+        <button class="sp-submit" type="submit" disabled>送出</button>
+      </form>
+    </div>
+
+    <div class="sp-done" hidden tabindex="-1" aria-labelledby="sp-done-title">
+      <img src="assets/mascots/cat-megaphone.webp" alt="" width="120" height="120">
+      <h1 id="sp-done-title" class="sp-title">已收到，待確認</h1>
+      <p class="sp-done-text"></p>
+      <p class="sp-done-note">我們會人工確認，確認後地圖上的狀態才會更新。</p>
+      <div class="sp-done-buttons">
+        <button class="sp-btn sp-btn-primary sp-again" type="button">再補交一家</button>
+        <a class="sp-btn sp-btn-secondary" href="./">回地圖總覽</a>
+      </div>
+    </div>
+  </section>
+
+  <details class="sp-mock" hidden>
+    <summary>模擬送出的紀錄（<span class="sp-mock-count">0</span>）</summary>
+    <p class="sp-mock-note">只存在這個瀏覽器，不會送到伺服器。格式照 PLAN.md §5；IP 由伺服器填，這裡用 127.0.0.1 代替。</p>
+    <div class="sp-mock-buttons">
+      <button class="sp-btn sp-btn-secondary sp-mock-csv" type="button">下載 CSV</button>
+      <button class="sp-btn sp-btn-secondary sp-mock-clear" type="button">清除紀錄</button>
+    </div>
+    <pre class="sp-mock-json"></pre>
+  </details>
+</main>
+
+<p class="sp-load-error" role="alert" hidden>資料載入失敗，請重新整理頁面。</p>
+</body>
+</html>

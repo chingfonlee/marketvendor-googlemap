@@ -26,6 +26,10 @@
     "empty-state.webp": [
       320,
       256
+    ],
+    "bg-form.webp": [
+      1600,
+      1103
     ]
   },
   "market_types": {

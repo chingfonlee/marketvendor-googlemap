@@ -2,7 +2,7 @@
 
 - 底圖 PNG → map-base.webp（2048×3072），manifest.json 記下來源 PNG 的 SHA-256，
   網頁拿它和 county-labels.json 的 basemap_sha256 比對（docs/LAYER_ARCHITECTURE.md §4）。
-- 吉祥物、Logo、空狀態 → 縮小的 webp。
+- 吉祥物、Logo、空狀態、補交頁背景 → 縮小的 webp。
 - 市場類型縮圖：讀 design/assets/generated/market-type-*.png（不進 git），沒有就跳過。
 - design/svg/atoms/icons.svg 的 25 個圖示 → icons.svg sprite，再加上縣市標籤的攤車圖示。
 
@@ -27,6 +27,7 @@ IMAGES = [
     (FINAL / "mascot-cat-megaphone.png", "mascots/cat-megaphone.webp", 320),
     (FINAL / "mascot-girl-vendor.png", "mascots/girl.webp", 320),
     (FINAL / "empty-state.png", "empty-state.webp", 320),
+    (FINAL / "bg-form.png", "bg-form.webp", 1600),  # 補交頁背景
 ]
 MARKET_TYPES = {
     "night_market": "market-type-night-market.png",

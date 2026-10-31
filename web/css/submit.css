@@ -1,0 +1,188 @@
+/* 補交／確認頁。卡片樣式沿用 design/svg/components/login-card-*.svg：米白卡片、膠囊欄位、藍色膠囊按鈕 */
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+[hidden] { display: none !important; }
+img { max-width: 100%; }
+
+.submit-page {
+  --cream: #FDFCF9;
+  --field-line: #E4DED4;
+  --brown: #4A2E1C;
+  --brown-body: #5B4636;
+  margin: 0;
+  min-height: 100dvh;
+  font-family: var(--font);
+  color: var(--ink);
+  line-height: 1.5;
+  background: #FFF4E2 url("../assets/bg-form.webp") center top / cover no-repeat fixed;
+}
+/* 手機上 fixed 背景會抖動，也太佔記憶體 */
+@media (max-width: 767px) {
+  .submit-page { background-attachment: scroll; background-size: 200% auto; background-position: 50% 0; }
+}
+.submit-page[data-loading] .sp-card { visibility: hidden; }
+
+/* ---------- 頁首 ---------- */
+.sp-header {
+  position: sticky; top: 0; z-index: 10;
+  height: 64px; display: flex; align-items: center; gap: 12px; padding: 0 16px;
+  background: rgb(255 255 255 / 0.92); backdrop-filter: blur(6px);
+  box-shadow: 0 1px 0 rgb(11 59 91 / 0.08);
+}
+.sp-brand { display: flex; align-items: center; gap: 10px; min-width: 0; min-height: 44px; color: inherit; text-decoration: none; }
+.sp-brand img { width: 40px; height: 40px; object-fit: contain; flex: none; }
+.sp-brand-title { font-size: 17px; font-weight: 900; color: #3B2A1A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sp-dot { color: var(--accent); }
+.sp-back {
+  margin-left: auto; flex: none; display: inline-flex; align-items: center; gap: 4px;
+  min-height: 44px; padding: 0 14px 0 8px; border-radius: 12px;
+  background: var(--primary-soft); color: var(--primary); font-weight: 700; text-decoration: none;
+}
+@media (max-width: 479px) {
+  .sp-brand-title { font-size: 15px; }
+  .sp-back span { display: none; }
+  .sp-back { padding: 0 10px; min-width: 44px; justify-content: center; }
+}
+
+/* ---------- 卡片 ---------- */
+.sp-main { padding: 32px 16px 48px; }
+.sp-card {
+  max-width: 640px; margin: 0 auto; padding: 32px 40px 36px;
+  background: var(--cream); border-radius: 32px; box-shadow: var(--shadow);
+}
+@media (max-width: 599px) {
+  .sp-main { padding: 16px 12px 32px; }
+  .sp-card { padding: 24px 18px 28px; border-radius: 24px; }
+}
+.sp-mode {
+  margin: -8px 0 20px; padding: 8px 14px; border-radius: 12px; font-size: 14px; font-weight: 700;
+  background: var(--submitted-soft); color: var(--submitted-text);
+}
+.sp-mode[data-mode="off"] { background: var(--not-submitted-soft); color: var(--not-submitted-text); }
+.sp-title { margin: 0; text-align: center; font-size: 32px; font-weight: 900; color: var(--brown); letter-spacing: 2px; }
+.sp-lead { margin: 8px 0 24px; text-align: center; color: var(--brown-body); font-size: 16px; }
+@media (max-width: 599px) {
+  .sp-title { font-size: 24px; letter-spacing: 1px; }
+  .sp-lead { font-size: 15px; margin-bottom: 20px; }
+}
+
+/* ---------- 步驟 ---------- */
+.sp-step { border: 0; margin: 0 0 20px; padding: 0; min-width: 0; }
+.sp-step-title {
+  display: flex; align-items: center; gap: 8px; padding: 0; margin: 0 0 10px;
+  font-size: 17px; font-weight: 800; color: var(--brown);
+}
+.sp-step-no {
+  width: 26px; height: 26px; border-radius: 50%; flex: none;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--accent); color: #fff; font-size: 14px; font-weight: 900;
+}
+
+/* 膠囊選單：圖示＋標籤在左，原生 select 撐滿（手機上用系統選單） */
+.sp-field {
+  position: relative; display: flex; align-items: center; min-height: 56px; margin-bottom: 10px;
+  background: #fff; border: 1.5px solid var(--field-line); border-radius: 999px;
+}
+.sp-field:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px rgb(31 111 229 / 0.18); }
+.sp-field-label {
+  flex: none; display: inline-flex; align-items: center; gap: 6px; width: 92px; padding-left: 20px;
+  font-weight: 800; color: #3F3A36; pointer-events: none;
+}
+.sp-field select {
+  flex: 1; min-width: 0; align-self: stretch; padding: 0 44px 0 4px; border: 0; background: transparent;
+  font: inherit; font-size: 16px; color: var(--ink); appearance: none; cursor: pointer; border-radius: 0 999px 999px 0;
+}
+.sp-field select:focus { outline: none; }
+.sp-field select:disabled { color: var(--placeholder); cursor: not-allowed; }
+.sp-field::after {
+  content: ""; position: absolute; right: 22px; top: 50%; width: 9px; height: 9px; margin-top: -7px;
+  border: solid #3F3A36; border-width: 0 2.4px 2.4px 0; transform: rotate(45deg); pointer-events: none;
+}
+.sp-field:has(select:disabled) { background: var(--field); }
+.sp-field:has(select:disabled)::after { border-color: var(--placeholder); }
+
+/* 目前的連結 */
+.sp-current-box {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding: 14px 18px; border-radius: 20px; background: #fff; border: 1.5px solid var(--field-line);
+}
+.sp-current-text { margin: 0; font-size: 15px; color: var(--brown-body); }
+.sp-current-text a { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; color: var(--primary); font-weight: 700; }
+.sp-current-text .icon { width: 18px; height: 18px; }
+
+/* 操作：兩張可點的選項卡 */
+.sp-choice {
+  display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; padding: 14px 18px;
+  background: #fff; border: 1.5px solid var(--field-line); border-radius: 20px; cursor: pointer;
+}
+.sp-choice:has(input:checked) { border-color: var(--primary); background: #F4F8FF; box-shadow: 0 0 0 1px var(--primary); }
+.sp-choice:has(input:focus-visible) { outline: 3px solid var(--primary); outline-offset: 2px; }
+.sp-choice input { width: 22px; height: 22px; margin: 2px 0 0; flex: none; accent-color: var(--primary); }
+.sp-choice-body { display: flex; flex-direction: column; gap: 2px; }
+.sp-choice-body b { display: inline-flex; align-items: center; gap: 6px; font-size: 16px; }
+.sp-choice-body small { color: var(--muted); font-size: 14px; }
+.sp-choice.is-disabled { cursor: not-allowed; background: var(--field); }
+.sp-choice.is-disabled b { color: var(--placeholder); }
+
+.sp-url { margin: 4px 0 0; padding: 0 4px; }
+.sp-url-label { display: block; font-weight: 800; margin-bottom: 6px; color: var(--brown); }
+.sp-url input {
+  width: 100%; min-height: 56px; padding: 0 22px; border-radius: 999px;
+  border: 1.5px solid var(--field-line); background: #fff; font: inherit; font-size: 16px; color: var(--ink);
+}
+.sp-url input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgb(31 111 229 / 0.18); }
+.sp-url input[aria-invalid="true"] { border-color: var(--not-submitted); }
+.sp-url input[aria-invalid="true"]:focus { box-shadow: 0 0 0 3px rgb(229 72 77 / 0.18); }
+.sp-url-help { margin: 6px 0 0; font-size: 14px; color: var(--muted); }
+.sp-url-error { margin: 4px 0 0; min-height: 1.5em; font-size: 14px; font-weight: 700; color: var(--not-submitted-text); }
+.sp-url-error.is-ok { color: var(--verified-text); }
+
+/* ---------- 送出 ---------- */
+.sp-privacy {
+  display: flex; gap: 8px; align-items: flex-start; margin: 8px 0 0; padding-top: 16px;
+  border-top: 1.5px solid #ECE7DF; font-size: 14px; color: var(--brown-body);
+}
+.sp-privacy .icon { width: 18px; height: 18px; margin-top: 2px; color: var(--accent); }
+.sp-form-error { margin: 8px 0 0; min-height: 1.5em; font-weight: 700; color: var(--not-submitted-text); }
+.sp-submit {
+  display: block; width: 100%; min-height: 60px; margin-top: 8px; border: 0; border-radius: 999px;
+  background: var(--primary); color: #fff; font: inherit; font-size: 20px; font-weight: 800; letter-spacing: 6px;
+  cursor: pointer; box-shadow: 0 4px 12px rgb(31 111 229 / 0.3);
+}
+.sp-submit:hover { background: #1760CC; }
+.sp-submit:disabled { background: var(--placeholder); box-shadow: none; cursor: not-allowed; }
+
+/* ---------- 已收到 ---------- */
+.sp-done { text-align: center; padding: 8px 0; }
+.sp-done:focus { outline: none; }
+.sp-done img { width: 120px; height: 120px; object-fit: contain; }
+.sp-done-text { margin: 12px 0 4px; font-size: 17px; font-weight: 700; color: var(--brown); }
+.sp-done-note { margin: 0 0 24px; color: var(--brown-body); }
+.sp-done-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.sp-btn {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 48px; min-width: 148px;
+  padding: 0 20px; border: 0; border-radius: 999px; font: inherit; font-weight: 800; cursor: pointer; text-decoration: none;
+}
+.sp-btn-primary { background: var(--primary); color: #fff; }
+.sp-btn-secondary { background: var(--primary-soft); color: var(--primary); }
+
+/* ---------- 模擬紀錄（只在本機開發時出現） ---------- */
+.sp-mock {
+  max-width: 640px; margin: 16px auto 0; padding: 12px 20px; border-radius: 20px;
+  background: rgb(255 255 255 / 0.94); box-shadow: var(--shadow); font-size: 14px;
+}
+.sp-mock summary { min-height: 44px; display: flex; align-items: center; font-weight: 800; cursor: pointer; }
+.sp-mock-note { margin: 0 0 8px; color: var(--muted); }
+.sp-mock-buttons { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+.sp-mock-buttons .sp-btn { min-height: 44px; min-width: 0; font-size: 14px; }
+.sp-mock-json {
+  margin: 0; max-height: 320px; overflow: auto; padding: 12px; border-radius: 12px;
+  background: var(--field); font-size: 12px; white-space: pre-wrap; word-break: break-all;
+}
+
+.sp-load-error {
+  position: fixed; left: 50%; top: 88px; transform: translateX(-50%); z-index: 40;
+  background: #fff; color: var(--not-submitted-text); padding: 12px 20px; border-radius: 12px;
+  box-shadow: var(--shadow-strong); font-weight: 700;
+}
