@@ -57,7 +57,27 @@ v2 已交付並由使用者接受：`final/map-taiwan-base.png`，SHA-256 開頭
 | 海上裝飾 | 5 組（右上多一朵小雲），使用者接受 |
 | 沒有文字或標記 | ✅ |
 
-使用者決定再出一版 v3，修正三件事：改成原生解析度、縣界照真實縣界、8 個標籤區淨空且不重疊（新座標）。提示詞見 [`design/asset-briefs/A25-v3-prompt.md`](../design/asset-briefs/A25-v3-prompt.md)。任務 4 的標籤位置以 v3 的座標為起點。
+使用者原本決定再出一版 v3（提示詞：[`design/asset-briefs/A25-v3-prompt.md`](../design/asset-briefs/A25-v3-prompt.md)），**後來取消**，改用下面 §0 的底圖。
+
+## 0. 現行底圖（2026-10-31 改用）
+
+使用者提供的水彩版台灣底圖，取代 v2。
+
+| 項目 | 內容 |
+|---|---|
+| 檔案 | `design/assets/final/map-taiwan-base.png`，原檔另存 `assets/review/A25/v3-user/source-1024x1536.png` |
+| 尺寸 | 2048×3072（2:3），不透明 RGB。原圖 1024×1536，以 FSRCNN x2 放大（`assets/review/A25/v3-user/UPSCALE.md`），原圖備份為 `previous-map-taiwan-base-1024.png` |
+| SHA-256 | `c3586c0f32f22435e28246df7bbfb608b0d9725b2e3a01b4e4baf5024123d6bb`（原圖 `970a4c9b…`） |
+| 內容 | 只有本島；有中央山脈和海岸山脈；沒有建築、地標、縣市界線、離島和海上裝飾 |
+| 畫風 | 柔和的水彩風，沒有深咖啡色描邊（和吉祥物不同，使用者接受） |
+| v2 備份 | `assets/review/A25/v3-user/previous-map-taiwan-base-v2.png`（也在 git 紀錄 `744e3fd` 裡） |
+
+- **沒有縣市界線**，所以 8 個標籤只要照完成圖大約排，不需要對齊真實縣界。
+- **座標系統**：網頁地圖固定用 `viewBox="0 0 1024 1536"`。之後換成放大版底圖時，viewBox 和標籤座標都不用改。
+- **標籤位置**：`design/assets/final/map-taiwan-base.labels.json`。疊圖用 `design/tools/label_overlay.ps1` 產生，輸出到 `assets/review/A25/v3-user/label-overlay.png`。
+- **放大**：
+  - 已用內建的高品質雙三次插值試做 2048×3072 預覽（`upscale-bicubic-2048x3072.png`）。水彩畫風在 100% 檢視時還算可以，但這種放大**不會增加細節**，和瀏覽器自己放大的效果差不多。
+  - 後來由 Codex 用 FSRCNN 放大，使用者決定改用放大版（2026-10-31）。網頁另外輸出 WebP（品質 80 約 264KB）。
 
 以下是決定前的原始建議，保留作紀錄。
 

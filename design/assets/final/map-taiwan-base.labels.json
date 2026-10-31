@@ -1,0 +1,21 @@
+{
+  "basemap": "map-taiwan-base.png",
+  "basemap_sha256": "c3586c0f32f22435e28246df7bbfb608b0d9725b2e3a01b4e4baf5024123d6bb",
+  "viewBox": [0, 0, 1024, 1536],
+  "note": "底圖是 2048×3072 放大版（原圖 1024×1536，FSRCNN x2），座標仍以 viewBox 1024×1536 為準。位置是大約值，照總覽完成圖排。",
+  "label_box": [220, 65],
+  "reserved": {
+    "headline": [0, 0, 420, 400],
+    "controls": [820, 1380, 1024, 1536]
+  },
+  "labels": [
+    { "county": "臺北市", "short": "臺北", "x": 720, "y": 150 },
+    { "county": "新北市", "short": "新北", "x": 900, "y": 290 },
+    { "county": "桃園市", "short": "桃園", "x": 540, "y": 300 },
+    { "county": "新竹市", "short": "新竹", "x": 400, "y": 450 },
+    { "county": "臺中市", "short": "臺中", "x": 300, "y": 640 },
+    { "county": "臺南市", "short": "臺南", "x": 220, "y": 960 },
+    { "county": "高雄市", "short": "高雄", "x": 290, "y": 1180 },
+    { "county": "臺東縣", "short": "臺東", "x": 760, "y": 1050 }
+  ]
+}

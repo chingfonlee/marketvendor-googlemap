@@ -24,3 +24,6 @@ data/*.csv
 design/assets/generated/*.png
 design/assets/review/**/*.png
 design/assets/review/*.jpg
+
+# 官方縣界原始檔（A25 v3 製作用，可從政府資料開放平台重新下載）
+design/assets/review/A25/v3/source/county-official*

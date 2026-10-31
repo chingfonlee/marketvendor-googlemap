@@ -1,0 +1,67 @@
+{
+  "date": "2026-10-31",
+  "tool": "built-in image_gen; three separate generation calls",
+  "status": "candidate pending user visual acceptance",
+  "style_references": [
+    "design/assets/final/mascot-cat-map.png",
+    "design/assets/final/mascot-girl-stall.png",
+    "design/assets/final/logo-stall.png"
+  ],
+  "prompts": {
+    "shared": "Create a finished 640x400 landscape 8:5 opaque thumbnail illustration in a coordinated set of 3 Taiwanese market types. The three attached images are STYLE REFERENCES ONLY: match their cute chibi rounded forms, thick smooth dark-brown #3B2A1A outlines, flat colors with soft cel shading, crisp clean edges and friendly warm palette (orange #F08A3C, red #E5484D, cream #FFF8E6, green #7CC46A, blue #6DD7F2). Do NOT copy their people, cat or logo cart. Consistent slightly elevated frontal three-quarter view, soft light from upper left. Simple bold composition readable at 130x80. Main identifying subjects strictly in central square (x=120 to520 of640), 5% safety margin all edges; peripheral scenery expendable for square crop. Fill full rectangular canvas with opaque scene. No people or animals at all. No words, letters, Chinese characters, numbers, prices, brand names, logos, watermarks, signatures, UI, frames, borders, rounded corners, or external shadows. Not photo, not 3D, not watercolor, not highly detailed. ",
+    "night_market": "SCENE 1 NIGHT MARKET: deep blue-purple dusk sky; red-and-cream striped food stalls, red paper lanterns and warm bulbs, fried chicken cutlets, skewers and bubble tea; blank entrance sign; cheerful evening. Central identifying subjects survive square crop.",
+    "traditional_market": "Create a finished 640x400 landscape 8:5 opaque thumbnail illustration in a coordinated set of 3 Taiwanese market types. The three attached images are STYLE REFERENCES ONLY: match their cute chibi rounded forms, thick smooth dark-brown #3B2A1A outlines, flat colors with soft cel shading, crisp clean edges and friendly warm palette (orange #F08A3C, red #E5484D, cream #FFF8E6, green #7CC46A, blue #6DD7F2). Do NOT copy their people, cat or logo cart. Consistent slightly elevated frontal three-quarter view, soft light from upper left. Simple bold composition readable at 130x80. Main identifying subjects strictly in central square (x=120 to520 of640), 5% safety margin all edges; peripheral scenery expendable for square crop. Fill full rectangular canvas with opaque scene. No people or animals at all. No words, letters, Chinese characters, numbers, prices, brand names, logos, watermarks, signatures, UI, frames, borders, rounded corners, or external shadows. Not photo, not 3D, not watercolor, not highly detailed. SCENE 2 TRADITIONAL MARKET: A fresh bright Taiwanese traditional morning market under a large cream and grass-green canopy roof, pale sea-blue daylight showing behind. Central simple wooden produce counters display big readable leafy cabbages, carrots, tomatoes, bananas and oranges in bamboo baskets. A clearly recognizable suspended balance scale with a round blank dial hangs high at center. One modest fish and meat display in a side stall, clean fresh presentation, no gore. A couple of woven shopping baskets. Foreground is uncluttered sunlit pavement. Key distinguishing cues are DAYLIGHT, a covered market hall, VEGETABLES AND FRUITS, and hanging scale, all composed to fit center square. No red night lanterns, no string lights, no tables or chairs. A single illustration, not collage.",
+    "other": "Create a finished 640x400 landscape 8:5 opaque thumbnail illustration in a coordinated set of 3 Taiwanese market types. The three attached images are STYLE REFERENCES ONLY: match their cute chibi rounded forms, thick smooth dark-brown #3B2A1A outlines, flat colors with soft cel shading, crisp clean edges and friendly warm palette (orange #F08A3C, red #E5484D, cream #FFF8E6, green #7CC46A, blue #6DD7F2). Do NOT copy their people, cat or logo cart. Consistent slightly elevated frontal three-quarter view, soft light from upper left. Simple bold composition readable at 130x80. Main identifying subjects strictly in central square (x=120 to520 of640), 5% safety margin all edges; peripheral scenery expendable for square crop. Fill full rectangular canvas with opaque scene. No people or animals at all. No words, letters, Chinese characters, numbers, prices, brand names, logos, watermarks, signatures, UI, frames, borders, rounded corners, or external shadows. Not photo, not 3D, not watercolor, not highly detailed. SCENE 3 FOOD COURT AND CREATIVE SHOPPING ARCADE: Bright covered indoor Taiwanese food court with a cream roof and warm timber beams, softly lit by daylight from upper-left skylights. Three small pastel shopfronts side by side in back, entirely blank signboards and simple wood counters. CENTRAL FOREGROUND a prominent round wooden dining table and three rounded chairs, with another smaller round table and chairs behind; centered furniture is the instant identifying feature. A potted green plant near counter, small blank chalkboard with only one simple cup pictogram and no writing. Cozy contemporary Taiwanese creative-market touches, restrained cream, muted sea-blue and peach-red shop accents. Keep the central table and visible chairs entirely within central square crop with 5% bottom margin. Broad uncluttered shapes, no produce piled up, no red lanterns, no night sky. A single illustration, not collage. The fourth attached reference is the companion night-market image: match its rounded brown outlines, stalls' scale, cel shading and slightly elevated frontal perspective, adapted to a bright indoor food court."
+  },
+  "records": [
+    {
+      "type": "night_market",
+      "candidate": "design/assets/generated/market-type-night-market.png",
+      "raw_source": "design/assets/review/market-type/source/night_market-raw.png",
+      "raw_size": [
+        1586,
+        992
+      ],
+      "size": [
+        640,
+        400
+      ],
+      "mode": "RGB",
+      "sha256": "b92f36342e2977a06646368c3d293097820949598289ba9444e7b5dfdbbe5801",
+      "packaging": "Lanczos resize to brief dimensions; no crop, repaint or added text"
+    },
+    {
+      "type": "traditional_market",
+      "candidate": "design/assets/generated/market-type-traditional-market.png",
+      "raw_source": "design/assets/review/market-type/source/traditional_market-raw.png",
+      "raw_size": [
+        1586,
+        992
+      ],
+      "size": [
+        640,
+        400
+      ],
+      "mode": "RGB",
+      "sha256": "89ded7dec6f582dde2d86fcc87e4828fd2765049f9b21cce47f3f9d2c6660ea7",
+      "packaging": "Lanczos resize to brief dimensions; no crop, repaint or added text"
+    },
+    {
+      "type": "other",
+      "candidate": "design/assets/generated/market-type-other.png",
+      "raw_source": "design/assets/review/market-type/source/other-raw.png",
+      "raw_size": [
+        1586,
+        992
+      ],
+      "size": [
+        640,
+        400
+      ],
+      "mode": "RGB",
+      "sha256": "1c1caf6282f7d0f9cdd6bb383a6e4975577c56295197043fe06fcacbaa6651b1",
+      "packaging": "Lanczos resize to brief dimensions; no crop, repaint or added text"
+    }
+  ],
+  "protected_files_unchanged": true
+}

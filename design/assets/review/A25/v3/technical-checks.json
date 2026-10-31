@@ -1,0 +1,116 @@
+{
+  "native_generated_size": [
+    1122,
+    1402
+  ],
+  "delivered_size": [
+    2244,
+    2804
+  ],
+  "mode": "RGB",
+  "upscale_method": "FSRCNN x2 learned neural super-resolution, 1 pass(es); output before final size normalization (2244, 2804); Lanczos used only for final downsampling if required",
+  "superres_model_sha256": "366b33f0084c7b3f2bf6724f0a2c77bca94fcec9d7b6d72389d330073b380d5c",
+  "borders": "Official county polygons; shared edges only; 3x antialiased vector rasterization",
+  "county_count": 19,
+  "county_names": [
+    "宜蘭縣",
+    "彰化縣",
+    "南投縣",
+    "雲林縣",
+    "基隆市",
+    "臺北市",
+    "新北市",
+    "臺中市",
+    "臺南市",
+    "桃園市",
+    "苗栗縣",
+    "嘉義市",
+    "嘉義縣",
+    "高雄市",
+    "臺東縣",
+    "花蓮縣",
+    "新竹市",
+    "新竹縣",
+    "屏東縣"
+  ],
+  "raster_county_regions_area_ge_100px": 19,
+  "raster_region_areas": [
+    282158,
+    235800,
+    199410,
+    190371,
+    150045,
+    137043,
+    130876,
+    130860,
+    117781,
+    112519,
+    94866,
+    76040,
+    52702,
+    51558,
+    46086,
+    13849,
+    9720,
+    4305,
+    3463
+  ],
+  "raster_check_coast_inset_px": 1,
+  "label_boxes": {
+    "臺北": [
+      1240,
+      150,
+      1660,
+      350
+    ],
+    "新北": [
+      1690,
+      540,
+      2110,
+      740
+    ],
+    "桃園": [
+      910,
+      420,
+      1330,
+      620
+    ],
+    "新竹市": [
+      650,
+      780,
+      1070,
+      980
+    ],
+    "臺中": [
+      550,
+      1100,
+      970,
+      1300
+    ],
+    "臺南": [
+      350,
+      1600,
+      770,
+      1800
+    ],
+    "高雄": [
+      490,
+      1980,
+      910,
+      2180
+    ],
+    "臺東": [
+      1230,
+      1800,
+      1650,
+      2000
+    ]
+  },
+  "label_boxes_overlap": false,
+  "label_boxes_overlap_upperleft": false,
+  "candidate_sha256": "3a5335a52a6153792eb62edafa15efd6eba4d7eb31ecb552866d4a05b863288f",
+  "v2_formal_sha256": "84d12db56e53be26ff452a8d99470a350b0d0567c4b1a7671d6e7af3513977f7",
+  "current_formal_asset_sha256": "970a4c9bd197b4f6361dad47e6884ca7db4d52333479e4ee0d0aca72c56bd2de",
+  "baseline_path": "design\\assets\\review\\A25\\v3\\v2-baseline.png",
+  "formal_asset_replaced": false
+}
