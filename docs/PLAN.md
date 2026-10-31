@@ -121,7 +121,7 @@
 | 2 | 底圖 | 出圖 Codex，驗收 Claude | 已改用使用者提供的水彩底圖，FSRCNN 放大成 2048×3072（SHA-256 開頭 `c3586c0f`），見 [BASEMAP_REVIEW.md](BASEMAP_REVIEW.md) | ✅ |
 | 3 | 圖層架構 | Claude | 地圖內：底圖、裝飾、縣市標籤（8 個）、選取效果。地圖外：統計、篩選、市場清單、攤商清單。寫清楚篩選狀態和連動規則（§2） | [LAYER_ARCHITECTURE.md](LAYER_ARCHITECTURE.md) ✅ |
 | 4 | 縣市標籤位置 | Claude | 圓角卡片（名稱、市場數、攤商數）；8 個縣市的大約位置寫在 `design/assets/final/map-taiwan-base.labels.json`（viewBox 0 0 1024 1536，和底圖 SHA 綁定），預覽由 `design/tools/label_overlay.ps1` 產生；桌機和手機尺寸都不重疊 | [COUNTY_LABELS.md](COUNTY_LABELS.md) ✅ |
-| 5 | 響應式版面 | Claude | 桌機照 §2；手機用底部面板，可點範圍至少 44px；平板版的處理方式 | 待開始 |
+| 5 | 響應式版面 | Claude | 桌機照 §2，標籤依量到的地圖寬度切換（≥ 565px 桌機卡）；手機和平板直向用不放地圖的清單版（9 張縣市卡片），可點範圍至少 44px；平板橫向用三欄緊湊版 | [RESPONSIVE_LAYOUT.md](RESPONSIVE_LAYOUT.md) ✅ |
 | 6 | 正式資料匯入 | Claude | 照 §4；匯入報告的總數是 347（217／130／0），三種狀態加總等於總數，和總表各市場攤數一致；跑兩次結果相同；公開 JSON 沒有個資 | 待開始 |
 | 7 | 網頁重組 | Claude | 讀正式 JSON；§2 的互動規則全部做到；三種狀態按鈕；圓環依縣市重算；地圖可縮放 | 等 3～6 |
 | 8 | 補交與確認頁（前端） | Claude | 照 §5；三層選單連動；網址格式檢查；確認／貼新網址兩種操作；模擬送出產生 §5 格式的紀錄 | 等 7 |
