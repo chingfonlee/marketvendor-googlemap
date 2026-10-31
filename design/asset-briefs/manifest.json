@@ -1065,21 +1065,21 @@
       "background": "不透明（保留海洋）"
     },
     "keep": [
+      "參考圖的本島外框：海岸線形狀、斜度、比例、在畫面中的位置都照參考圖，不能放大、拉寬或變形",
       "參考圖的畫風：Q 版手繪、深咖啡色描邊、明亮的海、綠色陸地、山與樹的畫法"
     ],
     "remove": [
       "所有建築與地標：台北 101、摩天輪、橋、寺廟、教堂、塔樓、燈塔、市場牌樓"
     ],
     "replace": [
-      "北部（基隆、台北、新北、桃園、新竹）刻意放大約 1.5 倍，讓 5～6 個徽章放得開",
       "加上澎湖、金門、馬祖三組離島",
       "加上綠島、蘭嶼兩座小島（屬於台東，不放徽章）"
     ],
     "notes": [
-      "重新繪製，不需要和參考圖逐像素相同。參考圖只用來看畫風。",
+      "重新繪製陸地內容，但本島外框要照參考圖：不需要逐像素相同，形狀、比例和位置要一致。北部不放大。",
       "網頁會在每個縣市放一個徽章（攤商數＋完成比例圓環），點選後彈出市場列表。所以底圖只是背景，不能搶走徽章的注意力。",
-      "版面依 refs/A25-annotated.png：藍框是 22 個縣市徽章的大約位置，框內要是平坦、低細節的陸地或淺海，不要放山峰、大樹、湖或任何裝飾。",
-      "北部刻意放大：基隆、台北、新北、桃園、新竹市、新竹縣、宜蘭的徽章之間至少要隔一個徽章寬。手繪地圖不要求比例正確，整體仍要看得出是台灣。",
+      "版面依 refs/A25-annotated.png：藍框是 22 個縣市徽章的大約位置，不需要精確。框內盡量是平坦、低細節的陸地或淺海，不要放山峰或大樹。",
+      "北部縣市的藍框有些落在海上或彼此靠近，這是正常的：徽章可以壓到海岸或海面，網頁會自行錯開。不要為了容納徽章而改變島的形狀。",
       "澎湖畫在本島西側海上，大約對著雲林、嘉義。",
       "綠島、蘭嶼畫在台東外海的東南方，照實際方向放：綠島在台東東邊，蘭嶼在更南邊。兩座島只是地圖的一部分，不放徽章，所以不需要留空白。",
       "金門、馬祖實際距離太遠，畫在畫面左側的海上：馬祖在左上、金門在左中，各自用淡色虛線圓角框圍起來，表示不照比例。",
@@ -1091,12 +1091,12 @@
     "accept": [
       "尺寸剛好 2244×2804",
       "沒有任何建築、地標、文字、縣市界線、圖釘、標記",
-      "看得出是台灣，北部明顯放大，澎湖、金門、馬祖、綠島、蘭嶼都有畫",
+      "本島外框和參考圖一致（縮小 50% 疊圖，形狀重疊 93% 以上，沒有放大或拉寬），澎湖、金門、馬祖、綠島、蘭嶼都有畫",
       "金門、馬祖各有一個淡色虛線框",
-      "layout 圖的 22 個藍框位置，在成品上都是平坦、低細節的區域，放上徽章不會蓋住重點",
+      "layout 圖的 22 個藍框位置，大致是平坦、低細節的陸地或海面，放上徽章不會蓋住重點",
       "陸地整體比參考圖淡、細節少，海上裝飾只在四邊"
     ],
-    "prompt": "A soft, low-detail hand-drawn cartoon base map of Taiwan for an app background, seen from above. The main island is slightly stylized: the northern part (Keelung, Taipei, Hsinchu area) is drawn about 1.5 times larger than real proportion so it has open space. Pale green land with a few gentle light-green mountains along the central spine, sparse small round trees, sandy beaches, bright turquoise sea with light wave lines. Penghu islands drawn in the sea west of the main island. Kinmen and Matsu drawn as small islands on the far left of the sea, each inside a faint dashed rounded frame to show they are not to scale. Two small islands, Green Island and Orchid Island, in the sea southeast of the main island off the Taitung coast. Large calm flat areas on land for placing badges. No buildings, no landmarks, no roads, no county borders, no text. Only a few small decorations near the edges of the image: one boat, one whale, two clouds. cute chibi Taiwanese local market illustration, thick dark-brown outlines (#3B2A1A), flat colors with soft cel shading, warm friendly palette (orange #F08A3C, lantern red #E5484D, cream #FFF8E6, grass green #7CC46A, sea blue #6DD7F2), rounded shapes, clean crisp line art, lighter and calmer than usual so overlaid UI badges stand out. Portrait 4:5.",
+    "prompt": "A soft, low-detail hand-drawn cartoon base map of Taiwan for an app background, seen from above. Keep the main island's outline, tilt, proportions and position exactly like the reference map; do not enlarge, widen or stretch any part. Pale green land with a few gentle light-green mountains along the central spine, sparse small round trees, sandy beaches, bright turquoise sea with light wave lines. Penghu islands drawn in the sea west of the main island. Kinmen and Matsu drawn as small islands on the far left of the sea, each inside a faint dashed rounded frame to show they are not to scale. Two small islands, Green Island and Orchid Island, in the sea southeast of the main island off the Taitung coast. Large calm flat areas on land for placing badges. No buildings, no landmarks, no roads, no county borders, no text. Only a few small decorations near the edges of the image: one boat, one whale, two clouds. cute chibi Taiwanese local market illustration, thick dark-brown outlines (#3B2A1A), flat colors with soft cel shading, warm friendly palette (orange #F08A3C, lantern red #E5484D, cream #FFF8E6, grass green #7CC46A, sea blue #6DD7F2), rounded shapes, clean crisp line art, lighter and calmer than usual so overlaid UI badges stand out. Portrait 4:5.",
     "crop_note": "crop 為 [左, 上, 右, 下]，以 source 圖的像素為單位",
     "text": "none",
     "negative_prompt": "text, letters, words, Chinese characters, numbers, speech bubbles, logo, brand, watermark, signature, UI elements, buttons, map pins, markers, photorealistic, 3D render, glossy gradients, blurry, noisy, extra fingers",

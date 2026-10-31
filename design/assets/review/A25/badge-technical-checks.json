@@ -1,4 +1,11 @@
 {
+  "width": 2244,
+  "badge_region_count": 22,
+  "sha256": "ACD287358CCC24DE7DFD309BD9B3FF8DD87073F6A10367014314FECE3EBA11AD",
+  "generated_original_size": [
+    1122,
+    1402
+  ],
   "regions": [
     {
       "name": "基隆",
@@ -199,13 +206,6 @@
       ]
     }
   ],
-  "width": 2244,
-  "generated_original_size": [
-    1122,
-    1402
-  ],
-  "badge_region_count": 22,
-  "opaque": true,
   "height": 2804,
-  "sha256": "9B0905C448619B9F7AD0039C722E3EC8344CA07E17AF87E9B454286E9E0A2E08"
+  "opaque": true
 }

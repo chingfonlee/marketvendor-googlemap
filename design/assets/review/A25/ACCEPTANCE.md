@@ -1,33 +1,33 @@
-# A25 縣市徽章底圖交付自檢
+# A25 外型與中央山脈修正版自檢
 
-日期：2026-10-31（台北）。依本次更新後 task=new 的 manifest 與 README 製作，使用內建 imagegen。source 僅參考畫風，annotated 僅參考版面。以下是製作方自檢，供使用者最後目視驗收。
+日期：2026-10-31（台北）。本次依使用者最新修正：「臺灣形狀變形了，請依照參考圖外型重新做，中央山脈可以明顯些」。此指示優先於 manifest 原先北部放大約 1.5 倍的設定；本次不再刻意放大北部。
 
-交付：`../../final/map-taiwan-base.png`。
+已更新 `../../final/map-taiwan-base.png`，選用 `../../generated/A25-badges-shape-v5.png`。使用內建 imagegen 編修，等比例整理為 2244×2804、不透明 RGB PNG。SHA-256：ACD287358CCC24DE7DFD309BD9B3FF8DD87073F6A10367014314FECE3EBA11AD。
 
-## accept 逐條結果
+這是外型與山脈的修正版交付，**不能視為原 manifest 所有 accept 已通過**。下列為製作方自檢，使用者尚未接受修正版。
 
-| 項目 | 結果 | 檢查方式與說明 |
+## 最新修改檢查
+
+- 本島外型：目視與參考圖並排，恢復細長斜向外型、東北端、西岸彎曲和南端收尖；沒有沿用上一版膨大的北部。這是依參考圖重繪，非逐像素輪廓相同的保證。
+- 中央山脈：改為多組中綠色重疊山峰、深色輪廓和明暗山面，比上一版三座淡色小丘清楚；沿岸保留平地。
+- 舊版：`shape-revision/before-map-taiwan-base.png`，保留不刪除。舊的全數通過紀錄封存於 `shape-revision/previous-acceptance.md`；舊外型已被使用者退回，不能當成本版驗收證據。
+
+## 原 accept 逐條結果
+
+| 項目 | 結果 | 證據／限制 |
 |---|---|---|
-| 尺寸剛好 2244×2804 | 通過 | 程式核對精確尺寸；RGB PNG，全圖不透明。 |
-| 無建築、地標、文字、縣市界線、圖釘、標記 | 通過 | 全圖目視：無建築、道路、城市字、徽章或介面元素。兩個離島虛線框是規格要求的比例示意。 |
-| 台灣可辨識、北部明顯放大，五組離島齊全 | 通過 | 北部加寬、南部收尖；澎湖在西側，馬祖左上、金門左中，綠島與蘭嶼在東南外海，蘭嶼更南。北部約 1.5 倍為視覺示意，非地理測量比例。 |
-| 金門、馬祖各有淡色虛線框 | 通過 | 各一個淺色圓角虛線框，沒有名稱或圖例。 |
-| 22 個藍框位置平坦、低細節，不蓋住重點 | 通過 | 從 make_asset_refs.py 讀取全部 22 個矩形，產生逐區裁切與疊圖檢查。均為平地、沙灘或海面；無山峰、大樹或建築。沿海保留海岸及低對比浪線；離島的徽章可置於鄰近海面，不要求徽章全部位於陸地。 |
-| 陸地較淡、細節少，海上裝飾只在四邊 | 通過 | 主島只有三組柔和丘陵，沿岸清空大型樹木；裝飾共四個：上方左右各一朵雲、左下船、右下鯨魚。 |
+| 2244×2804 | 通過 | 由尺寸整理工具檢查，24-bit RGB，不透明。 |
+| 無建築、地標、文字、縣市界線、圖釘、標記 | 通過 | 整張目視；無道路、文字或介面。只有規格要求的兩個離島虛線框。 |
+| 台灣外型、北部放大、五組離島 | 依最新指示調整／部分待修 | 本島恢復參考圖比例，不再放大北部；五組離島均存在。澎湖目前在西側但較原規劃偏南，綠島、蘭嶼的精確版面位置亦尚未完全對齊原橘框。 |
+| 金門、馬祖各有淡色虛線框 | 通過 | 各一個淡色框。 |
+| 22 原藍框位置皆平坦低細節 | 未全數通過 | 原位置的宜蘭、南投、嘉義縣、高雄、台東等仍有山麓或山峰邊緣進入。`badge-zones-contact.png` 是本版逐區裁切，不可宣稱全數留白；徽章位置需隨新圖重標或再修地形。 |
+| 陸地較淡、細節少，裝飾只在四邊 | 通過 | 主島沿岸移除樹叢雜物，山脈依最新指示加強；海上裝飾為兩朵角落雲、一艘角落船、一隻角落鯨魚。 |
 
-## 22 區目視檢查
+## 檔案
 
-基隆、台北、新北、桃園、新竹縣、新竹市、宜蘭、苗栗、台中、彰化、南投、雲林、嘉義市、嘉義縣、台南、高雄、屏東、花蓮、台東、澎湖、金門、馬祖：均通過低細節、無重點物件遮擋的自檢。
-
-## 檔案與製作紀錄
-
-- `badge-layout-overlay.png`：22 區版面疊圖，藍框與名稱只在驗收圖，正式素材沒有。
-- `badge-zones-contact.png`：22 區逐一裁切的檢查圖。
-- `badge-candidate-50pct.png`：50% 預覽。
-- `badge-technical-checks.json`：精確尺寸、不透明格式、22 區座標與成品 SHA-256。
-- `badge-generation-prompts.json`：manifest 原提示詞、負面提示詞與第一次精簡提示詞。
-- `badge-final-cleanup-prompt.txt`、`badge-geography-cleanup-prompt.txt`、`badge-penghu-cleanup-prompt.txt`：後續精簡與離島修正的實際完整提示詞。
-- 原始生成版本：`../../generated/A25-badges-v1.png` 至 `A25-badges-v5.png`。選用 v5，以高品質等比例縮放整理為指定尺寸。
-- `../../../tools/package_a25_badges.ps1`：尺寸整理與版面檢查圖產生工具。
-
-此資料夾中較早的 `candidate.png`、`candidate-50pct.png`、`preservation-check.json`、`scope-conflicts.png` 及 `../../generated/A25.png` 是上一版 inpaint 任務的歷史中間檔，不屬於這次交付或本次驗收證據。本次沒有逐像素保留舊地圖的要求。徽章的正式像素座標仍由使用者在成品上標定。
+- `shape-revision/reference-before-after.png`：左參考圖、中被退回的舊版、右修正版。
+- `badge-candidate-50pct.png`：本版半尺寸預覽。
+- `badge-layout-overlay.png`、`badge-zones-contact.png`：原 22 區位置對照，標註只在檢查圖，正式素材沒有。
+- `badge-technical-checks.json`：尺寸、22 區座標與成品 SHA-256。
+- `shape-revision/initial-prompt.txt`、`refine-prompt.txt`、`zones-prompt.txt`、`mountain-layout-prompt.txt`、`selected-cleanup-prompt.txt`：實際內建 imagegen 提示詞與修正過程。主提示詞保留 manifest 的風格及 negative_prompt，並明確以使用者最新輪廓修正覆蓋北部放大規定。
+- `../../generated/A25-shape-narrow-experiment.png`：未選用的狹窄山脈試稿，不是交付圖。
