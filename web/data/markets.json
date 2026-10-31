@@ -1,0 +1,182 @@
+[
+  {
+    "id": "m01",
+    "name": "永春市場",
+    "county": "臺北市",
+    "type": "traditional_market",
+    "vendor_count": 20,
+    "counts": {
+      "verified": 0,
+      "submitted": 4,
+      "not_submitted": 16
+    }
+  },
+  {
+    "id": "m02",
+    "name": "華西街觀光夜市",
+    "county": "臺北市",
+    "type": "night_market",
+    "vendor_count": 20,
+    "counts": {
+      "verified": 0,
+      "submitted": 20,
+      "not_submitted": 0
+    }
+  },
+  {
+    "id": "m03",
+    "name": "南機場夜市",
+    "county": "臺北市",
+    "type": "night_market",
+    "vendor_count": 21,
+    "counts": {
+      "verified": 0,
+      "submitted": 21,
+      "not_submitted": 0
+    }
+  },
+  {
+    "id": "m04",
+    "name": "五股市場",
+    "county": "新北市",
+    "type": "traditional_market",
+    "vendor_count": 20,
+    "counts": {
+      "verified": 0,
+      "submitted": 16,
+      "not_submitted": 4
+    }
+  },
+  {
+    "id": "m05",
+    "name": "瑞芳美食廣場",
+    "county": "新北市",
+    "type": "other",
+    "vendor_count": 31,
+    "counts": {
+      "verified": 0,
+      "submitted": 24,
+      "not_submitted": 7
+    }
+  },
+  {
+    "id": "m06",
+    "name": "興國公有零售市場",
+    "county": "桃園市",
+    "type": "traditional_market",
+    "vendor_count": 20,
+    "counts": {
+      "verified": 0,
+      "submitted": 4,
+      "not_submitted": 16
+    }
+  },
+  {
+    "id": "m07",
+    "name": "大園公有零售市場",
+    "county": "桃園市",
+    "type": "traditional_market",
+    "vendor_count": 21,
+    "counts": {
+      "verified": 0,
+      "submitted": 8,
+      "not_submitted": 13
+    }
+  },
+  {
+    "id": "m08",
+    "name": "東門市場",
+    "county": "新竹市",
+    "type": "traditional_market",
+    "vendor_count": 25,
+    "counts": {
+      "verified": 0,
+      "submitted": 19,
+      "not_submitted": 6
+    }
+  },
+  {
+    "id": "m09",
+    "name": "旱溪夜市攤販集中區",
+    "county": "臺中市",
+    "type": "night_market",
+    "vendor_count": 20,
+    "counts": {
+      "verified": 0,
+      "submitted": 14,
+      "not_submitted": 6
+    }
+  },
+  {
+    "id": "m10",
+    "name": "大慶夜市攤販集中區",
+    "county": "臺中市",
+    "type": "night_market",
+    "vendor_count": 20,
+    "counts": {
+      "verified": 0,
+      "submitted": 8,
+      "not_submitted": 12
+    }
+  },
+  {
+    "id": "m11",
+    "name": "西門淺草",
+    "county": "臺南市",
+    "type": "other",
+    "vendor_count": 20,
+    "counts": {
+      "verified": 0,
+      "submitted": 17,
+      "not_submitted": 3
+    }
+  },
+  {
+    "id": "m12",
+    "name": "鄭仔寮花園夜市",
+    "county": "臺南市",
+    "type": "night_market",
+    "vendor_count": 20,
+    "counts": {
+      "verified": 0,
+      "submitted": 7,
+      "not_submitted": 13
+    }
+  },
+  {
+    "id": "m13",
+    "name": "龍華市場",
+    "county": "高雄市",
+    "type": "traditional_market",
+    "vendor_count": 20,
+    "counts": {
+      "verified": 0,
+      "submitted": 20,
+      "not_submitted": 0
+    }
+  },
+  {
+    "id": "m14",
+    "name": "三民第一市場",
+    "county": "高雄市",
+    "type": "traditional_market",
+    "vendor_count": 20,
+    "counts": {
+      "verified": 0,
+      "submitted": 14,
+      "not_submitted": 6
+    }
+  },
+  {
+    "id": "m15",
+    "name": "臺東市觀光夜市",
+    "county": "臺東縣",
+    "type": "night_market",
+    "vendor_count": 49,
+    "counts": {
+      "verified": 0,
+      "submitted": 21,
+      "not_submitted": 28
+    }
+  }
+]

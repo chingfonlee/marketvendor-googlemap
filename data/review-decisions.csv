@@ -1,0 +1,4 @@
+date,action,market_id,vendor,value,reason
+2026-10-31,exclude,m08,東門米粉攤,,退攤，不算進總數（DATA_ISSUES.md §2）
+2026-10-31,exclude,m15,札幌鱈魚料理,,放棄輔導，不算進總數（DATA_ISSUES.md §2）
+2026-10-31,share_place,m15,何記東山鴨頭1號店,何記東山鴨頭2號店,兩攤共用同一個 Google 店家（DATA_ISSUES.md §2）
