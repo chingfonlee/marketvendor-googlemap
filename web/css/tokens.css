@@ -1,0 +1,48 @@
+/* 色彩、字級、間距（來源：design/svg/atoms/color-tokens.svg、docs/COUNTY_LABELS.md） */
+:root {
+  --ink: #2B2118;
+  --body: #4B5563;
+  --muted: #6B7280;
+  --placeholder: #9CA3AF;
+  --line: #E5E7EB;
+  --line-soft: #F0F1F3;
+  --field: #F3F4F6;
+  --card: #FFFFFF;
+  --page: #D6F3FD;
+  --primary: #1F6FE5;
+  --primary-soft: #E4EFFF;
+  --accent: #F08A3C;
+  --navy: #172040;
+
+  /* 狀態：主色／淺底／文字（SVG_COMPONENTS §2：綠、黃、紅） */
+  --verified: #22A06B;
+  --verified-soft: #DDF5E8;
+  --verified-text: #12744A;
+  --submitted: #F2B200;
+  --submitted-soft: #FFF3C4;
+  --submitted-text: #8A6100;
+  --not-submitted: #E5484D;
+  --not-submitted-soft: #FFE1E1;
+  --not-submitted-text: #BF2B31;
+
+  /* 縣市標籤 */
+  --label-head: #1660BE;
+  --label-line: #C9D6E6;
+  --label-dim-bg: #E6EDF3;
+  --label-dim-head: #A7B6C6;
+  --label-dim-text: #6B7A8C;
+  --ring: #F08A3C;
+
+  --radius: 16px;
+  --shadow: 0 4px 16px rgb(11 59 91 / 0.12);
+  --shadow-strong: 0 6px 20px rgb(11 59 91 / 0.24);
+  --gap: 16px;
+  --tap: 36px;
+
+  --font: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", "Heiti TC", sans-serif;
+  color-scheme: light;
+}
+
+@media (pointer: coarse) {
+  :root { --tap: 44px; }
+}

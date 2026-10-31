@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>國際友善力・台灣攤商地圖</title>
+<meta name="description" content="夜市與市場 Google 地圖登錄成果平台">
+<link rel="icon" href="assets/logo.webp">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<script type="module" src="js/main.js"></script>
+</head>
+<body data-loading>
+<a class="skip-link" href="#vendor-title">跳到攤商清單</a>
+
+<header class="site-header">
+  <a class="brand" href="./" aria-label="國際友善力・台灣攤商地圖 首頁">
+    <img class="brand-logo" src="assets/logo.webp" alt="" width="48" height="48">
+    <span class="brand-text">
+      <span class="brand-title">國際友善力<span class="brand-dot">・</span>台灣攤商地圖</span>
+      <span class="brand-sub">夜市與市場 Google 地圖登錄成果平台</span>
+    </span>
+  </a>
+  <nav class="tabs" aria-label="分頁">
+    <a class="tab" href="./" aria-current="page"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#home"/></svg>地圖總覽</a>
+    <span class="tab" aria-disabled="true"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#chart"/></svg>統計報表</span>
+    <span class="tab" aria-disabled="true"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#note"/></svg>資料管理</span>
+  </nav>
+  <a class="btn btn-primary submit-link" href="submit.html">
+    <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#link"/></svg>
+    <span class="label-long">我是攤商，補交 Google 地圖連結</span>
+    <span class="label-mid">補交連結</span>
+    <span class="label-tablet">補交 Google 地圖連結</span>
+    <span class="label-short">補交</span>
+  </a>
+</header>
+
+<aside class="left">
+  <section class="card progress-card" aria-labelledby="progress-title">
+    <img class="progress-cat" src="assets/mascots/cat-camera.webp" alt="" aria-hidden="true" loading="lazy">
+    <img class="progress-girl" src="assets/mascots/girl.webp" alt="" aria-hidden="true" loading="lazy">
+    <h2 id="progress-title" class="progress-title">整體完成進度</h2>
+    <p class="progress-updated"></p>
+    <div class="progress-body">
+      <div class="donut" aria-hidden="true">
+        <svg viewBox="0 0 120 120"><g class="donut-segments" transform="rotate(-90 60 60)"></g></svg>
+        <div class="donut-center"><b class="donut-value">—</b><span class="donut-unit"></span></div>
+      </div>
+      <ul class="progress-legend"></ul>
+    </div>
+  </section>
+
+  <section class="county-cards" aria-labelledby="county-cards-title" hidden>
+    <h2 id="county-cards-title" class="section-title" tabindex="-1">選擇縣市</h2>
+    <div class="county-grid"></div>
+  </section>
+
+  <section class="card filter-panel" aria-label="篩選">
+    <div class="filter-search">
+      <label class="search-box">
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#search"/></svg>
+        <input id="search" type="search" placeholder="搜尋攤商名稱…" autocomplete="off" aria-label="搜尋攤商名稱">
+      </label>
+    </div>
+    <div class="filter-selects">
+      <label class="select-row">
+        <span class="select-label"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#pin"/></svg>縣市</span>
+        <select id="county-select"></select>
+      </label>
+      <label class="select-row">
+        <span class="select-label"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#market"/></svg>市場</span>
+        <select id="market-select"></select>
+      </label>
+    </div>
+    <div class="filter-status">
+      <p class="select-label" id="status-label"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#target"/></svg>狀態</p>
+      <div class="status-buttons" role="radiogroup" aria-labelledby="status-label"></div>
+      <div class="status-note">
+        <button class="status-note-toggle" type="button" aria-expanded="false" aria-controls="status-note-list">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#alert"/></svg>狀態說明
+        </button>
+        <p class="status-note-title"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#alert"/></svg>狀態說明：</p>
+        <ul id="status-note-list" class="status-note-list">
+          <li><b>已完成</b>：Google 地圖連結已確認是這家店</li>
+          <li><b>待確認</b>：有連結，還在等人工確認</li>
+          <li><b>未提交</b>：還沒有 Google 地圖連結</li>
+        </ul>
+      </div>
+    </div>
+    <img class="megaphone-cat" src="assets/mascots/cat-megaphone.webp" alt="" aria-hidden="true" loading="lazy">
+  </section>
+</aside>
+
+<main class="map" aria-label="縣市地圖"></main>
+
+<aside class="right">
+  <section class="card market-card" aria-labelledby="market-title">
+    <div class="market-head">
+      <button class="county-switch" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="county-switch-list">
+        <svg class="icon market-head-icon" aria-hidden="true"><use href="assets/icons.svg#market"/></svg>
+        <span class="market-head-text">
+          <span id="market-title" class="market-head-name">全台</span>
+          <span class="market-head-sub"></span>
+        </span>
+        <svg class="icon chevron" aria-hidden="true"><use href="assets/icons.svg#chevron-down"/></svg>
+      </button>
+      <ul id="county-switch-list" class="county-switch-list" role="listbox" aria-label="切換縣市" tabindex="-1" hidden></ul>
+      <h2 class="section-title market-title-l"></h2>
+    </div>
+    <button class="market-toggle" type="button" aria-expanded="false" aria-controls="market-list"></button>
+    <div id="market-list" class="market-list"></div>
+  </section>
+
+  <section class="card vendor-card" aria-labelledby="vendor-title">
+    <div class="vendor-filters"></div>
+    <h2 id="vendor-title" class="vendor-title" tabindex="-1">攤商清單</h2>
+    <div class="vendor-head" aria-hidden="true"><span>攤商名稱</span><span>狀態</span><span></span></div>
+    <div class="vendor-scroll">
+      <ul class="vendor-list"></ul>
+      <div class="empty-state" hidden>
+        <img src="assets/empty-state.webp" alt="" width="160" height="128">
+        <p class="empty-text"></p>
+        <button class="btn btn-secondary empty-action" type="button"></button>
+      </div>
+    </div>
+  </section>
+</aside>
+
+<footer class="site-footer"></footer>
+
+<button class="to-top" type="button" aria-label="回到頂端" hidden>
+  <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#chevron-down"/></svg>
+</button>
+<p class="sr-only" aria-live="polite" id="live"></p>
+<p class="load-error" role="alert" hidden>資料載入失敗，請重新整理頁面。</p>
+</body>
+</html>

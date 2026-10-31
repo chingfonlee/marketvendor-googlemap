@@ -1,0 +1,393 @@
+/* 元件：卡片、按鈕、進度卡、篩選、清單、縣市標籤、地圖 */
+
+.icon { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; margin: -1px;
+}
+.skip-link {
+  position: absolute; left: 16px; top: -60px; z-index: 50;
+  padding: 10px 16px; border-radius: 10px; background: var(--primary); color: #fff; font-weight: 700;
+}
+.skip-link:focus { top: 8px; }
+:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+  position: relative;
+}
+.section-title { margin: 0; font-size: 18px; font-weight: 800; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  min-height: var(--tap); padding: 0 16px; border-radius: 12px; border: 0;
+  font: inherit; font-weight: 700; cursor: pointer; text-decoration: none;
+}
+.btn-primary { background: var(--primary); color: #fff; box-shadow: 0 4px 12px rgb(31 111 229 / 0.3); }
+.btn-primary:hover { background: #1760CC; }
+.btn-secondary { background: var(--primary-soft); color: var(--primary); min-height: 44px; min-width: 128px; justify-content: center; }
+
+/* ---------- 進度卡 ---------- */
+.progress-title { margin: 0; font-size: 22px; font-weight: 900; padding-right: 120px; }
+.progress-updated { margin: 2px 0 12px; color: var(--muted); font-size: 13px; padding-right: 120px; }
+.progress-body { display: flex; align-items: center; gap: 16px; }
+.donut { position: relative; width: 120px; height: 120px; flex: none; }
+.donut svg { width: 100%; height: 100%; display: block; }
+.donut circle { fill: none; stroke-width: 16; }
+.donut-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.donut-value { font-size: 26px; font-weight: 900; line-height: 1.1; }
+.donut-unit { font-size: 13px; font-weight: 700; color: var(--body); }
+.progress-legend { list-style: none; margin: 0; padding: 10px 12px; flex: 1; min-width: 0; border: 1px solid var(--line); border-radius: 12px; display: grid; gap: 6px; }
+.progress-legend li { display: grid; grid-template-columns: 10px 1fr auto; align-items: center; gap: 8px; font-size: 13px; }
+.progress-legend .dot { width: 10px; height: 10px; border-radius: 50%; }
+.progress-legend b { font-size: 14px; }
+.progress-legend small { color: var(--muted); font-weight: 400; }
+.progress-legend .total { border-top: 1px dashed var(--line); padding-top: 6px; color: var(--body); }
+/* 窄的左欄（D 緊湊 280px）：圓環縮小，圖例數字換到第二行 */
+.progress-card { container-type: inline-size; }
+@container (max-width: 340px) {
+  body[data-layout="d"] .donut { width: 96px; height: 96px; }
+  body[data-layout="d"] .donut-value { font-size: 20px; }
+  body[data-layout="d"] .progress-body { gap: 10px; }
+  body[data-layout="d"] .progress-legend { padding: 6px 8px; }
+  body[data-layout="d"] .progress-legend li { grid-template-columns: 10px 1fr; row-gap: 0; }
+  body[data-layout="d"] .progress-legend li b { grid-column: 2; }
+}
+.progress-girl, .progress-cat { position: absolute; right: 12px; top: 8px; pointer-events: none; }
+.progress-girl { width: 112px; display: none; }
+.progress-cat { width: 72px; display: none; }
+@media (min-height: 900px) {
+  body[data-layout="d"] .progress-girl { display: block; }
+  body[data-layout="d"] .donut { width: 176px; height: 176px; }
+  body[data-layout="d"] .donut-value { font-size: 34px; }
+}
+body[data-layout="d"] .progress-title,
+body[data-layout="d"] .progress-updated { padding-right: 0; }
+@media (min-height: 900px) {
+  body[data-layout="d"] .progress-title,
+  body[data-layout="d"] .progress-updated { padding-right: 112px; }
+}
+body[data-layout="l"] .progress-card { padding: 16px; }
+body[data-layout="l"] .progress-cat { display: block; right: 8px; top: 4px; }
+body[data-layout="l"] .progress-title { font-size: 16px; padding-right: 76px; }
+body[data-layout="l"] .progress-updated { font-size: 12px; margin-bottom: 8px; padding-right: 76px; }
+body[data-layout="l"] .donut { width: 96px; height: 96px; }
+body[data-layout="l"] .donut-value { font-size: 20px; }
+body[data-layout="l"] .progress-legend { padding: 6px 10px; gap: 4px; }
+body[data-layout="l"] .progress-legend .total { display: none; }  /* 圓環中間已經是完成率 */
+@media (min-width: 768px) {
+  body[data-layout="l"] .progress-cat { width: 96px; }
+  body[data-layout="l"] .progress-title,
+  body[data-layout="l"] .progress-updated { padding-right: 100px; }
+}
+
+/* ---------- 篩選面板 ---------- */
+.filter-panel { display: flex; flex-direction: column; gap: 14px; }
+.search-box {
+  display: flex; align-items: center; gap: 8px;
+  height: 44px; padding: 0 12px; border-radius: 12px;
+  border: 1.5px solid #C9D6E6; background: #fff; color: var(--muted);
+}
+.search-box:focus-within { border-color: var(--primary); }
+.search-box input { flex: 1; min-width: 0; border: 0; outline: 0; font: inherit; font-size: 16px; color: var(--ink); background: transparent; height: 100%; }
+.filter-selects { display: grid; gap: 10px; }
+.select-row { display: grid; grid-template-columns: 76px 1fr; align-items: center; gap: 8px; }
+.select-label { display: flex; align-items: center; gap: 8px; margin: 0; font-weight: 800; font-size: 16px; }
+.select-label .icon { color: var(--primary); }
+.select-row select {
+  height: 44px; padding: 0 12px; border-radius: 12px; border: 1.5px solid #C9D6E6; background: #fff;
+  font: inherit; font-size: 15px; color: var(--ink); min-width: 0;
+}
+.filter-status { display: grid; gap: 10px; }
+.status-buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.status-btn {
+  min-height: 52px; border: 2px solid transparent; border-radius: 14px; cursor: pointer;
+  font: inherit; font-size: 14px; font-weight: 800; line-height: 1.2;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4px 2px;
+}
+.status-btn b { font-size: 18px; }
+.status-btn[data-status="all"] { background: var(--primary-soft); color: var(--primary); }
+.status-btn[data-status="verified"] { background: var(--verified-soft); color: var(--verified-text); }
+.status-btn[data-status="submitted"] { background: var(--submitted-soft); color: var(--submitted-text); }
+.status-btn[data-status="not_submitted"] { background: var(--not-submitted-soft); color: var(--not-submitted-text); }
+.status-btn[aria-checked="true"] { color: #fff; box-shadow: 0 4px 10px rgb(11 59 91 / 0.18); }
+.status-btn[data-status="all"][aria-checked="true"] { background: var(--primary); }
+.status-btn[data-status="verified"][aria-checked="true"] { background: var(--verified); }
+.status-btn[data-status="submitted"][aria-checked="true"] { background: #C98F00; }
+.status-btn[data-status="not_submitted"][aria-checked="true"] { background: var(--not-submitted); }
+.status-note { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; font-size: 13px; color: var(--body); }
+.status-note-title { display: flex; align-items: center; gap: 6px; margin: 0 0 4px; font-weight: 800; color: var(--ink); }
+.status-note-title .icon, .status-note-toggle .icon { width: 18px; height: 18px; color: var(--primary); }
+.status-note-list { margin: 0; padding-left: 20px; display: grid; gap: 2px; }
+.status-note-toggle { display: none; }
+.megaphone-cat { width: 150px; align-self: center; display: none; }
+@media (min-height: 900px) {
+  body[data-layout="d"] .megaphone-cat { display: block; }
+}
+body[data-layout="l"] .filter-panel { display: none; }
+body[data-layout="l"] .site-footer .megaphone-cat { display: block; width: 80px; }
+
+/* L 版：搜尋和狀態按鈕搬到攤商清單上面 */
+body[data-layout="l"] .vendor-filters { display: grid; gap: 12px; margin-bottom: 16px; }
+body[data-layout="l"] .status-note { border: 0; padding: 0; }
+body[data-layout="l"] .status-note-title { display: none; }
+body[data-layout="l"] .status-note-toggle {
+  display: flex; align-items: center; gap: 6px; width: 100%; min-height: 44px;
+  border: 1px solid var(--line); border-radius: 12px; background: #fff; padding: 0 12px;
+  font: inherit; font-weight: 700; color: var(--ink); cursor: pointer;
+}
+body[data-layout="l"] .status-note:not([data-open]) .status-note-list { display: none; }
+body[data-layout="l"] .status-note-list { padding: 8px 12px 0 28px; }
+body[data-layout="l"] .filter-status > .select-label { display: none; }
+
+/* ---------- 市場清單卡 ---------- */
+.market-card { display: flex; flex-direction: column; padding: 0; z-index: 5; }
+.market-card .market-list { border-radius: 0 0 var(--radius) var(--radius); }
+.market-head { position: relative; flex: none; }
+.county-switch {
+  display: flex; align-items: center; gap: 12px; width: 100%; min-height: 72px;
+  padding: 12px 20px; border: 0; background: #fff; cursor: pointer; text-align: left; font: inherit; color: inherit;
+  border-bottom: 1px solid var(--line-soft);
+}
+.market-head-icon { width: 40px; height: 40px; color: var(--primary); stroke-width: 1.6; }
+.market-head-text { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.market-head-name { font-size: 22px; font-weight: 900; }
+.market-head-sub { font-size: 14px; color: var(--body); }
+.county-switch .chevron { width: 24px; height: 24px; transition: transform .15s; }
+.county-switch[aria-expanded="true"] .chevron { transform: rotate(180deg); }
+.county-switch-list {
+  position: absolute; top: calc(100% - 4px); right: 12px; z-index: 30; width: 220px;
+  list-style: none; margin: 0; padding: 6px; background: #fff; border-radius: 12px; box-shadow: var(--shadow-strong);
+  max-height: 360px; overflow-y: auto;
+}
+.county-switch-list li {
+  display: flex; align-items: center; justify-content: space-between;
+  min-height: 40px; padding: 0 12px; border-radius: 8px; cursor: pointer; font-weight: 700;
+}
+.county-switch-list li[aria-selected="true"]::after { content: "✓"; color: var(--primary); }
+.county-switch-list li.active, .county-switch-list li:hover { background: var(--primary-soft); }
+.market-title-l { display: none; }
+.market-toggle { display: none; }
+.market-list { overflow-y: auto; padding: 8px; display: flex; flex-direction: column; gap: 4px; }
+.market-list > * { flex: none; }
+.market-group { margin: 6px 12px 2px; font-size: 13px; font-weight: 800; color: var(--muted); }
+.market-row {
+  display: grid; grid-template-columns: 64px 1fr 20px; align-items: center; gap: 12px;
+  min-height: 72px; padding: 8px 10px; border-radius: 12px; border: 1.5px solid transparent;
+  background: #fff; cursor: pointer; text-align: left; font: inherit; color: inherit; width: 100%;
+}
+.market-row:hover { background: #F5F9FF; }
+.market-row[aria-current="true"] { background: var(--primary-soft); border-color: #B9D3FB; }
+.market-thumb { width: 64px; height: 52px; border-radius: 10px; object-fit: cover; background: var(--field); }
+.market-info { display: flex; flex-direction: column; min-width: 0; }
+.market-name { font-weight: 800; font-size: 16px; }
+.market-meta { font-size: 13px; color: var(--body); }
+.market-meta .sep { color: var(--placeholder); margin: 0 4px; }
+.market-card { container-type: inline-size; }
+@container (max-width: 340px) {
+  .market-meta { font-size: 12px; }
+  .market-meta .sep { margin: 0 2px; }
+}
+.market-row .icon { color: var(--muted); }
+.market-row-all { grid-template-columns: 1fr 20px; min-height: 48px; }
+
+body[data-layout="l"] .market-card { padding: 0; overflow: visible; background: none; box-shadow: none; }
+body[data-layout="l"] .county-switch,
+body[data-layout="l"] .county-switch-list { display: none; }
+body[data-layout="l"] .market-title-l { display: block; margin-bottom: 8px; }
+body[data-layout="l"] .market-toggle {
+  display: flex; align-items: center; gap: 8px; width: 100%; min-height: 48px; padding: 0 12px;
+  border: 1px dashed #B9D3FB; border-radius: 12px; background: #F5F9FF; color: var(--primary);
+  font: inherit; font-weight: 700; cursor: pointer; text-align: left;
+}
+body[data-layout="l"] .market-toggle[hidden] { display: none; }
+body[data-layout="l"] .market-toggle .hint { color: var(--body); font-weight: 400; font-size: 13px; flex: 1; }
+body[data-layout="l"] .market-list { padding: 8px; overflow: visible; margin-top: 8px; background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); }
+body[data-layout="l"] .market-row { grid-template-columns: 48px 1fr 20px; min-height: 68px; }
+body[data-layout="l"] .market-row-all { grid-template-columns: 1fr 20px; min-height: 48px; }
+body[data-layout="l"] .market-thumb { width: 48px; height: 48px; }
+.market-row .check { color: var(--primary); font-weight: 900; }
+
+/* ---------- 攤商清單 ---------- */
+.vendor-card { display: flex; flex-direction: column; padding: 0; overflow: hidden; }
+.vendor-title { margin: 0; padding: 18px 20px 12px; font-size: 20px; font-weight: 900; flex: none; }
+.vendor-title:focus { outline: none; }
+.vendor-title:focus-visible { outline: 3px solid var(--primary); outline-offset: -3px; }
+.vendor-head, .vendor-row { display: grid; grid-template-columns: 1fr 76px 44px; align-items: center; gap: 8px; }
+.vendor-head { flex: none; padding: 8px 20px; background: var(--field); font-size: 14px; font-weight: 800; color: var(--body); }
+.vendor-scroll { flex: 1; min-height: 0; overflow-y: auto; }
+.vendor-list { list-style: none; margin: 0; padding: 0 12px 12px 20px; }
+.vendor-row { min-height: 48px; border-bottom: 1px solid var(--line-soft); }
+.vendor-name { font-weight: 700; font-size: 15px; overflow-wrap: anywhere; padding: 6px 0; }
+.badge {
+  display: inline-flex; justify-content: center; align-items: center; height: 28px; border-radius: 999px;
+  font-size: 13px; font-weight: 800; padding: 0 10px; white-space: nowrap;
+}
+.badge[data-status="verified"] { background: var(--verified); color: #fff; }
+.badge[data-status="submitted"] { background: var(--submitted-soft); color: var(--submitted-text); box-shadow: inset 0 0 0 1px #F2D16B; }
+.badge[data-status="not_submitted"] { background: var(--not-submitted-soft); color: var(--not-submitted-text); }
+.vendor-action {
+  display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px;
+  border-radius: 10px; color: var(--primary);
+}
+.vendor-action:hover { background: var(--primary-soft); }
+.empty-state { text-align: center; padding: 24px 16px 32px; color: var(--body); }
+.empty-state img { width: 160px; height: auto; }
+.empty-text { margin: 8px 0 14px; font-weight: 700; }
+.vendor-card.is-empty .vendor-head { display: none; }
+
+body[data-layout="l"] .vendor-card { padding: 16px; overflow: visible; }
+body[data-layout="l"] .vendor-title { padding: 0 0 8px; font-size: 18px; }
+body[data-layout="l"] .vendor-head { display: none; }
+body[data-layout="l"] .vendor-scroll { overflow: visible; }
+body[data-layout="l"] .vendor-list { padding: 0; }
+body[data-layout="l"] .vendor-row { min-height: 56px; grid-template-columns: 1fr auto 44px; }
+body[data-layout="l"] .vendor-action { width: 44px; height: 44px; }
+
+.to-top {
+  position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom)); z-index: 25;
+  width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--primary); color: #fff;
+  box-shadow: var(--shadow-strong); display: flex; align-items: center; justify-content: center; cursor: pointer;
+}
+.to-top .icon { transform: rotate(180deg); }
+
+/* ---------- 縣市卡片（L 版）和地圖標籤共用的卡片外觀 ---------- */
+.county-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 8px; container-type: inline-size; }
+@container (min-width: 856px) {
+  .county-grid { grid-template-columns: repeat(9, 1fr); }
+}
+.county-tile, .county-label {
+  display: flex; flex-direction: column; padding: 4px; border-radius: 12px;
+  background: #fff; border: 1px solid var(--label-line); box-shadow: 0 2px 6px rgb(11 59 91 / 0.12);
+  font: inherit; color: var(--navy); cursor: pointer; text-align: center;
+}
+.county-tile { min-height: 80px; padding: 3px; }
+.tile-head, .label-head {
+  display: flex; align-items: center; justify-content: center; gap: 4px;
+  background: var(--label-head); color: #fff; border-radius: 9px; font-weight: 800; white-space: nowrap;
+}
+.tile-head { min-height: 28px; font-size: 14px; border-radius: 9px; }
+.tile-body, .label-body { flex: 1; display: flex; flex-direction: column; justify-content: center; font-weight: 800; line-height: 1.3; }
+.tile-body { font-size: 12px; padding: 2px 0; }
+.county-tile[aria-pressed="true"] { box-shadow: 0 0 0 3px var(--ring), 0 2px 6px rgb(11 59 91 / 0.12); }
+.county-tile:hover { box-shadow: var(--shadow-strong); }
+
+/* ---------- 地圖 ---------- */
+main.map { position: relative; user-select: none; -webkit-user-select: none; }
+.map-viewport { position: absolute; inset: 0; overflow: hidden; touch-action: none; cursor: grab; }
+.map-viewport.dragging { cursor: grabbing; }
+.map-plane { position: absolute; inset: 0; transform-origin: 0 0; will-change: transform; }
+.layer-base, .layer-future { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.layer-base {
+  /* 地圖框四邊 24px 淡出到頁面底色；只套在底圖層（RESPONSIVE_LAYOUT §2.2）。
+     遮罩對齊目前看得到的範圍，map.js 依縮放設定 --mx/--my/--mw/--mh/--mf，放大後邊緣仍是 24px */
+  --fade-x: linear-gradient(to right, transparent, #000 var(--mf, 24px), #000 calc(100% - var(--mf, 24px)), transparent);
+  --fade-y: linear-gradient(to bottom, transparent, #000 var(--mf, 24px), #000 calc(100% - var(--mf, 24px)), transparent);
+  -webkit-mask-image: var(--fade-x), var(--fade-y);
+  -webkit-mask-composite: source-in;
+  mask-image: var(--fade-x), var(--fade-y);
+  mask-composite: intersect;
+  mask-repeat: no-repeat;
+  mask-size: var(--mw, 100%) var(--mh, 100%);
+  mask-position: var(--mx, 0) var(--my, 0);
+}
+.layer-future { pointer-events: none; }
+.layer-labels { position: absolute; inset: 0; pointer-events: none; }
+
+.county-label {
+  position: absolute; pointer-events: auto; z-index: 1;
+  transform: translate(-50%, -50%) scale(var(--inv, 1));
+  width: 136px; height: 92px;
+  transition: box-shadow .12s, border-color .12s;
+}
+.county-label:hover { box-shadow: var(--shadow-strong); border-color: #8FB0DA; }
+.county-label:focus-visible { outline: 3px solid var(--primary); outline-offset: 0; z-index: 3; }
+.county-label[aria-pressed="true"] { z-index: 2; box-shadow: 0 0 0 3px var(--ring), var(--shadow-strong); }
+.label-head { height: 34px; font-size: 18px; flex: none; }
+.label-head svg { width: 22px; height: 22px; }
+.label-body { font-size: 15px; }
+.label-compact { display: none; }
+.layer-labels[data-size="compact"] .county-label { width: 88px; height: 54px; padding: 3px; }
+.layer-labels[data-size="compact"] .label-head { height: 24px; font-size: 13px; }
+.layer-labels[data-size="compact"] .label-head svg,
+.layer-labels[data-size="compact"] .label-full { display: none; }
+.layer-labels[data-size="compact"] .label-compact { display: block; font-size: 11px; }
+.county-label.dim { background: var(--label-dim-bg); border-color: #D3DCE6; color: var(--label-dim-text); box-shadow: none; }
+.county-label.dim .label-head { background: var(--label-dim-head); }
+
+/* 疊加物：固定在地圖框上，不隨縮放（LAYER_ARCHITECTURE §2 第 4 層） */
+.map-overlay { position: absolute; inset: 0; pointer-events: none; }
+.map-overlay > * { pointer-events: auto; }
+.overlay-headline {
+  position: absolute; left: 0; top: 0; width: 41.02%; height: 26.04%;
+  container-type: size; pointer-events: none; transition: opacity .2s;
+}
+.headline-bubble {
+  position: absolute; left: 6%; top: 5%; width: 90%; height: 74%;
+  background: #FFFDF8; border: 2px solid #3B2A1A; border-radius: 48% 52% 46% 54% / 56% 50% 50% 44%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-size: clamp(11px, 7cqw, 28px); font-weight: 900; color: #3B2A1A; line-height: 1.15; text-align: center;
+  box-shadow: 0 4px 0 rgb(59 42 26 / 0.15);
+}
+.headline-bubble .big { font-size: 1.45em; color: #3B2A1A; }
+.headline-bubble .num { color: var(--accent); }
+.headline-bubble .small { font-size: .72em; margin-top: .2em; }
+.overlay-cat {
+  position: absolute; left: 0; top: 0; width: 24.41%; height: 36.46%;
+  pointer-events: none; transition: opacity .2s;
+}
+.overlay-cat img { position: absolute; left: 4%; bottom: 0; width: 92%; height: auto; }
+main.map[data-tier="md"] .overlay-cat { display: none; }
+main.map[data-tier="md"] .headline-bubble { font-size: clamp(10px, 6cqw, 20px); }
+main.map[data-tier="sm"] .overlay-headline { display: none; }
+main.map[data-tier="sm"] .overlay-cat { width: 64px; height: 64px; left: 6px; top: 6px; }
+main.map[data-tier="sm"] .overlay-cat img { width: 64px; left: 0; }
+main.map.zoomed .overlay-headline,
+main.map.zoomed .overlay-cat { opacity: 0; }
+
+.overlay-controls {
+  position: absolute; left: 58.59%; top: 81.38%; right: 0; bottom: 0;
+  display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-end; gap: 8px; padding: 8px;
+  pointer-events: none;
+}
+.overlay-controls > * { pointer-events: auto; }
+.zoom-buttons { display: flex; gap: 6px; }
+.zoom-btn {
+  width: var(--tap); height: var(--tap); min-width: 40px; min-height: 40px; border-radius: 10px; border: 0;
+  background: #fff; color: var(--ink); box-shadow: var(--shadow); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.zoom-btn:disabled { color: var(--placeholder); cursor: default; }
+.legend {
+  width: 190px; background: rgb(255 255 255 / 0.95); border-radius: 12px; box-shadow: var(--shadow);
+  padding: 8px 12px; font-size: 12px; color: var(--body);
+}
+.legend p { margin: 0 0 4px; font-weight: 800; color: var(--ink); }
+.legend ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.legend li { display: flex; align-items: center; gap: 6px; }
+.legend .swatch { width: 14px; height: 14px; border-radius: 4px; background: var(--label-head); flex: none; }
+.legend .swatch.off { background: #fff; border: 1.5px solid #C9D6E6; }
+.legend-toggle { display: none; }
+main.map:not([data-tier="lg"]) .legend-toggle {
+  display: inline-flex; align-items: center; gap: 4px; height: 32px; padding: 0 10px; border: 0; border-radius: 10px;
+  background: #fff; box-shadow: var(--shadow); font: inherit; font-size: 13px; font-weight: 700; color: var(--ink); cursor: pointer;
+}
+main.map:not([data-tier="lg"]) .legend:not(.open) { display: none; }
+main.map:not([data-tier="lg"]) .legend { position: absolute; right: 8px; bottom: 48px; }
+
+/* ---------- 載入中、錯誤 ---------- */
+body[data-loading] .vendor-list::before,
+body[data-loading] .market-list::before {
+  content: ""; display: block; height: 200px; margin: 12px 0; border-radius: 12px;
+  background: linear-gradient(90deg, var(--field) 25%, #fafafa 50%, var(--field) 75%) 0 0 / 200% 100%;
+  animation: shimmer 1.2s infinite linear;
+}
+@keyframes shimmer { to { background-position: -200% 0; } }
+.load-error { position: fixed; left: 50%; top: 96px; transform: translateX(-50%); z-index: 40; background: #fff; color: var(--not-submitted-text); padding: 12px 20px; border-radius: 12px; box-shadow: var(--shadow-strong); font-weight: 700; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}

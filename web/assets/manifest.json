@@ -1,0 +1,64 @@
+{
+  "basemap": "map-base.webp",
+  "basemap_source": "map-taiwan-base.png",
+  "basemap_source_sha256": "c3586c0f32f22435e28246df7bbfb608b0d9725b2e3a01b4e4baf5024123d6bb",
+  "basemap_size": [
+    2048,
+    3072
+  ],
+  "images": {
+    "logo.webp": [
+      128,
+      113
+    ],
+    "mascots/cat-camera.webp": [
+      348,
+      256
+    ],
+    "mascots/cat-megaphone.webp": [
+      320,
+      254
+    ],
+    "mascots/girl.webp": [
+      320,
+      280
+    ],
+    "empty-state.webp": [
+      320,
+      256
+    ]
+  },
+  "market_types": {
+    "night_market": "market-type/night_market.webp",
+    "traditional_market": "market-type/traditional_market.webp",
+    "other": "market-type/other.webp"
+  },
+  "icons": [
+    "home",
+    "users",
+    "chart",
+    "link",
+    "user",
+    "search",
+    "pin",
+    "chevron-down",
+    "chevron-left",
+    "chevron-right",
+    "store",
+    "market",
+    "external",
+    "copy",
+    "clock",
+    "target",
+    "check",
+    "x",
+    "plus",
+    "minus",
+    "menu",
+    "alert",
+    "edit",
+    "note",
+    "phone",
+    "cart"
+  ]
+}
