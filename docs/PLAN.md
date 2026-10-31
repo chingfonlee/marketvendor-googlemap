@@ -70,9 +70,10 @@
   - `reports/import-report.md`：各市場和各狀態的家數，與總表比對，以及警告清單。
   - **不輸出**負責人、電話、地址、營業時間。
 - **人工決定**：記在 `data/review-decisions.csv`（排除、改名、確認、換連結，每筆附原因和日期），重新匯入時套用，不改 Excel。[DATA_ISSUES.md](DATA_ISSUES.md) §2 已決定的項目（排除退攤、放棄輔導等）也寫在這裡。
-- **固定 ID**：
-  - 市場用分頁編號 `m01`～`m15`。
-  - 攤商 ID 第一次產生後存進 `data/id-map.json`，名單順序變了 ID 也不變。
+- **固定 ID**（之後進資料庫直接當主鍵）：
+  - 市場 `m01`～`m15`、攤商 `m01-v001` 這種格式，第一次產生後存進 `data/id-map.json`，之後不變、不重複使用。市場用總表名稱對應，攤商用「市場 + Excel 店名」對應，所以分頁順序、總表序號、名單順序變了 ID 都不變。
+  - ID 只是名字：程式不能從 ID 拆出市場，要看 `market_id` 欄位。
+  - Excel 改了店名或市場名稱：在 `review-decisions.csv` 加 `same_as`，新名稱沿用舊 ID（市場那一列 `market_id` 留空）。沒加的話，攤商會拿到新 ID，報告列出沒用到的舊 ID；市場則直接停下來，要求加 `same_as` 或指定新市場的類型。
 - **網址檢查**（離線）：
   - 只接受 Google 地圖網址（`maps.google.com`、`www.google.com/maps`、`maps.app.goo.gl`、`goo.gl/maps`）。
   - 解析出 cid 或 place_id。
@@ -122,7 +123,7 @@
 | 3 | 圖層架構 | Claude | 地圖內：底圖、裝飾、縣市標籤（8 個）、選取效果。地圖外：統計、篩選、市場清單、攤商清單。寫清楚篩選狀態和連動規則（§2） | [LAYER_ARCHITECTURE.md](LAYER_ARCHITECTURE.md) ✅ |
 | 4 | 縣市標籤位置 | Claude | 圓角卡片（名稱、市場數、攤商數）；8 個縣市的大約位置寫在 `design/assets/final/map-taiwan-base.labels.json`（viewBox 0 0 1024 1536，和底圖 SHA 綁定），預覽由 `design/tools/label_overlay.ps1` 產生；桌機和手機尺寸都不重疊 | [COUNTY_LABELS.md](COUNTY_LABELS.md) ✅ |
 | 5 | 響應式版面 | Claude | 桌機照 §2，標籤依量到的地圖寬度切換（≥ 565px 桌機卡）；手機和平板直向用不放地圖的清單版（9 張縣市卡片），可點範圍至少 44px；平板橫向用三欄緊湊版 | [RESPONSIVE_LAYOUT.md](RESPONSIVE_LAYOUT.md) ✅ |
-| 6 | 正式資料匯入 | Claude | 照 §4；匯入報告的總數是 347（217／130／0），三種狀態加總等於總數，和總表各市場攤數一致；跑兩次結果相同；公開 JSON 沒有個資 | 待開始 |
+| 6 | 正式資料匯入 | Claude | 照 §4；匯入報告的總數是 347（217／130／0），三種狀態加總等於總數，和總表各市場攤數一致；跑兩次結果相同；公開 JSON 沒有個資 | `scripts/import_excel.py`，[import-report.md](../reports/import-report.md) 待驗收 |
 | 7 | 網頁重組 | Claude | 讀正式 JSON；§2 的互動規則全部做到；三種狀態按鈕；圓環依縣市重算；地圖可縮放 | 等 3～6 |
 | 8 | 補交與確認頁（前端） | Claude | 照 §5；三層選單連動；網址格式檢查；確認／貼新網址兩種操作；模擬送出產生 §5 格式的紀錄 | 等 7 |
 | 9 | 開發開關 | Claude | 底圖、縣市標籤、互動、統計、清單、補交（模擬／正式）；正式環境無法開啟 | 等 7 |

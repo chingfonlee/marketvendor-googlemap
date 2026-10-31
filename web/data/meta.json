@@ -1,0 +1,14 @@
+{
+  "updated": "2026-10-31T12:23:47Z",
+  "source": "國際友善力_菜單審查總表_Google地圖.xlsx",
+  "source_sha256": "3ee7bb4dc341d5ea3606ef9442771360bf31b0e47bf12becfb5ed0593e21ebc0",
+  "decisions": 3,
+  "total": 347,
+  "counts": {
+    "verified": 0,
+    "submitted": 217,
+    "not_submitted": 130
+  },
+  "markets": 15,
+  "counties": 8
+}

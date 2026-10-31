@@ -16,6 +16,8 @@ __pycache__/
 data/*.xlsx
 data/*.xls
 data/*.csv
+# 人工決定只有店名和原因，沒有個資，要進 git 才能重現匯入結果
+!data/review-decisions.csv
 
 # Claude Code 本機資料
 .claude/
