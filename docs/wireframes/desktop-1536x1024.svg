@@ -189,19 +189,8 @@
 <text x="1408.7" y="895.0" font-size="11" fill="#1E293B" text-anchor="middle" font-weight="400">狀態</text>
 <rect x="1460.7" y="872.0" width="36.0" height="36.0" rx="8" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1.2"/>
 <text x="1478.7" y="895.0" font-size="13" fill="#1E293B" text-anchor="middle" font-weight="400">↗</text>
-<rect x="1104.7" y="960.0" width="36.0" height="36.0" rx="8" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1.2"/>
-<text x="1122.7" y="983.0" font-size="13" fill="#1E293B" text-anchor="middle" font-weight="400">‹</text>
-<rect x="1148.7" y="960.0" width="36.0" height="36.0" rx="8" fill="#1660BE" stroke="#94A3B8" stroke-width="1.2"/>
-<text x="1166.7" y="983.0" font-size="13" fill="#FFFFFF" text-anchor="middle" font-weight="400">1</text>
-<rect x="1192.7" y="960.0" width="36.0" height="36.0" rx="8" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1.2"/>
-<text x="1210.7" y="983.0" font-size="13" fill="#1E293B" text-anchor="middle" font-weight="400">2</text>
-<rect x="1236.7" y="960.0" width="36.0" height="36.0" rx="8" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1.2"/>
-<text x="1254.7" y="983.0" font-size="13" fill="#1E293B" text-anchor="middle" font-weight="400">3</text>
-<rect x="1280.7" y="960.0" width="36.0" height="36.0" rx="8" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1.2"/>
-<text x="1298.7" y="983.0" font-size="13" fill="#1E293B" text-anchor="middle" font-weight="400">…</text>
-<rect x="1324.7" y="960.0" width="36.0" height="36.0" rx="8" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1.2"/>
-<text x="1342.7" y="983.0" font-size="13" fill="#1E293B" text-anchor="middle" font-weight="400">›</text>
+<text x="1232.7" y="983.0" font-size="13" fill="#64748B" text-anchor="middle" font-weight="400">↓ 往下捲看更多（不分頁）</text>
 <text x="1496.7" y="983.0" font-size="11" fill="#F08A3C" text-anchor="end" font-weight="400">↕ 清單內捲動</text>
 <text x="16.0" y="1046.0" font-size="13" fill="#1E293B" text-anchor="start" font-weight="700">桌機（完成圖尺寸）・選了臺北市永春市場　視窗 1536×1024｜頁首 72｜左欄 420｜地圖 613×920｜右欄 424｜間距 16｜標籤：桌機卡 136×92</text>
-<text x="16.0" y="1068.0" font-size="12" fill="#64748B" text-anchor="start" font-weight="400">橘色虛線：左上標語保留區 (0,0,420,400)；橘色點線：建議的右下控制區 (600,1250,1024,1536)，見待決事項。</text>
+<text x="16.0" y="1068.0" font-size="12" fill="#64748B" text-anchor="start" font-weight="400">橘色虛線：左上標語保留區 (0,0,420,400)；橘色點線：右下控制區 (600,1250,1024,1536)（決定 I）。</text>
 </svg>
