@@ -121,7 +121,6 @@ body[data-layout="l"] [id] { scroll-margin-top: calc(var(--hdr) + 16px); }
   font-weight: 700; font-size: 15px; color: var(--body); text-decoration: none;
 }
 .tab[aria-current="page"] { background: var(--primary-soft); color: var(--primary); }
-.tab[aria-disabled="true"] { color: var(--placeholder); cursor: not-allowed; }
 .submit-link { height: 44px; flex: none; white-space: nowrap; }
 .submit-link .label-short { display: none; }
 
