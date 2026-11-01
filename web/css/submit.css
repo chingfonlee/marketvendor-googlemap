@@ -39,6 +39,11 @@ img { max-width: 100%; }
   min-height: 44px; padding: 0 14px 0 8px; border-radius: 12px;
   background: var(--primary-soft); color: var(--primary); font-weight: 700; text-decoration: none;
 }
+/* 標題放不下一行（約 510px 以下）：在「・」後面換成兩行，不用省略號 */
+@media (max-width: 519px) {
+  .sp-brand-title { white-space: normal; line-height: 1.2; }
+  .sp-brand-line { display: inline-block; white-space: nowrap; }
+}
 @media (max-width: 479px) {
   .sp-brand-title { font-size: 15px; }
   .sp-back span { display: none; }
