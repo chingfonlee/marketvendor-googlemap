@@ -63,9 +63,12 @@ img { max-width: 100%; }
 }
 .sp-mode[data-mode="off"] { background: var(--not-submitted-soft); color: var(--not-submitted-text); }
 .sp-title { margin: 0; text-align: center; font-size: 32px; font-weight: 900; color: var(--brown); letter-spacing: 2px; }
+.sp-title span { display: inline-block; }   /* 放不下一行時在詞和詞之間換行，不讓「連結」單獨掉到下一行 */
+.sp-title-google { margin: 0 0.3em; }
 .sp-lead { margin: 8px 0 24px; text-align: center; color: var(--brown-body); font-size: 16px; }
 @media (max-width: 599px) {
   .sp-title { font-size: 24px; letter-spacing: 1px; }
+  .sp-title .sp-title-google { display: none; }   /* 手機標題短一點：「確認或補交地圖連結」 */
   .sp-lead { font-size: 15px; margin-bottom: 20px; }
 }
 
