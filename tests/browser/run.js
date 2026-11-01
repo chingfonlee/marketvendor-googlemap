@@ -1,10 +1,14 @@
 // 在真的瀏覽器裡開網頁（iframe），照使用者的操作點選，檢查畫面。由 tests/serve_tests.py 提供。
 // 結果顯示在頁面上，也放在 window.testResults（給自動化工具讀）。
+// 從 localhost 打開時跑開發環境的測試，最後再到 127.0.0.2（正式環境）跑 prodTest 的項目，結果合在一起。
 
+const { IS_DEV, DEV_KEY } = await import("/web/js/env.js");
+const EMBEDDED = new URLSearchParams(location.search).has("embedded");
 const stage = document.getElementById("stage");
 const results = [];
 const tests = [];
-const test = (name, fn) => tests.push({ name, fn });
+const test = (name, fn) => { if (IS_DEV) tests.push({ name, fn }); };
+const prodTest = (name, fn) => { if (!IS_DEV) tests.push({ name: `正式環境：${name}`, fn }); };
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 async function until(fn, what, ms = 3000) {
@@ -23,20 +27,50 @@ function ok(v, what) {
   if (!v) throw new Error(what);
 }
 
+// 開發開關的設定和網頁同源，存在同一個 localStorage；每頁開之前先設好（預設是清掉）
+function setDev(settings) {
+  try {
+    if (settings) localStorage.setItem(DEV_KEY, JSON.stringify(settings));
+    else localStorage.removeItem(DEV_KEY);
+  } catch { /* 無痕視窗 */ }
+}
+
 // 開一頁：寬高決定 D／L 版（iframe 的 media query 看的是 iframe 自己的大小）
-async function open(url, { width = 1280, height = 800, beforeLoad } = {}) {
+async function open(url, { width = 1280, height = 800, beforeLoad, dev = null } = {}) {
   stage.replaceChildren();
   const frame = document.createElement("iframe");
   frame.width = width;
   frame.height = height;
   stage.append(frame);
+  if (dev !== "keep") setDev(dev);
   if (beforeLoad) beforeLoad();
+  const loaded = nextLoad(frame);
   frame.src = url;
+  await loaded;
+  return wrap(frame);
+}
+
+async function nextLoad(frame) {
   await new Promise((r) => frame.addEventListener("load", r, { once: true }));
-  const win = frame.contentWindow;
   const doc = frame.contentDocument;
   await until(() => !doc.body.hasAttribute("data-loading"), "頁面載入完成");
+  // 開發開關的 devtools.css 是載入後才加進來的，等它套上，關掉的元件才會真的消失
+  if (doc.querySelector(".dev-fab")) {
+    await until(() => [...doc.styleSheets].some((s) => s.href?.includes("devtools.css")), "devtools.css 載入");
+  }
   await sleep(50);
+}
+
+function wrap(frame) {
+  const win = frame.contentWindow;
+  const doc = frame.contentDocument;
+  // 頁面自己重新載入（補交頁換送出方式）：等載入完，拿新的 document
+  const reloaded = async (trigger) => {
+    const loaded = nextLoad(frame);
+    await trigger();
+    await loaded;
+    return wrap(frame);
+  };
   const $ = (s) => doc.querySelector(s);
   const $$ = (s) => [...doc.querySelectorAll(s)];
   const text = (s) => $(s)?.textContent.replace(/\s+/g, " ").trim();
@@ -57,7 +91,8 @@ async function open(url, { width = 1280, height = 800, beforeLoad } = {}) {
     el.dispatchEvent(new win.Event("blur"));
     await sleep(30);
   };
-  return { win, doc, $, $$, text, choose, click, type };
+  const css = (s, prop) => win.getComputedStyle($(s))[prop];
+  return { win, doc, $, $$, text, choose, click, type, reloaded, css };
 }
 
 const getJSON = (p) => fetch(p).then((r) => r.json());
@@ -346,29 +381,219 @@ test("補交頁選到空市場：攤商選單說明這個市場沒有攤商", as
   eq(p.$("#sp-vendor").options[0].text, "請選擇攤商", "提示換回來");
 });
 
+// ================= 開發開關（任務 9，SVG_COMPONENTS §6） =================
+const ALL_ON = { base: true, labels: true, interact: true, stats: true, list: true, submit: "mock" };
+const devOff = (p) => (p.doc.documentElement.dataset.devOff || "").split(" ").filter(Boolean);
+const toggle = async (p, name) => {
+  if (p.$("#dev-panel").hidden) await p.click(".dev-fab");
+  await p.click(`#dev-panel input[name="${name}"]`);
+};
+
+test("開發開關：本機兩頁左下角都有「開發」按鈕，面板預設收起，Esc 關閉", async () => {
+  for (const url of ["web/index.html", "web/submit.html"]) {
+    const p = await open(url);
+    ok(p.$(".dev-fab"), `${url} 沒有「開發」按鈕`);
+    ok(p.$("#dev-panel").hidden, "面板預設收起");
+    ok(!p.$(".dev-fab").classList.contains("is-changed"), "預設值時沒有橘點");
+    await p.click(".dev-fab");
+    ok(!p.$("#dev-panel").hidden, "點了打開");
+    eq(p.$$('#dev-panel input[type="checkbox"]').map((i) => [i.name, i.checked]),
+      [["base", true], ["labels", true], ["interact", true], ["stats", true], ["list", true]], "五個開關都打開");
+    eq(p.$('#dev-panel input[name="submit"]:checked').value, "mock", "送出方式預設模擬");
+    p.doc.dispatchEvent(new p.win.KeyboardEvent("keydown", { key: "Escape" }));
+    await sleep(30);
+    ok(p.$("#dev-panel").hidden, "Esc 關閉");
+  }
+});
+
+test("開發開關：關掉底圖，底圖、標語、地圖上的貓不顯示，標籤還在", async () => {
+  const p = await open("web/index.html");
+  await toggle(p, "base");
+  eq(devOff(p), ["base"], "data-dev-off");
+  for (const s of [".layer-base", ".overlay-headline", ".overlay-cat"]) eq(p.css(s, "visibility"), "hidden", s);
+  ok(p.css(".layer-labels", "display") !== "none", "標籤不受影響");
+  ok(p.$(".dev-fab").classList.contains("is-changed"), "不是預設值時有橘點");
+});
+
+test("開發開關：關掉縣市標籤，地圖標籤、圖例、清單版縣市卡片都不顯示", async () => {
+  const p = await open("web/index.html", { dev: { ...ALL_ON, labels: false } });
+  for (const s of [".layer-labels", ".legend-toggle", ".legend"]) eq(p.css(s, "display"), "none", s);
+  ok(p.css(".layer-base", "visibility") !== "hidden", "底圖不受影響");
+  const l = await open("web/index.html", { width: 375, height: 812, dev: { ...ALL_ON, labels: false } });
+  eq(l.css(".county-cards", "display"), "none", "清單版的縣市卡片");
+});
+
+test("開發開關：關掉統計，進度卡不顯示；關掉清單，篩選、市場清單、攤商清單不顯示", async () => {
+  const p = await open("web/index.html", { dev: { ...ALL_ON, stats: false } });
+  eq(p.css(".progress-card", "display"), "none", "進度卡");
+  ok(p.css(".vendor-card", "display") !== "none", "清單不受影響");
+  const q = await open("web/index.html", { dev: { ...ALL_ON, list: false } });
+  for (const s of [".filter-panel", ".market-card", ".vendor-card"]) eq(q.css(s, "display"), "none", s);
+  ok(q.css(".progress-card", "display") !== "none", "進度卡不受影響");
+});
+
+test("開發開關：關掉互動，地圖、選單、搜尋、狀態按鈕、市場清單不能操作，攤商連結照常", async () => {
+  const p = await open(`web/index.html#county=${encodeURIComponent(counties[0])}`, { dev: { ...ALL_ON, interact: false } });
+  for (const s of ["main.map", ".filter-search", ".filter-selects", ".filter-status", ".market-card"]) ok(p.$(s).inert, `${s} 應該不能操作`);
+  ok(!p.$(".vendor-card").inert, "攤商清單（連結）照常可以點");
+  eq(p.$("#county-select").value, counties[0], "畫面停在目前的篩選");
+  // inert 擋的是使用者的滑鼠、觸控、鍵盤；程式的 .click() 擋不住，所以用「拿不到焦點」來驗證
+  for (const s of [".county-label", "#search", "#county-select", ".status-btn", ".market-row"]) {
+    const el = p.$(s);
+    el.focus();
+    ok(p.doc.activeElement !== el, `${s} 不該拿到焦點`);
+  }
+  const link = p.$(".vendor-action");
+  link.focus();
+  eq(p.doc.activeElement, link, "攤商的連結可以拿到焦點");
+  await toggle(p, "interact");
+  ok(!p.$("main.map").inert, "打開互動後恢復");
+  p.$(".county-label").focus();
+  eq(p.doc.activeElement, p.$(".county-label"), "標籤又拿得到焦點");
+  await p.click(p.$$(".county-label")[1]);
+  eq(p.$("#county-select").value, counties[1], "點標籤有反應");
+});
+
+test("開發開關：設定重新整理後還在，總覽頁和補交頁共用；「全部恢復預設」全部打開", async () => {
+  const p = await open("web/index.html");
+  await toggle(p, "stats");
+  await toggle(p, "list");
+  const r = await p.reloaded(() => p.win.location.reload());
+  eq(devOff(r).sort(), ["list", "stats"], "重新整理後還在");
+  ok(!r.$('#dev-panel input[name="stats"]').checked, "面板也記得");
+  const s = await open("web/submit.html", { dev: "keep" });
+  ok(s.$(".dev-fab").classList.contains("is-changed"), "補交頁也看到不是預設值（橘點）");
+  const q = await open("web/index.html", { dev: "keep" });
+  await q.click(".dev-fab");
+  await q.click(".dev-reset");
+  eq(devOff(q), [], "恢復預設後沒有關掉的元件");
+  ok(!q.$(".dev-fab").classList.contains("is-changed"), "橘點消失");
+  eq(JSON.parse(localStorage.getItem(DEV_KEY)), ALL_ON, "存的設定也恢復");
+});
+
+test("開發開關：補交頁換送出方式會自動重新載入；選「關閉」時和正式環境一樣不能送出", async () => {
+  const p = await open("web/submit.html");
+  eq(p.$(".sp-mode").dataset.mode, "mock", "預設模擬");
+  await p.click(".dev-fab");
+  const r = await p.reloaded(() => p.click('#dev-panel input[name="submit"][value="off"]'));
+  eq(r.$(".sp-mode").dataset.mode, "off", "重新載入後是關閉");
+  ok(r.text(".sp-mode").includes("送出已關閉"), `說明：${r.text(".sp-mode")}`);
+  ok(r.$(".sp-submit").disabled, "送出按鈕停用");
+});
+
+test("開發開關：選「正式 API」時送到 /api/submissions，內容是 §5 的紀錄；伺服器失敗時顯示錯誤", async () => {
+  await fetch("/api/_reset", { method: "POST" });
+  const v = vendors.find((x) => x.status === "submitted");
+  const p = await open(`web/submit.html#vendor=${v.id}`, { dev: { ...ALL_ON, submit: "api" }, beforeLoad: clearMock });
+  eq(p.$(".sp-mode").dataset.mode, "api", "模式");
+  await p.click('input[value="confirm"]');
+  p.$("#sp-form").requestSubmit();
+  await until(() => !p.$(".sp-done").hidden, "顯示「已收到，待確認」");
+  const got = await getJSON("/api/_received");
+  eq(got.length, 1, "伺服器收到一筆");
+  eq(Object.keys(got[0]), ["submitted_at", "ip", "county", "market_id", "market_name", "vendor_id", "vendor_name",
+    "action", "url", "place_key", "status_before", "review_result", "reviewed_at", "note"], "欄位");
+  eq([got[0].vendor_id, got[0].action, got[0].url], [v.id, "confirm", v.url], "內容");
+  eq(readMock().length, 0, "不會另外存模擬紀錄");
+
+  await fetch("/api/_fail", { method: "POST" });
+  await p.click(".sp-again");
+  await p.choose("#sp-vendor", v.id);
+  await p.click('input[value="confirm"]');
+  p.$("#sp-form").requestSubmit();
+  await until(() => p.text(".sp-form-error"), "顯示錯誤");
+  ok(p.text(".sp-form-error").includes("500"), `錯誤訊息：${p.text(".sp-form-error")}`);
+  ok(p.$(".sp-done").hidden, "沒有顯示完成");
+});
+
+// ================= 正式環境（127.0.0.2） =================
+const EVERYTHING_OFF = { base: false, labels: false, interact: false, stats: false, list: false, submit: "mock" };
+
+prodTest("總覽頁沒有「開發」按鈕，也不下載 devtools.js；存了「全部關掉」也不生效", async () => {
+  const p = await open("web/index.html", { dev: EVERYTHING_OFF });
+  ok(!p.$(".dev-fab") && !p.$("#dev-panel"), "不應該有開發按鈕或面板");
+  const files = p.win.performance.getEntriesByType("resource").map((e) => e.name);
+  ok(!files.some((f) => /devtools\.(js|css)/.test(f)), `不應該下載：${files.filter((f) => /devtools/.test(f)).join("、")}`);
+  eq(p.doc.documentElement.dataset.devOff, undefined, "data-dev-off");
+  ok(p.css(".progress-card", "display") !== "none", "進度卡照常顯示");
+  ok(p.css(".layer-labels", "display") !== "none", "標籤照常顯示");
+  ok(!p.$("main.map").inert, "地圖照常可以操作");
+  await p.click(p.$$(".county-label")[0]);
+  eq(p.$("#county-select").value, counties[0], "點標籤有反應");
+});
+
+prodTest("補交頁不能送出，存了「模擬送出」或「正式 API」也一樣", async () => {
+  for (const submit of ["mock", "api"]) {
+    const p = await open("web/submit.html", { dev: { ...EVERYTHING_OFF, submit } });
+    ok(!p.$(".dev-fab"), "沒有開發按鈕");
+    eq(p.$(".sp-mode").dataset.mode, "off", `存了 ${submit} 時的模式`);
+    ok(p.text(".sp-mode").includes("補交功能還在準備中"), `說明：${p.text(".sp-mode")}`);
+    ok(p.$(".sp-submit").disabled, "送出按鈕停用");
+  }
+  setDev(null);
+});
+
 // ================= 執行 =================
 const list = document.getElementById("results");
-for (const t of tests) {
+
+function show(r) {
   const li = document.createElement("li");
-  li.textContent = t.name;
+  li.textContent = r.name;
+  li.className = r.skip ? "" : r.ok ? "pass" : "fail";
+  if (r.error || r.skip) {
+    const pre = document.createElement("pre");
+    pre.textContent = r.error || `跳過：${r.skip}`;
+    li.append(pre);
+  }
+  if (r.ms !== undefined) li.insertAdjacentHTML("beforeend", ` <small>${r.ms}ms</small>`);
   list.append(li);
+}
+
+for (const t of tests) {
   const t0 = performance.now();
+  const r = { name: t.name, ok: true };
   try {
     await t.fn();
-    li.className = "pass";
-    results.push({ name: t.name, ok: true });
   } catch (err) {
-    li.className = "fail";
-    const pre = document.createElement("pre");
-    pre.textContent = err.message;
-    li.append(pre);
-    results.push({ name: t.name, ok: false, error: err.message });
+    Object.assign(r, { ok: false, error: err.message });
   }
-  li.insertAdjacentHTML("beforeend", ` <small>${Math.round(performance.now() - t0)}ms</small>`);
+  r.ms = Math.round(performance.now() - t0);
+  results.push(r);
+  show(r);
 }
+setDev(null);
 stage.replaceChildren();
+
+// 開發環境跑完後，到 127.0.0.2（正式環境）跑 prodTest，結果用 postMessage 傳回來
+if (IS_DEV && !EMBEDDED) {
+  const prodUrl = `http://127.0.0.2:${Number(location.port || 80) + 1}/?embedded`;
+  const prod = await new Promise((resolve) => {
+    const frame = document.createElement("iframe");
+    const timer = setTimeout(() => resolve(null), 30000);
+    window.addEventListener("message", (e) => {
+      if (e.origin === new URL(prodUrl).origin && e.data?.testResults) {
+        clearTimeout(timer);
+        resolve(e.data.testResults);
+      }
+    });
+    frame.src = prodUrl;
+    stage.append(frame);
+  });
+  stage.replaceChildren();
+  if (prod) for (const r of prod.results) { results.push(r); show(r); }
+  else {
+    const r = { name: "正式環境（127.0.0.2）的測試", ok: true, skip: `連不到 ${prodUrl}，請用 python tests/serve_tests.py 啟動` };
+    results.push(r);
+    show(r);
+  }
+}
+
 const failed = results.filter((r) => !r.ok).length;
+const skipped = results.filter((r) => r.skip).length;
+const passed = results.length - failed - skipped;
 const summary = document.getElementById("summary");
-summary.textContent = failed ? `${failed} / ${results.length} 項失敗` : `${results.length} 項全部通過`;
+summary.textContent = failed ? `${failed} / ${results.length} 項失敗`
+  : `${passed} 項全部通過${skipped ? `（${skipped} 項跳過）` : ""}`;
 summary.className = failed ? "bad" : "ok";
-window.testResults = { done: true, passed: results.length - failed, failed, results };
+window.testResults = { done: true, passed, failed, skipped, results };
+if (EMBEDDED) parent.postMessage({ testResults: window.testResults }, "*");
