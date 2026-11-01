@@ -1,0 +1,2 @@
+# 複製成 .dev.vars 給 wrangler pages dev 用。這是 Cloudflare 公開的測試金鑰，永遠通過驗證，不是真的金鑰。
+TURNSTILE_SECRET=1x0000000000000000000000000000000AA

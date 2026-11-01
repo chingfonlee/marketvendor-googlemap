@@ -2,6 +2,10 @@
 .env
 .env.*
 !.env.example
+.dev.vars
+
+# wrangler 本機資料（本機 D1 等）
+.wrangler/
 
 # Python
 .venv/

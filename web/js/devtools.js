@@ -12,8 +12,8 @@ const SWITCHES = [
 ];
 const SUBMIT = [
   { value: "mock", name: "模擬送出", hint: "紀錄存在這個瀏覽器" },
-  { value: "api", name: "正式 API", hint: "送到 /api/submissions（任務 12 才建立）" },
-  { value: "off", name: "關閉", hint: "和目前正式環境一樣，不能送出" },
+  { value: "api", name: "正式 API", hint: "送到 /api/submissions（要用 wrangler pages dev 開）" },
+  { value: "off", name: "關閉", hint: "不能送出" },
 ];
 // 互動關閉時整塊不能操作，畫面停在目前的篩選（inert 同時擋掉滑鼠、觸控和鍵盤）
 const INTERACTIVE = "main.map, .county-cards, .filter-search, .filter-selects, .filter-status, .market-card";

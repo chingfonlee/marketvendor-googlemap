@@ -471,7 +471,7 @@ test("開發開關：設定重新整理後還在，總覽頁和補交頁共用�
   eq(JSON.parse(localStorage.getItem(DEV_KEY)), ALL_ON, "存的設定也恢復");
 });
 
-test("開發開關：補交頁換送出方式會自動重新載入；選「關閉」時和正式環境一樣不能送出", async () => {
+test("開發開關：補交頁換送出方式會自動重新載入；選「關閉」時不能送出", async () => {
   const p = await open("web/submit.html");
   eq(p.$(".sp-mode").dataset.mode, "mock", "預設模擬");
   await p.click(".dev-fab");
@@ -481,12 +481,16 @@ test("開發開關：補交頁換送出方式會自動重新載入；選「關�
   ok(r.$(".sp-submit").disabled, "送出按鈕停用");
 });
 
-test("開發開關：選「正式 API」時送到 /api/submissions，內容是 §5 的紀錄；伺服器失敗時顯示錯誤", async () => {
+test("開發開關：選「正式 API」時先過 Turnstile（測試金鑰），送到 /api/submissions，內容是 §5 的紀錄；伺服器失敗時顯示錯誤", async () => {
   await fetch("/api/_reset", { method: "POST" });
   const v = vendors.find((x) => x.status === "submitted");
   const p = await open(`web/submit.html#vendor=${v.id}`, { dev: { ...ALL_ON, submit: "api" }, beforeLoad: clearMock });
   eq(p.$(".sp-mode").dataset.mode, "api", "模式");
+  ok(!p.$(".sp-turnstile").hidden, "顯示 Turnstile");
   await p.click('input[value="confirm"]');
+  // 測試金鑰有時一載入就通過，「還沒驗證不能送出」在這裡測不穩，由 tests/submission.test.mjs 的後端測試涵蓋
+  const token = () => p.$('.sp-turnstile [name="cf-turnstile-response"]')?.value;
+  await until(token, "Turnstile 測試金鑰通過（要能連到 challenges.cloudflare.com）", 15000);
   p.$("#sp-form").requestSubmit();
   await until(() => !p.$(".sp-done").hidden, "顯示「已收到，待確認」");
   const got = await getJSON("/api/_received");
@@ -500,6 +504,7 @@ test("開發開關：選「正式 API」時送到 /api/submissions，內容是 �
   await p.click(".sp-again");
   await p.choose("#sp-vendor", v.id);
   await p.click('input[value="confirm"]');
+  await until(token, "重新驗證", 15000);
   p.$("#sp-form").requestSubmit();
   await until(() => p.text(".sp-form-error"), "顯示錯誤");
   ok(p.text(".sp-form-error").includes("500"), `錯誤訊息：${p.text(".sp-form-error")}`);
@@ -522,13 +527,15 @@ prodTest("總覽頁沒有「開發」按鈕，也不下載 devtools.js；存了�
   eq(p.$("#county-select").value, counties[0], "點標籤有反應");
 });
 
-prodTest("補交頁不能送出，存了「模擬送出」或「正式 API」也一樣", async () => {
-  for (const submit of ["mock", "api"]) {
+prodTest("補交頁一律送到正式 API、顯示 Turnstile；存了「模擬送出」或「關閉」也一樣", async () => {
+  for (const submit of ["mock", "off"]) {
     const p = await open("web/submit.html", { dev: { ...EVERYTHING_OFF, submit } });
     ok(!p.$(".dev-fab"), "沒有開發按鈕");
-    eq(p.$(".sp-mode").dataset.mode, "off", `存了 ${submit} 時的模式`);
-    ok(p.text(".sp-mode").includes("補交功能還在準備中"), `說明：${p.text(".sp-mode")}`);
-    ok(p.$(".sp-submit").disabled, "送出按鈕停用");
+    eq(p.$(".sp-mode").dataset.mode, "api", `存了 ${submit} 時的模式`);
+    ok(p.$(".sp-mode").hidden, "正式環境不顯示模式說明");
+    ok(!p.$(".sp-turnstile").hidden, "顯示 Turnstile");
+    ok(!p.$(".sp-submit").disabled, "送出按鈕可以按");
+    ok(p.$(".sp-mock").hidden, "沒有模擬紀錄面板");
   }
   setDev(null);
 });

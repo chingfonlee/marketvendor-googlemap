@@ -35,11 +35,18 @@ test("正式環境：就算瀏覽器存了設定，也讀不到（開關不生�
   assert.equal(env.readDev(), null);
 });
 
-test("正式環境：補交頁一律不能送出，存了 mock 或 api 也一樣", async () => {
+test("正式環境：補交頁一律送到 API（用正式 Turnstile 金鑰），存了 mock 或 off 也一樣", async () => {
   for (const submit of ["mock", "api", "off"]) {
-    const { env } = await envAt("marketvendor.pages.dev", { submit });
-    assert.equal(env.submitMode(), "off", submit);
+    const { env } = await envAt("googlemap-store.pages.dev", { submit });
+    assert.equal(env.submitMode(), "api", submit);
+    assert.equal(env.TURNSTILE_SITE_KEY, env.TURNSTILE_PROD_KEY);
   }
+  assert.match((await envAt("example.org")).env.TURNSTILE_PROD_KEY, /^0x4/, "正式金鑰（不是 1x 開頭的測試金鑰）");
+});
+
+test("開發環境：Turnstile 一律用測試金鑰", async () => {
+  const { env } = await envAt("localhost", { submit: "api" });
+  assert.equal(env.TURNSTILE_SITE_KEY, "1x00000000000000000000AA");
 });
 
 test("正式環境：devtools.js 就算被手動載入也不會建立開關", async () => {

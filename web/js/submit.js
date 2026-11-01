@@ -1,9 +1,12 @@
 // 補交／確認頁（docs/PLAN.md §5）：縣市 → 市場 → 攤商三層選單，確認現有連結或貼新網址。
-// 後端（任務 12）還沒建立：開發環境依開發開關模擬送出或打正式 API；正式環境暫時不能送出。
+// 正式環境送到後端（functions/api/submissions.js，任務 12），先過 Turnstile；開發環境依開發開關模擬送出或打 API。
 
 import { data, loadData, marketFullName } from "./data.js";
 import { checkUrl } from "./urlcheck.js";
-import { IS_DEV, loadDevtools, submitMode } from "./env.js";
+import { IS_DEV, TURNSTILE_SITE_KEY, loadDevtools, submitMode } from "./env.js";
+import { CSV_COLUMNS, DEDUPE_MS, HOURLY_LIMIT, buildRecord, taipeiTime, toCSV } from "./record.js";
+
+export { CSV_COLUMNS, buildRecord, taipeiTime, toCSV };
 
 const $ = (sel) => document.querySelector(sel);
 const LABEL = { verified: "已完成", submitted: "待確認", not_submitted: "未提交" };
@@ -12,49 +15,13 @@ const MODE = submitMode();   // "mock" | "api" | "off"
 const API = "/api/submissions";
 const MODE_TEXT = {
   mock: "開發模式：模擬送出，紀錄只存在這個瀏覽器，不會送到伺服器。",
-  api: `開發模式：送到正式 API（${API}）。後端在任務 12 才建立，在那之前會送出失敗。`,
-  off: IS_DEV ? "開發模式：送出已關閉，畫面和目前的正式環境一樣。" : "補交功能還在準備中，暫時無法送出。",
+  api: `開發模式：送到 API（${API}），Turnstile 用測試金鑰（一定通過）。用 wrangler pages dev 開的才有真的後端。`,
+  off: IS_DEV ? "開發模式：送出已關閉。" : "補交功能還在準備中，暫時無法送出。",
 };
 
 const MOCK_KEY = "gm-submit-mock";
-const DEDUPE_MS = 24 * 3600 * 1000;   // 同一攤商、同一網址 24 小時內只收一次
-const HOURLY_LIMIT = 10;              // 同一 IP 每小時上限（模擬時以這個瀏覽器代替 IP）
-export const CSV_COLUMNS = [
-  "submitted_at", "ip", "county", "market_id", "market_name", "vendor_id", "vendor_name",
-  "action", "url", "place_key", "status_before", "review_result", "reviewed_at", "note",
-];
-
 const sel = { county: null, marketId: null, vendorId: null };
 let urlTouched = false;
-
-// ---------- 紀錄 ----------
-export function taipeiTime(date = new Date()) {
-  return new Date(date.getTime() + 8 * 3600 * 1000).toISOString().slice(0, 19) + "+08:00";
-}
-
-export function buildRecord({ vendor, market, action, url, placeKey, ip = "", now = new Date() }) {
-  return {
-    submitted_at: taipeiTime(now),
-    ip,
-    county: market.county,
-    market_id: market.id,
-    market_name: market.name,
-    vendor_id: vendor.id,
-    vendor_name: vendor.name,
-    action,
-    url,
-    place_key: placeKey,
-    status_before: vendor.status,
-    review_result: "",
-    reviewed_at: "",
-    note: "",
-  };
-}
-
-export function toCSV(records) {
-  const cell = (v) => (/[",\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : String(v));
-  return [CSV_COLUMNS.join(","), ...records.map((r) => CSV_COLUMNS.map((c) => cell(r[c] ?? "")).join(","))].join("\r\n") + "\r\n";
-}
 
 function readMock() {
   try {
@@ -85,12 +52,41 @@ function mockSubmit(record) {
   return { ok: true };
 }
 
-// 正式 API：IP 由伺服器填；回應格式 { ok, error? } 在任務 12 定案
+// ---------- Turnstile（防機器人，只在送到 API 時用） ----------
+const TURNSTILE_JS = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onTurnstileLoad";
+let turnstileId = null;
+let turnstileToken = "";
+
+function initTurnstile() {
+  const box = $(".sp-turnstile");
+  box.hidden = false;
+  window.onTurnstileLoad = () => {
+    turnstileId = window.turnstile.render(box, {
+      sitekey: TURNSTILE_SITE_KEY,
+      language: "zh-tw",
+      callback: (t) => { turnstileToken = t; },
+      "expired-callback": () => { turnstileToken = ""; },
+      "error-callback": () => { turnstileToken = ""; },
+    });
+  };
+  const script = document.createElement("script");
+  script.src = TURNSTILE_JS;
+  script.async = true;
+  document.head.append(script);
+}
+
+// 驗證結果只能用一次，每次送出後都要重新驗證
+function resetTurnstile() {
+  turnstileToken = "";
+  if (turnstileId !== null) window.turnstile.reset(turnstileId);
+}
+
+// API：送整筆紀錄，但伺服器只採用攤商、操作、網址，其他欄位和 IP 都由伺服器填。回應 { ok, error? }
 async function apiSubmit(record) {
   try {
     const res = await fetch(API, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", "X-Turnstile-Token": turnstileToken },
       body: JSON.stringify(record),
     });
     const body = await res.json().catch(() => ({}));
@@ -261,6 +257,11 @@ async function onSubmit(e) {
     placeKey = r.check.placeKey;
   }
 
+  if (MODE === "api" && !turnstileToken) {
+    err.textContent = "請先完成下方「確認你不是機器人」的驗證。";
+    return;
+  }
+
   const market = data.marketById.get(v.market_id);
   const record = buildRecord({ vendor: v, market, action, url, placeKey });
   const btn = $(".sp-submit");
@@ -272,6 +273,7 @@ async function onSubmit(e) {
     res = mockSubmit(record);
   } else {
     res = await apiSubmit(record);
+    resetTurnstile();
   }
   btn.disabled = false;
   btn.textContent = "送出";
@@ -371,10 +373,11 @@ async function start() {
     return;
   }
   const mode = $(".sp-mode");
-  mode.hidden = false;
+  mode.hidden = MODE === "api" && !IS_DEV;   // 正式環境照常送出，不用說明
   mode.dataset.mode = MODE;
   mode.textContent = MODE_TEXT[MODE];
   $(".sp-submit").disabled = MODE === "off";
+  if (MODE === "api") initTurnstile();
   if (IS_DEV) await loadDevtools("submit");
 
   readHash();

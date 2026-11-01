@@ -40,6 +40,8 @@ export function installBrowser({ dataDir = path.join(WEB, "data"), hostname = "e
     body: { dataset: {} },
     querySelector: () => fakeElement(),
     querySelectorAll: () => [],
+    createElement: () => fakeElement(),
+    head: fakeElement(),
   };
   globalThis.window = { addEventListener() {}, scrollTo() {} };
   globalThis.localStorage = { getItem: () => null, setItem() {} };

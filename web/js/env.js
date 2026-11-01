@@ -35,9 +35,15 @@ export async function loadDevtools(page) {
   }
 }
 
-// 補交頁的送出方式：開發環境照開關（預設模擬）；正式環境在任務 12 建好後端前一律關閉
+// Turnstile（防機器人）的網站金鑰，公開的、不是秘密。開發環境用 Cloudflare 的測試金鑰（永遠通過）；
+// 正式金鑰是 Cloudflare 的「台灣攤商地圖 補交頁」小工具，只接受 googlemap-store.pages.dev（docs/BACKEND.md）。
+export const TURNSTILE_TEST_KEY = "1x00000000000000000000AA";
+export const TURNSTILE_PROD_KEY = "0x4AAAAAAFuufVJfrbnLdIh_";
+export const TURNSTILE_SITE_KEY = IS_DEV ? TURNSTILE_TEST_KEY : TURNSTILE_PROD_KEY;
+
+// 補交頁的送出方式：開發環境照開關（預設模擬）；正式環境一律送到 API（任務 12），沒有 Turnstile 金鑰時關閉
 export function submitMode() {
   const dev = readDev();
-  if (!dev) return "off";
+  if (!dev) return TURNSTILE_SITE_KEY ? "api" : "off";
   return SUBMIT_MODES.includes(dev.submit) ? dev.submit : "mock";
 }

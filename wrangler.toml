@@ -1,0 +1,12 @@
+# Cloudflare Pages（任務 12）：網頁是 web/，API 是 functions/。
+# 本機：npx wrangler d1 migrations apply googlemap-store --local，再 npx wrangler pages dev
+# Turnstile 金鑰：本機放 .dev.vars（見 .dev.vars.example），正式用 npx wrangler pages secret put TURNSTILE_SECRET
+name = "googlemap-store"
+pages_build_output_dir = "web"
+compatibility_date = "2026-10-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "googlemap-store"
+database_id = "aa4042a8-afaa-457e-885c-9fe638f1eaf4"
+migrations_dir = "migrations"

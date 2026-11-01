@@ -10,7 +10,7 @@
 
 - 正式資料：15 個市場、8 個縣市、**347 家攤商**（以總表為準，問題見 [DATA_ISSUES.md](DATA_ISSUES.md)，最新數字見 [STATS.md](STATS.md)）。
 - 第一版只做前台總覽頁，以及攤商補交／確認連結頁。
-- **Cloudflare（Pages Functions、D1）暫不建立**：等網頁和 SVG 全部確認後才開始。
+- **Cloudflare（Pages Functions、D1）**：網頁確認後在任務 12 開始，做法見 [BACKEND.md](BACKEND.md)。
 
 ## 2. 畫面
 
@@ -96,7 +96,7 @@
 - **不收任何聯絡資料**。表單上註明「會記錄送出時間與 IP，只用來防止重複和濫用」。
 - 送出的資料一律存成**待處理紀錄**，不直接改公開資料。
 - 防重複：同一攤商、同一網址、24 小時內只收一次。
-- 防濫用：同一 IP 每小時有送出上限；網址長度和網域檢查；之後上 Cloudflare 時再加 Turnstile。
+- 防濫用：同一 IP 每小時有送出上限；網址長度和網域檢查；Turnstile。
 - 紀錄格式（之後可以匯出成 CSV）：
 
   | 欄位 | 說明 |
@@ -110,7 +110,7 @@
   | `status_before` | 送出時這家店的狀態 |
   | `review_result`、`reviewed_at`、`note` | 人工處理結果，送出時留空 |
 
-- 存放位置等 Cloudflare 建立時再決定（D1 加 CSV 匯出，或其他方式）。在那之前，網頁先做好表單和格式檢查，用開發開關模擬送出。
+- 存放位置：Cloudflare D1，用本機指令匯出 CSV（2026-11-01 決定，見 [BACKEND.md](BACKEND.md)）。
 - 待處理紀錄經人工確認後，寫進 `data/review-decisions.csv`，重新匯入，公開狀態才會變成已完成。
 
 ## 6. 任務清單與驗收標準
@@ -129,7 +129,7 @@
 | 9 | 開發開關 | Claude | 底圖、縣市標籤、互動、統計、清單、補交（模擬／正式）；正式環境無法開啟 | `web/js/env.js`、`web/js/devtools.js`、`web/css/devtools.css`；本機左下角「開發」按鈕，對應見 [SVG_COMPONENTS.md](SVG_COMPONENTS.md) §6 ✅ |
 | 10 | 測試 | Claude | 正式資料快照：總數、各市場、各狀態加總正確；縣市→市場→攤商連動；網址檢查；邊界案例（空市場、全部完成） | `node --test "tests/*.test.mjs"`（52 項）、`python tests/serve_tests.py`（瀏覽器 31 項，含開發開關和正式環境），見 [TESTING.md](TESTING.md)。全部通過（空市場 2 項已修） ✅ |
 | 11 | 網頁整體驗收 | Claude | 逐條核對 1～10 | [ACCEPTANCE.md](ACCEPTANCE.md)：1～10 都通過，自動測試 52＋31 項全部通過；§2 的 4 項都已決定（吉祥物確認、搜尋框位置照實測改文件、放大時標籤被縮放鈕蓋到不改、加 `.gitattributes`），4 項只能人工驗（§3） ✅ |
-| 12 | 補交紀錄的儲存（後端） | Claude | 使用者確認網頁後才開始。建立 Cloudflare；紀錄含 IP 和時間，可匯出 CSV；防重複、頻率限制、Turnstile；不覆蓋已確認資料 | 暫緩 |
+| 12 | 補交紀錄的儲存（後端） | Claude | 使用者確認網頁後才開始。建立 Cloudflare；紀錄含 IP 和時間，可匯出 CSV；防重複、頻率限制、Turnstile；不覆蓋已確認資料 | [BACKEND.md](BACKEND.md)：D1＋Pages Functions，`scripts/export_submissions.py` 匯出；本機（`wrangler pages dev`）已測通，Node 66 項、瀏覽器 31 項全部通過。Cloudflare 上已建好 Turnstile、D1（含表格）、Pages 專案；秘密金鑰和部署還沒做，見 BACKEND §6。等驗收 |
 
 ## 7. 未來擴充（不阻擋第一版）
 
