@@ -6,6 +6,7 @@ SVG 由 `tools/build_svg.py` 產生，插畫由 `tools/crop_assets.py` 從設計
 ```bash
 python design/tools/crop_assets.py
 python design/tools/build_svg.py
+python design/tools/build_stats_svg.py   # 統計報表頁（讀 web/data/markets.json）
 ```
 
 ## 資料夾
