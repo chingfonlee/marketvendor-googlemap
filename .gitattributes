@@ -1,0 +1,7 @@
+# 匯入和統計程式寫出的檔案固定用 LF，工作目錄也一樣。
+# 不然 Windows 的 core.autocrlf 會把它們放成 CRLF，重跑程式後內容沒變也顯示有改。
+data/*.json        text eol=lf
+data/*.csv         text eol=lf
+web/data/*.json    text eol=lf
+reports/*.md       text eol=lf
+docs/STATS.md      text eol=lf

@@ -99,5 +99,5 @@ listed = sum(m["listed"] for m in markets)
 lines.append(f"| | | **合計** | **{listed}** | **{n}** | **{total['已完成']}** | **{total['待確認']}** | **{total['未提交']}** |")
 lines += ["", "⚠️ 表示總表攤數和分頁實際攤商數不同。", ""]
 
-OUT.write_text("\n".join(lines), encoding="utf-8")
+OUT.write_text("\n".join(lines), encoding="utf-8", newline="\n")
 print(f"寫入 {OUT}：總數 {n}，" + "、".join(f"{s} {total[s]}" for s in ORDER))
