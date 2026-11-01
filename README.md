@@ -221,4 +221,6 @@ npx wrangler pages deploy --branch main
 
 [MIT License](LICENSE)：可以自由使用、修改、再散布，包括商業用途，只要保留版權和授權聲明。
 
+攤商名單：市場與攤商的名稱、Google 地圖連結和登錄狀態由主辦單位所有，著作權歸主辦單位，**不在 MIT 授權範圍內**。包括 `web/data/markets.json`、`web/data/vendors.json`、`web/data/meta.json`、`data/id-map.json`、`data/review-decisions.csv`、`reports/import-report.md`，以及文件裡引用的名單內容。要使用這些資料，請先取得主辦單位同意；要拿程式去做別的地圖，換成自己的資料即可（§6）。`tests/fixtures/` 是虛構的測試資料，不在此限。
+
 圖片：`design/assets/` 和 `web/assets/` 裡的插畫（背景、吉祥物、Logo、地圖底圖等 PNG／WebP）由 ChatGPT 生成。`design/svg/` 的設計稿和元件由 `design/tools/` 的程式產生。
