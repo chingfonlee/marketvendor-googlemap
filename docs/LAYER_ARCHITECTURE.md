@@ -124,6 +124,7 @@ web/
     layout.css        四個區塊的版面（任務 5）
     components.css    標籤、卡片、按鈕、清單
     submit.css        補交頁（卡片樣式沿用 login-card-*.svg）
+    devtools.css      開發開關面板和各開關關掉時隱藏的元件（任務 9）
   js/
     state.js          狀態和動作（§3）
     data.js           讀取 JSON、計算各範圍的統計
@@ -131,6 +132,7 @@ web/
     panels.js         進度卡、篩選、市場清單、攤商清單
     submit.js         補交頁：三層選單、確認／貼新網址、模擬送出
     urlcheck.js       Google 地圖網址檢查（規則同 import_excel.py 的 check_url）
+    env.js            判斷開發環境、讀開發開關的設定、補交頁的送出方式
     devtools.js       開發開關（任務 9），只在開發環境載入
   data/               匯入程式產生的 JSON
   assets/

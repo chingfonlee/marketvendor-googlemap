@@ -1,0 +1,70 @@
+/* 開發開關（任務 9）：只在開發環境由 devtools.js 載入 */
+
+/* ---------- 關掉的元件（docs/SVG_COMPONENTS.md §6） ---------- */
+[data-dev-off~="base"] .layer-base,
+[data-dev-off~="base"] .overlay-headline,
+[data-dev-off~="base"] .overlay-cat { visibility: hidden; }
+
+[data-dev-off~="labels"] .layer-labels,
+[data-dev-off~="labels"] .legend-toggle,
+[data-dev-off~="labels"] .legend,
+[data-dev-off~="labels"] .county-cards { display: none !important; }
+
+[data-dev-off~="stats"] .progress-card { display: none !important; }
+
+[data-dev-off~="list"] .filter-panel,
+[data-dev-off~="list"] .market-card,
+[data-dev-off~="list"] .vendor-card { display: none !important; }
+
+/* ---------- 面板 ---------- */
+.dev-fab {
+  position: fixed; left: 12px; bottom: 12px; z-index: 1000;
+  display: inline-flex; align-items: center; gap: 4px;
+  min-height: 32px; padding: 0 12px; border: 0; border-radius: 999px;
+  background: var(--navy); color: #fff; font: 700 13px/1 var(--font); letter-spacing: 1px;
+  box-shadow: var(--shadow-strong); cursor: pointer; opacity: 0.85;
+}
+.dev-fab:hover, .dev-fab:focus-visible, .dev-fab[aria-expanded="true"] { opacity: 1; }
+.dev-fab:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+/* 有開關不是預設值時加橘點，避免忘了關回來 */
+.dev-fab.is-changed::after {
+  content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+}
+.dev-alert {
+  display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 50%;
+  background: var(--not-submitted); font-size: 12px; letter-spacing: 0;
+}
+
+.dev-panel {
+  position: fixed; left: 12px; bottom: 56px; z-index: 1000;
+  width: min(320px, calc(100vw - 24px)); max-height: calc(100vh - 80px); overflow: auto;
+  padding: 14px 16px 16px; border-radius: var(--radius);
+  background: var(--card); color: var(--ink); font: 14px/1.4 var(--font);
+  box-shadow: var(--shadow-strong);
+}
+.dev-panel[hidden] { display: none; }
+.dev-head { display: flex; flex-direction: column; gap: 2px; margin-bottom: 10px; }
+.dev-head b { font-size: 16px; }
+.dev-head span { font-size: 12px; color: var(--muted); }
+.dev-warn {
+  margin: 0 0 10px; padding: 8px 10px; border-radius: 10px;
+  background: var(--not-submitted-soft); color: var(--not-submitted-text); font-size: 13px; font-weight: 700;
+}
+.dev-group { margin: 0 0 10px; padding: 0; border: 0; min-width: 0; }
+.dev-group legend { padding: 0; margin-bottom: 4px; font-size: 12px; font-weight: 700; color: var(--muted); }
+.dev-row {
+  display: flex; align-items: flex-start; gap: 10px; padding: 6px 4px; border-radius: 8px; cursor: pointer;
+}
+.dev-row:hover { background: var(--field); }
+.dev-row input { margin: 3px 0 0; width: 16px; height: 16px; accent-color: var(--primary); flex: none; }
+.dev-row span { display: flex; flex-direction: column; }
+.dev-row small { color: var(--muted); font-size: 12px; }
+.dev-reset {
+  width: 100%; min-height: var(--tap); border: 1px solid var(--line); border-radius: 10px;
+  background: var(--card); color: var(--body); font: 700 14px var(--font); cursor: pointer;
+}
+.dev-reset:hover { background: var(--field); }
+
+@media print {
+  .dev-fab, .dev-panel { display: none !important; }
+}

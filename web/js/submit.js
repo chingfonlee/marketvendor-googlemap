@@ -1,15 +1,20 @@
 // 補交／確認頁（docs/PLAN.md §5）：縣市 → 市場 → 攤商三層選單，確認現有連結或貼新網址。
-// 後端（任務 12）還沒建立，本機開發時模擬送出，紀錄存在這個瀏覽器；其他網域暫時不能送出。
+// 後端（任務 12）還沒建立：開發環境依開發開關模擬送出或打正式 API；正式環境暫時不能送出。
 
 import { data, loadData, marketFullName } from "./data.js";
 import { checkUrl } from "./urlcheck.js";
+import { IS_DEV, loadDevtools, submitMode } from "./env.js";
 
 const $ = (sel) => document.querySelector(sel);
 const LABEL = { verified: "已完成", submitted: "待確認", not_submitted: "未提交" };
 
-// 開發開關在任務 9 統一處理；在那之前只有本機會模擬送出
-const LOCAL = /^(localhost|127\.0\.0\.1|\[::1\])$|\.localhost$|\.test$/.test(location.hostname);
-const MODE = LOCAL ? "mock" : "off";
+const MODE = submitMode();   // "mock" | "api" | "off"
+const API = "/api/submissions";
+const MODE_TEXT = {
+  mock: "開發模式：模擬送出，紀錄只存在這個瀏覽器，不會送到伺服器。",
+  api: `開發模式：送到正式 API（${API}）。後端在任務 12 才建立，在那之前會送出失敗。`,
+  off: IS_DEV ? "開發模式：送出已關閉，畫面和目前的正式環境一樣。" : "補交功能還在準備中，暫時無法送出。",
+};
 
 const MOCK_KEY = "gm-submit-mock";
 const DEDUPE_MS = 24 * 3600 * 1000;   // 同一攤商、同一網址 24 小時內只收一次
@@ -78,6 +83,22 @@ function mockSubmit(record) {
   list.push({ ...record, ip: "127.0.0.1" });
   writeMock(list);
   return { ok: true };
+}
+
+// 正式 API：IP 由伺服器填；回應格式 { ok, error? } 在任務 12 定案
+async function apiSubmit(record) {
+  try {
+    const res = await fetch(API, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(record),
+    });
+    const body = await res.json().catch(() => ({}));
+    if (res.ok && body.ok !== false) return { ok: true };
+    return { ok: false, error: body.error || `送出失敗（伺服器回應 ${res.status}），請稍後再試。` };
+  } catch {
+    return { ok: false, error: "無法連線到伺服器，請稍後再試。" };
+  }
 }
 
 // ---------- 選單 ----------
@@ -245,8 +266,13 @@ async function onSubmit(e) {
   const btn = $(".sp-submit");
   btn.disabled = true;
   btn.textContent = "送出中…";
-  await new Promise((r) => setTimeout(r, 400));
-  const res = mockSubmit(record);
+  let res;
+  if (MODE === "mock") {
+    await new Promise((r) => setTimeout(r, 400));
+    res = mockSubmit(record);
+  } else {
+    res = await apiSubmit(record);
+  }
   btn.disabled = false;
   btn.textContent = "送出";
   if (!res.ok) {
@@ -347,10 +373,9 @@ async function start() {
   const mode = $(".sp-mode");
   mode.hidden = false;
   mode.dataset.mode = MODE;
-  mode.textContent = MODE === "mock"
-    ? "開發模式：模擬送出，紀錄只存在這個瀏覽器，不會送到伺服器。"
-    : "補交功能還在準備中，暫時無法送出。";
+  mode.textContent = MODE_TEXT[MODE];
   $(".sp-submit").disabled = MODE === "off";
+  if (IS_DEV) await loadDevtools("submit");
 
   readHash();
   bind();

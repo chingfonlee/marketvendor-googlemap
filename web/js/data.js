@@ -38,7 +38,7 @@ export async function loadData() {
   }
   for (const v of vendors) data.vendorsByMarket.get(v.market_id)?.push(v);
 
-  // 底圖換了但座標沒跟著更新時提醒（LAYER_ARCHITECTURE §4；開發面板在任務 9）
+  // 底圖換了但座標沒跟著更新時提醒（LAYER_ARCHITECTURE §4；開發開關面板讀這個標記顯示警告）
   if (manifest.basemap_source_sha256 !== labels.basemap_sha256) {
     console.warn("county-labels.json 的 basemap_sha256 和網頁使用的底圖不一致，標籤位置可能對不上");
     document.documentElement.dataset.basemapMismatch = "";
