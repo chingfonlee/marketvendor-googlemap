@@ -171,7 +171,7 @@ test("頁首補交按鈕：桌機（含 1024 寬）用完整文字，不和分�
   for (const [w, h] of [[1024, 768], [1280, 800]]) {
     const p = await open("web/index.html", { width: w, height: h });
     const shown = p.$$(".submit-link span").filter((s) => p.win.getComputedStyle(s).display !== "none");
-    eq(shown.map((s) => s.textContent), ["我是攤商，補交 Google 地圖連結"], `${w} 寬的按鈕文字`);
+    eq(shown.map((s) => s.textContent), ["我是攤商，確認或補交 Google 地圖連結"], `${w} 寬的按鈕文字`);
     eq(p.$$(".tab").map((t) => t.textContent.trim()), ["地圖總覽"], "分頁只有地圖總覽（統計報表、資料管理先不顯示）");
     const btn = p.$(".submit-link").getBoundingClientRect();
     const tabs = p.$(".tabs").getBoundingClientRect();
@@ -187,6 +187,11 @@ test("L 版（375 寬）：不放地圖，9 張縣市卡片", async () => {
   ok(p.$("main.map").hidden, "地圖不顯示");
   eq(p.$$(".county-label").length, 0, "不建立地圖標籤");
   eq(p.$$(".county-tile").map((t) => t.querySelector(".tile-head").textContent.trim()), ["全台", ...counties], "縣市卡片");
+  const shown = p.$$(".submit-link span").filter((s) => p.win.getComputedStyle(s).display !== "none");
+  eq(shown.map((s) => s.textContent), ["確認或補交連結"], "頁首按鈕文字");
+  const title = p.$(".brand-title");
+  ok(title.scrollWidth <= title.clientWidth + 1, "頁首標題沒有被切掉（放不下時在「・」後面換行）");
+  ok(p.$(".brand").getBoundingClientRect().right < p.$(".submit-link").getBoundingClientRect().left, "標題和按鈕不重疊");
 });
 
 test("L 版點縣市卡片：市場清單和攤商清單換成該縣市，點「全台」回去", async () => {
