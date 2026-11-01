@@ -214,3 +214,9 @@ npx wrangler pages deploy --branch main
 | [docs/ACCEPTANCE.md](docs/ACCEPTANCE.md) | 網頁整體驗收紀錄 |
 | [docs/DATA_ISSUES.md](docs/DATA_ISSUES.md) | 資料問題和處理結果 |
 | [design/README.md](design/README.md) | 設計稿和素材 |
+
+---
+
+## 9. 授權
+
+[MIT License](LICENSE)：可以自由使用、修改、再散布，包括商業用途，只要保留版權和授權聲明。
