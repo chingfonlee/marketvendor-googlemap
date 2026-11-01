@@ -31,7 +31,7 @@ body.stats-page::after { right: 0; transform: scaleX(-1); }
 .stats-main {
   position: relative; z-index: 1;
   max-width: 1440px; margin: 0 auto;
-  padding: 16px 24px 64px;
+  padding: 16px 24px 56px;
   display: grid; gap: var(--gap);
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -141,7 +141,8 @@ body.stats-page::after { right: 0; transform: scaleX(-1); }
   .st-overview-body .st-donut-lg { margin-left: 0; }
   .st-overview-body { gap: 20px; }
   .st-big { font-size: 34px; }
-  .st-sub { font-size: 13px; }
+  /* 圓環內圈約 134px，「已提交 217／347 家」一行會貼到圓環：分成兩行 */
+  .st-sub { font-size: 13px; display: flex; flex-direction: column; }
   .st-cat { width: 150px; right: 24px; top: 60px; }
   .st-legend { padding: 10px 12px; }
   .st-legend li { grid-template-columns: 16px minmax(0, 1fr) auto 36px; gap: 8px; }
@@ -154,7 +155,7 @@ body.stats-page::after { right: 0; transform: scaleX(-1); }
 @media (max-width: 1023px) {
   body.stats-page[data-layout] { --bar-h: 14px; }
   body.stats-page::before, body.stats-page::after { width: 160px; height: 120px; }
-  .stats-main { grid-template-columns: minmax(0, 1fr); padding: 16px 16px 48px; max-width: 720px; }
+  .stats-main { grid-template-columns: minmax(0, 1fr); padding: 16px 16px 48px; max-width: none; }
   .st-card { padding: 16px; gap: 12px; }
   .st-title { font-size: 18px; padding: 4px 16px 4px 12px; }
   .st-title .icon { width: 20px; height: 20px; }
