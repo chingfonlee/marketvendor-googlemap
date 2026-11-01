@@ -126,8 +126,8 @@
 | 6 | 正式資料匯入 | Claude | 照 §4；匯入報告的總數是 347（217／130／0），三種狀態加總等於總數，和總表各市場攤數一致；跑兩次結果相同；公開 JSON 沒有個資 | `scripts/import_excel.py`，[import-report.md](../reports/import-report.md) ✅ |
 | 7 | 網頁重組 | Claude | 讀正式 JSON；§2 的互動規則全部做到；三種狀態按鈕；圓環依縣市重算；地圖可縮放 | `web/index.html`、`web/css/`、`web/js/`；素材由 `scripts/build_web_assets.py` 產生，本機預覽 `python scripts/serve_web.py` ✅ |
 | 8 | 補交與確認頁（前端） | Claude | 照 §5；三層選單連動；網址格式檢查；確認／貼新網址兩種操作；模擬送出產生 §5 格式的紀錄 | `web/submit.html`、`web/js/submit.js`、`web/js/urlcheck.js`；本機（localhost）模擬送出，其他網域暫時不能送出 ✅ |
-| 9 | 開發開關 | Claude | 底圖、縣市標籤、互動、統計、清單、補交（模擬／正式）；正式環境無法開啟 | 等 7 |
-| 10 | 測試 | Claude | 正式資料快照：總數、各市場、各狀態加總正確；縣市→市場→攤商連動；網址檢查；邊界案例（空市場、全部完成） | `node --test "tests/*.test.mjs"`（43 項）、`python tests/serve_tests.py`（瀏覽器 21 項），見 [TESTING.md](TESTING.md)。全部通過（空市場 2 項已修）；開發開關等 9 做完再補 |
+| 9 | 開發開關 | Claude | 底圖、縣市標籤、互動、統計、清單、補交（模擬／正式）；正式環境無法開啟 | `web/js/env.js`、`web/js/devtools.js`、`web/css/devtools.css`；本機左下角「開發」按鈕，對應見 [SVG_COMPONENTS.md](SVG_COMPONENTS.md) §6 ✅ |
+| 10 | 測試 | Claude | 正式資料快照：總數、各市場、各狀態加總正確；縣市→市場→攤商連動；網址檢查；邊界案例（空市場、全部完成） | `node --test "tests/*.test.mjs"`（43 項）、`python tests/serve_tests.py`（瀏覽器 21 項），見 [TESTING.md](TESTING.md)。全部通過（空市場 2 項已修）；開發開關（任務 9）的測試待補 |
 | 11 | 網頁整體驗收 | Claude | 逐條核對 1～10 | 等 10 |
 | 12 | 補交紀錄的儲存（後端） | Claude | 使用者確認網頁後才開始。建立 Cloudflare；紀錄含 IP 和時間，可匯出 CSV；防重複、頻率限制、Turnstile；不覆蓋已確認資料 | 暫緩 |
 

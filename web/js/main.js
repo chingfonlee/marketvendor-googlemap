@@ -4,6 +4,7 @@ import { state, configure, subscribe, readHash } from "./state.js";
 import { data, loadData } from "./data.js";
 import { ensureMap, renderMap } from "./map.js";
 import { initPanels, renderPanels, setLayout } from "./panels.js";
+import { IS_DEV, loadDevtools } from "./env.js";
 
 const $ = (sel) => document.querySelector(sel);
 let layout = null;
@@ -58,6 +59,7 @@ async function start() {
   });
   initPanels();
   subscribe(render);
+  if (IS_DEV) await loadDevtools("overview");
   delete document.body.dataset.loading;
   applyLayout();
   readHash();
