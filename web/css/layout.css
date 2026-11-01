@@ -156,4 +156,6 @@ body[data-layout="l"] .submit-link .icon { display: none; }
 }
 @media (max-width: 359px) {
   body[data-layout="l"] .brand-title { font-size: 13px; }
+  /* 「國際友善力提升輔導・」一行放不下：只在「國際友善力」後面（<wbr>）再換一行，不要被切掉或斷在字中間 */
+  body[data-layout="l"] .brand-line { white-space: normal; word-break: keep-all; }
 }
