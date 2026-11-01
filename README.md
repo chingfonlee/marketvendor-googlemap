@@ -51,6 +51,7 @@ reports/        匯入報告
 tests/          自動測試
 design/         設計稿、素材原始檔、底圖和標籤座標
 docs/           規格和決策文件
+skills/         把這個專案的做法整理成的 Claude skill（見 §8）
 wrangler.toml   Cloudflare 設定（Pages 專案、D1）
 ```
 
@@ -214,3 +215,4 @@ npx wrangler pages deploy --branch main
 | [docs/ACCEPTANCE.md](docs/ACCEPTANCE.md) | 網頁整體驗收紀錄 |
 | [docs/DATA_ISSUES.md](docs/DATA_ISSUES.md) | 資料問題和處理結果 |
 | [design/README.md](design/README.md) | 設計稿和素材 |
+| [skills/image-svg-web-pipeline/SKILL.md](skills/image-svg-web-pipeline/SKILL.md) | 這整套流程（設計圖 → SVG → 網頁 → 測試 → 後端上線）整理成的 Claude skill。複製到 `~/.claude/skills/` 就能在新專案重複使用 |
