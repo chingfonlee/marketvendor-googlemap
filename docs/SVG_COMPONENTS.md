@@ -34,13 +34,13 @@
 
 吉祥物對應：
 
-| 畫面位置 | 最接近的現有素材 |
-|---|---|
-| 左上女孩 | `mascot-girl-vendor.png` 或 `mascot-girl-stall.png` |
-| 地圖上的貓 | `mascot-cat-map.png` |
-| 左下的貓 | `mascot-cat-megaphone.png` |
+| 畫面位置 | 素材 | 網頁檔案 |
+|---|---|---|
+| 左上女孩 | `mascot-girl-vendor.png` | `web/assets/mascots/girl.webp` |
+| 地圖上的貓 | `mascot-cat-map.png` | `web/assets/mascots/cat-camera.webp` |
+| 左下的貓 | `mascot-cat-megaphone.png` | `web/assets/mascots/cat-megaphone.webp` |
 
-這三組對應是我依檔名推的，**需要你目視確認**。
+使用者 2026-11-01 在任務 11 驗收時確認這三張（網頁檔案由 `scripts/build_web_assets.py` 產生）。
 
 手機和平板直向的清單版沒有地圖（[RESPONSIVE_LAYOUT.md](RESPONSIVE_LAYOUT.md) §4.5）：拿相機的貓放在進度卡右上角，拿大聲公的貓和狀態說明放在頁尾，不放女孩。
 
@@ -91,13 +91,13 @@
 
 | 暫用素材 | 正式 | 狀態 |
 |---|---|---|
-| `assets/map-taiwan.png` | A25 重做版 | 等任務 2 |
-| `assets/logo-stall.png` | `final/logo-stall.png` | 可替換 |
-| `assets/mascot-chef.png` | 女孩插畫（見 §1） | 待你確認 |
-| `assets/mascot-cat-wave.png` | `final/mascot-cat-map.png`、`mascot-cat-megaphone.png` | 待你確認 |
+| `assets/map-taiwan.png` | 使用者提供的水彩底圖（`web/assets/map-base.webp`，見 [BASEMAP_REVIEW.md](BASEMAP_REVIEW.md)） | ✅ 已替換 |
+| `assets/logo-stall.png` | `final/logo-stall.png`（`web/assets/logo.webp`） | ✅ 已替換 |
+| `assets/mascot-chef.png` | `final/mascot-girl-vendor.png`（見 §1） | ✅ 已替換，2026-11-01 確認 |
+| `assets/mascot-cat-wave.png` | `final/mascot-cat-map.png`、`mascot-cat-megaphone.png` | ✅ 已替換，2026-11-01 確認 |
 | `assets/food/*.png` | 不用（沒有品類資料） | — |
 | `assets/stall-photo-sample.png`、`minimap-sample.png`、`map-corner.png` | 不用 | — |
-| `map-view.svg` 的標語對話框 | HTML 標語 | 要新做 |
+| `map-view.svg` 的標語對話框 | HTML 標語 | ✅ 已做（`web/js/map.js`） |
 
 ## 6. 開發開關對應
 

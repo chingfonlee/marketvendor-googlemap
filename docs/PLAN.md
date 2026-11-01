@@ -118,7 +118,7 @@
 | # | 任務 | 誰做 | 驗收標準 | 狀態 |
 |---|---|---|---|---|
 | 0 | Git 基準 | Claude | `a0fd11d` 設計基準、`f5a8ad8` A25 定稿 | ✅ |
-| 1 | SVG 元件盤點 | Claude | `SVG_COMPONENTS.md`：每個元件標明沿用、調整或新增，對到本計畫的畫面和開關 | 修訂中 |
+| 1 | SVG 元件盤點 | Claude | `SVG_COMPONENTS.md`：每個元件標明沿用、調整或新增，對到本計畫的畫面和開關 | [SVG_COMPONENTS.md](SVG_COMPONENTS.md) ✅（吉祥物 2026-11-01 確認） |
 | 2 | 底圖 | 出圖 Codex，驗收 Claude | 已改用使用者提供的水彩底圖，FSRCNN 放大成 2048×3072（SHA-256 開頭 `c3586c0f`），見 [BASEMAP_REVIEW.md](BASEMAP_REVIEW.md) | ✅ |
 | 3 | 圖層架構 | Claude | 地圖內：底圖、裝飾、縣市標籤（8 個）、選取效果。地圖外：統計、篩選、市場清單、攤商清單。寫清楚篩選狀態和連動規則（§2） | [LAYER_ARCHITECTURE.md](LAYER_ARCHITECTURE.md) ✅ |
 | 4 | 縣市標籤位置 | Claude | 圓角卡片（名稱、市場數、攤商數）；8 個縣市的大約位置寫在 `design/assets/final/map-taiwan-base.labels.json`（viewBox 0 0 1024 1536，和底圖 SHA 綁定），預覽由 `design/tools/label_overlay.ps1` 產生；桌機和手機尺寸都不重疊 | [COUNTY_LABELS.md](COUNTY_LABELS.md) ✅ |
@@ -128,7 +128,7 @@
 | 8 | 補交與確認頁（前端） | Claude | 照 §5；三層選單連動；網址格式檢查；確認／貼新網址兩種操作；模擬送出產生 §5 格式的紀錄 | `web/submit.html`、`web/js/submit.js`、`web/js/urlcheck.js`；本機（localhost）模擬送出，其他網域暫時不能送出 ✅ |
 | 9 | 開發開關 | Claude | 底圖、縣市標籤、互動、統計、清單、補交（模擬／正式）；正式環境無法開啟 | `web/js/env.js`、`web/js/devtools.js`、`web/css/devtools.css`；本機左下角「開發」按鈕，對應見 [SVG_COMPONENTS.md](SVG_COMPONENTS.md) §6 ✅ |
 | 10 | 測試 | Claude | 正式資料快照：總數、各市場、各狀態加總正確；縣市→市場→攤商連動；網址檢查；邊界案例（空市場、全部完成） | `node --test "tests/*.test.mjs"`（52 項）、`python tests/serve_tests.py`（瀏覽器 31 項，含開發開關和正式環境），見 [TESTING.md](TESTING.md)。全部通過（空市場 2 項已修） ✅ |
-| 11 | 網頁整體驗收 | Claude | 逐條核對 1～10 | 等 10 |
+| 11 | 網頁整體驗收 | Claude | 逐條核對 1～10 | [ACCEPTANCE.md](ACCEPTANCE.md)：1～10 都通過，自動測試 52＋31 項全部通過；§2 的 4 項都已決定（吉祥物確認、搜尋框位置照實測改文件、放大時標籤被縮放鈕蓋到不改、加 `.gitattributes`），3 項只能人工驗（§3）。等驗收 |
 | 12 | 補交紀錄的儲存（後端） | Claude | 使用者確認網頁後才開始。建立 Cloudflare；紀錄含 IP 和時間，可匯出 CSV；防重複、頻率限制、Turnstile；不覆蓋已確認資料 | 暫緩 |
 
 ## 7. 未來擴充（不阻擋第一版）
