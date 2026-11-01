@@ -95,7 +95,8 @@ body[data-layout="l"] aside.left { padding-top: var(--gap); }
 body[data-layout="l"] aside.right { padding-top: var(--gap); }
 body[data-layout="l"] .site-footer { padding-top: 24px; padding-bottom: calc(24px + env(safe-area-inset-bottom)); align-items: center; }
 body[data-layout="l"] .site-header { position: sticky; top: 0; z-index: 20; }
-body[data-layout="l"] [id] { scroll-margin-top: calc(var(--hdr) + 16px); }
+body[data-layout="l"] { --tabs-h: 48px; }
+body[data-layout="l"] [id] { scroll-margin-top: calc(var(--hdr) + var(--tabs-h) + 16px); }
 
 /* ---------- 頁首 ---------- */
 .site-header {
@@ -133,8 +134,19 @@ body[data-layout="l"] [id] { scroll-margin-top: calc(var(--hdr) + 16px); }
 }
 
 /* 手機的字體設定放大時，標題可能換成三行：頁首跟著長高，不要把字切掉 */
-body[data-layout="l"] .site-header { height: auto; min-height: var(--hdr); padding: 4px 16px; gap: 8px; }
-body[data-layout="l"] .tabs { display: none; }
+body[data-layout="l"] .site-header { height: auto; min-height: calc(var(--hdr) + var(--tabs-h)); padding: 4px 16px 0; gap: 8px; flex-wrap: wrap; }
+/* 頁首可以換行是為了讓分頁排到第二列：標題要先縮、先換行，按鈕不能被擠下去 */
+body[data-layout="l"] .brand { flex: 1 1 0; }
+/* 精簡版分頁：頁首下方一列，兩格各半（RESPONSIVE_LAYOUT 決定 J、§13.3） */
+body[data-layout="l"] .tabs {
+  order: 3; flex: 1 0 100%; margin: 4px -16px 0; gap: 0;
+  border-top: 1px solid var(--line-soft);
+}
+body[data-layout="l"] .tab {
+  flex: 1 1 0; justify-content: center; height: var(--tabs-h); padding: 0 8px;
+  border-radius: 0; font-size: 15px;
+}
+body[data-layout="l"] .tab[aria-current="page"] { background: none; box-shadow: inset 0 -4px 0 var(--primary); }
 body[data-layout="l"] .brand-logo { width: 40px; height: 40px; }
 body[data-layout="l"] .brand-title { font-size: 15px; }
 body[data-layout="l"] .brand-sub { display: none; }

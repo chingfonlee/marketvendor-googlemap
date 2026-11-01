@@ -36,15 +36,17 @@ img { max-width: 100%; }
 .sp-brand-title { font-size: 17px; font-weight: 900; color: #3B2A1A; line-height: 1.2; }
 .sp-brand-line { display: inline-block; white-space: nowrap; }
 .sp-dot { color: var(--accent); }
-.sp-back {
-  margin-left: auto; flex: none; display: inline-flex; align-items: center; gap: 4px;
-  min-height: 44px; padding: 0 14px 0 8px; border-radius: 12px;
+/* 分頁：補交頁不是其中一頁，兩個都不是選中狀態（PLAN §2，2026-11-01 取代「回地圖總覽」） */
+.sp-tabs { margin-left: auto; flex: none; display: flex; gap: 6px; }
+.sp-tab {
+  display: inline-flex; align-items: center; gap: 4px;
+  min-height: 44px; padding: 0 14px 0 10px; border-radius: 12px;
   background: var(--primary-soft); color: var(--primary); font-weight: 700; text-decoration: none;
 }
 @media (max-width: 479px) {
   .sp-brand-title { font-size: 15px; }
-  .sp-back span { display: none; }
-  .sp-back { padding: 0 10px; min-width: 44px; justify-content: center; }
+  .sp-tab span { display: none; }
+  .sp-tab { padding: 0 10px; min-width: 44px; justify-content: center; }
 }
 
 /* ---------- 卡片 ---------- */

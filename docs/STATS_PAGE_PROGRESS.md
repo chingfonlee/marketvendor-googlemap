@@ -12,7 +12,7 @@
 
 ## 1. 現在在哪裡
 
-> **第 0 階段（設計基準）的示意圖已完成，第 2 階段（元件盤點）和第 3 階段（素材需求）的規格草稿已完成。§4 的 D1～D7 和 §4.1 入口（A＋B）都已決定（2026-11-01）。設計基準已 commit（分支 `claude/stats-page`，`e8254d6`）。第 1 階段 PLAN 已更新並 commit（`d2e9752`），`SVG_COMPONENTS.md` 的分頁和進度卡規則也改了。素材 S01～S03、S05 已生成並驗收（`design/assets/review/stats/ACCEPTANCE.md`，4 張都可用），使用者確認（2026-11-01），已存到 `design/assets/final/stats/`，commit `b624506`。SVG 組件和響應式規格（PLAN 任務 15）已完成，使用者驗收通過（2026-11-01）：`design/tools/build_stats_svg.py` 產生 9 個 SVG，截圖在 `design/assets/review/stats/svg/`。下一步：§5 第 8 項網頁實作（PLAN 任務 16）。**
+> **第 0 階段（設計基準）的示意圖已完成，第 2 階段（元件盤點）和第 3 階段（素材需求）的規格草稿已完成。§4 的 D1～D7 和 §4.1 入口（A＋B）都已決定（2026-11-01）。設計基準已 commit（分支 `claude/stats-page`，`e8254d6`）。第 1 階段 PLAN 已更新並 commit（`d2e9752`），`SVG_COMPONENTS.md` 的分頁和進度卡規則也改了。素材 S01～S03、S05 已生成並驗收（`design/assets/review/stats/ACCEPTANCE.md`，4 張都可用），使用者確認（2026-11-01），已存到 `design/assets/final/stats/`，commit `b624506`。SVG 組件和響應式規格（PLAN 任務 15）已完成，使用者驗收通過（2026-11-01），commit `7011cc7`：`design/tools/build_stats_svg.py` 產生 9 個 SVG，截圖在 `design/assets/review/stats/svg/`。網頁（PLAN 任務 16）已完成，使用者驗收通過（2026-11-01），已 commit。下一步：§5 第 9 項測試（PLAN 任務 17）。**
 > 之後的任務編號以 PLAN §6 為準（任務 13～19），本文件 §5 的對照見該表最後一欄。
 
 ---
@@ -47,7 +47,7 @@
 | 5 | 疊圖座標 | — 不需要 | 統計頁沒有疊在底圖上的元素 |
 | 6 | 響應式版面 | ✅ 完成 | 手機版照 v2 手機示意圖，單欄，順序 ①②③④。要寫進 `docs/RESPONSIVE_LAYOUT.md`。舊規則「手機不顯示分頁」已在 `SVG_COMPONENTS.md` 標成作廢，RESPONSIVE_LAYOUT 在 PLAN 任務 15 改 |
 | 7 | 資料匯入 | ✅ 不用改 | `web/data/markets.json` 已有 `county`、`type`、`counts`，足夠算出所有圖表。`web/js/data.js` 已有 `countyStats`、`countByStatus` 可以重用 |
-| 8 | 網頁組成 | ⬜ | 照 `stats-page-assets.md` §二、§五 |
+| 8 | 網頁組成 | ✅ | 照 `stats-page-assets.md` §二、§五 |
 | 9 | 表單 | — 不需要 | |
 | 10 | 開發開關 | — 不需要 | D7：不加 |
 | 11 | 測試 | ⬜ | 照 `stats-page-assets.md` §五.6 的 7 項，加進 `tests/` |
@@ -105,7 +105,7 @@
 | 5 | 素材驗收 | Claude → 使用者 | ✅ 2026-11-01 使用者確認，定稿存到 `design/assets/final/stats/`（驗收 `design/assets/review/stats/ACCEPTANCE.md`）。S03 偏小，轉 WebP 時統一裁邊處理 |
 | 6 | SVG 組件 | Claude | ✅ 2026-11-01：`build_stats_svg.py`、9 個 SVG、`SVG_COMPONENTS.md` §7 |
 | 7 | 響應式規格 | Claude | ✅ 2026-11-01：`RESPONSIVE_LAYOUT.md` 決定 J、§13 |
-| 8 | 網頁實作 | Claude | `web/stats.html`，只讀 `markets.json`，不寫死數字；素材由 `scripts/build_web_assets.py` 轉成 WebP；三頁頁首都有「地圖總覽／統計報表」分頁；地圖頁進度卡加「看完整統計 →」連結 |
+| 8 | 網頁實作 | Claude | ✅ 2026-11-01 完成，使用者驗收通過。`web/stats.html`，只讀 `markets.json`，不寫死數字；素材由 `scripts/build_web_assets.py` 轉成 WebP；三頁頁首都有「地圖總覽／統計報表」分頁；地圖頁進度卡加「看完整統計 →」連結 |
 | 9 | 測試 | Claude | `stats-page-assets.md` §五.6 的 7 項自動測試，加上原有測試全部通過 |
 | 10 | 整體驗收 | Claude → 使用者 | `docs/ACCEPTANCE.md` 新增一節；桌機和手機實際打開截圖，和示意圖並排比較 |
 | 11 | README、部署 | Claude（部署前先問） | README 加統計頁；部署指令要加 `--branch main` |
@@ -119,6 +119,14 @@
 - **示意圖的待加強市場第三名是錯的**：示意圖寫臺東市觀光夜市（43%），照規則算應該是鄭仔寮花園夜市（7/20，35%）。網頁照規則算。
 - **長條上很小的段會被圓角切掉**：最小寬度改成「長條高度的一半＋2px」，已寫進 `stats-page-assets.md` §五.4。
 - **手機圖例放不下百分比**：「審核中」會和數字重疊，手機版圖例只顯示家數。
+
+### 5.2 做網頁時發現的事（2026-11-01）
+
+- **1024～1279 寬的 2×2**：卡片只有約 430 寬，① 的貓會擋到圖例。加了一組縮小尺寸，寫進 RESPONSIVE_LAYOUT §13.2。
+- **手機頁首**：分頁列放到第二列後，「確認連結」按鈕會被擠下去。標題改成先縮小、先換行。
+- **手機甜甜圈中間**：「已提交 217／347 家」放不下，分成兩行。
+- **補交頁頁首**：原本的「回地圖總覽」換成「地圖總覽」「統計報表」兩個分頁（手機只顯示圖示）。
+- **`web/assets/bg-form.webp` 沒有動**：重跑 `build_web_assets.py` 會產生和 git 裡不同的檔案（之前的 commit `859701b` 是另外做的），這次還原了，沒有放進變更。之後重跑素材腳本要注意。
 
 ## 6. 檔案位置（重要）
 

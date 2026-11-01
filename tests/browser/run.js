@@ -207,7 +207,7 @@ test("頁首補交按鈕：桌機（含 1024 寬）用完整文字，不和分�
     const p = await open("web/index.html", { width: w, height: h });
     const shown = p.$$(".submit-link span").filter((s) => p.win.getComputedStyle(s).display !== "none");
     eq(shown.map((s) => s.textContent), ["我是攤商，確認或補交 Google 地圖連結"], `${w} 寬的按鈕文字`);
-    eq(p.$$(".tab").map((t) => t.textContent.trim()), ["地圖總覽"], "分頁只有地圖總覽（統計報表、資料管理先不顯示）");
+    eq(p.$$(".tab").map((t) => t.textContent.trim()), ["地圖總覽", "統計報表"], "分頁：地圖總覽、統計報表（資料管理先不顯示）");
     const btn = p.$(".submit-link").getBoundingClientRect();
     const tabs = p.$(".tabs").getBoundingClientRect();
     ok(btn.left - tabs.right >= 8 && btn.right <= w, `${w} 寬：按鈕和分頁間距 ${Math.round(btn.left - tabs.right)}px`);
