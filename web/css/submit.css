@@ -32,7 +32,9 @@ img { max-width: 100%; }
 }
 .sp-brand { display: flex; align-items: center; gap: 10px; min-width: 0; min-height: 44px; color: inherit; text-decoration: none; }
 .sp-brand img { width: 40px; height: 40px; object-fit: contain; flex: none; }
-.sp-brand-title { font-size: 17px; font-weight: 900; color: #3B2A1A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* 放不下一行時在「・」後面換成兩行，和總覽頁一樣 */
+.sp-brand-title { font-size: 17px; font-weight: 900; color: #3B2A1A; line-height: 1.2; }
+.sp-brand-line { display: inline-block; white-space: nowrap; }
 .sp-dot { color: var(--accent); }
 .sp-back {
   margin-left: auto; flex: none; display: inline-flex; align-items: center; gap: 4px;
