@@ -301,7 +301,8 @@ test("已完成的店不能再「確認」，只能貼新網址（交給人工�
 test("全部完成的縣市：完成率 100%", async () => {
   const p = await open("fx/edge/index.html#county=" + encodeURIComponent("臺北市"));
   eq(p.text(".donut-value"), "3", "圓環總數");
-  ok(p.text(".progress-legend .total").includes("100%"), `完成率：${p.text(".progress-legend .total")}`);
+  eq(p.$$(".progress-legend li").map((li) => li.textContent.replace(/\s+/g, " ").trim()),
+    ["已完成 3 (100%)", "待確認 0 (0%)", "未提交 0 (0%)"], "圖例只有三種狀態");
   await p.click('.status-btn[data-status="not_submitted"]');
   ok(!p.$(".empty-state").hidden, "篩未提交時是空清單");
   eq(p.text(".empty-text"), "這個範圍還沒有未提交的攤商", "提示文字");
@@ -329,7 +330,8 @@ test("有標籤但沒有市場的縣市：點了不出錯，圓環 0、完成率
   eq(p.$("#county-select").value, c, "縣市");
   eq(p.$$(".market-row").length, 0, "市場列");
   eq(p.text(".donut-value"), "0", "圓環");
-  ok(p.text(".progress-legend .total").includes("0%"), `完成率：${p.text(".progress-legend .total")}`);
+  eq(p.$$(".progress-legend li").map((li) => li.textContent.replace(/\s+/g, " ").trim()),
+    ["已完成 0 (0%)", "待確認 0 (0%)", "未提交 0 (0%)"], "圖例三種狀態都是 0");
   ok(!/NaN|undefined/.test(p.doc.body.textContent), "畫面上沒有 NaN 或 undefined");
 });
 

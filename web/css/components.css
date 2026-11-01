@@ -45,7 +45,6 @@
 .progress-legend .dot { width: 10px; height: 10px; border-radius: 50%; }
 .progress-legend b { font-size: 14px; }
 .progress-legend small { color: var(--muted); font-weight: 400; }
-.progress-legend .total { border-top: 1px dashed var(--line); padding-top: 6px; color: var(--body); }
 /* 窄的左欄（D 緊湊 280px）：圓環縮小，圖例數字換到第二行 */
 .progress-card { container-type: inline-size; }
 @container (max-width: 340px) {

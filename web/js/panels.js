@@ -249,8 +249,7 @@ function renderProgress(s) {
 
   $(".progress-legend").innerHTML = STATUSES.map((k) => `
     <li><span class="dot" style="background:${COLOR[k]}"></span><span>${LABEL[k]}</span>
-      <b>${st.counts[k]} <small>(${pct(st.counts[k], total)}%)</small></b></li>`).join("") +
-    `<li class="total"><span></span><span>完成率</span><b>${pct(st.counts.verified, total)}%</b></li>`;
+      <b>${st.counts[k]} <small>(${pct(st.counts[k], total)}%)</small></b></li>`).join("");
 }
 
 function renderCountyTiles(s) {
