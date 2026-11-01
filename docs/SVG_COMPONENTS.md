@@ -128,7 +128,7 @@ python design/tools/build_stats_svg.py
 | ① 全台登錄進度 | `components/stats-overview-card.svg` | HTML＋SVG 甜甜圈 | 甜甜圈（綠黃紅）、中間已提交比例（小數一位）、「已提交 X／Y 家」、3 列圖例（家數、百分比；已完成 = 0 時加「審核中」）、資料更新日期（`meta.json` 的 `updated`）、拿地圖的貓 | — |
 | ② 各縣市提交比例 | `components/stats-county-card.svg` | HTML `<template>` | 每個縣市一列：皇冠（並列第一都有）、縣市名、比例條、百分比；列數和排序由資料決定 | — |
 | ③ 市場類型比較 | `components/stats-types-card.svg` | HTML＋SVG 甜甜圈 | 每個類型一欄：類型圖示（`final/stats/stats-type-*.png`）、名稱、小甜甜圈；沒有市場的類型不顯示 | — |
-| ④ 待加強市場 | `components/stats-weak-card.svg` | HTML `<template>` | 已提交比例最低的 3 個市場（不含 100%）：類型圖示、市場名、比例條、「已提交/總數」；全部 100% 時顯示「所有市場都已提交，太棒了！」；拿大聲公的貓 | — |
+| ④ 最強友善力市集 | `components/stats-top-card.svg` | HTML `<template>` | 已提交比例最高的 3 個市場（不含 0%）：類型圖示、市場名、比例條、「已提交/總數」；全部 0% 時顯示「還沒有市場提交，一起加油！」；拿大聲公的貓。2026-11-01 從「待加強市場」改過來 | — |
 | 比例條 RatioBar | `atoms/stats-atoms.svg` | HTML（3 個 `<span>`，外層 `overflow: hidden` 加圓角） | 綠黃紅 100% 堆疊；0%、29%、85%、100%、三段、很小的段 | — |
 | 甜甜圈 Donut | `atoms/stats-atoms.svg` | SVG `circle` ＋ `stroke-dasharray` | 已完成 = 0／> 0 兩種示範 | — |
 | 圖示 `crown`、`pie` | `atoms/stats-atoms.svg` | 加進 `web/assets/icons.svg` | 第一名、市場類型卡標題 | — |
@@ -140,7 +140,7 @@ python design/tools/build_stats_svg.py
 
 | 項目 | 示意圖 v2 | SVG（以這裡為準） | 原因 |
 |---|---|---|---|
-| ④ 第三個待加強市場 | 臺東市觀光夜市 21/49 | **鄭仔寮花園夜市 7/20** | 示意圖的 3 個市場是寫提示詞時手選的。照規則算，鄭仔寮 35% 比臺東 43% 低。網頁照規則算 |
+| ④ 卡片內容 | 「待加強市場」：比例最低的 3 個 | **「最強友善力市集」：比例最高的 3 個** | 2026-11-01 使用者決定改成正面的排行。標題圖示從標靶改成皇冠（舊紀錄：示意圖的第三個待加強市場臺東 43% 是手選的，照規則應是鄭仔寮 35%，改版後已無關） |
 | 頁首 | 「臺灣攤商地圖・統計報表」 | 和地圖頁相同的頁首，分頁「統計報表」選中 | 三頁共用頁首（PLAN §2） |
 | 右上街景 | 有 | 沒有 | D4：S04 不做 |
 | 甜甜圈圖例 | 只有家數 | 桌機加百分比；已完成 = 0 時加「審核中」 | stats-page-assets §二 特殊狀態 1 |

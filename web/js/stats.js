@@ -2,7 +2,7 @@
 // 頁首照 --layout 切換 D／L 樣式（和總覽頁共用 layout.css），內容的 2×2／單欄由 stats.css 的寬度決定。
 
 import {
-  KEYS, TYPES, total, done, pctText, overall, countyRows, typeRows, weakRows, barWidths, donutSegments, typeOf,
+  KEYS, TYPES, total, done, pctText, overall, countyRows, typeRows, topRows, barWidths, donutSegments, typeOf,
 } from "./stats-calc.js";
 
 const $ = (sel) => document.querySelector(sel);
@@ -73,12 +73,12 @@ function renderTypes(rows) {
     </li>`).join("");
 }
 
-function renderWeak(rows) {
-  $(".st-weak-empty").hidden = rows.length > 0;
-  $(".st-weak-list").innerHTML = rows.map((m) => `
+function renderTop(rows) {
+  $(".st-top-empty").hidden = rows.length > 0;
+  $(".st-top-list").innerHTML = rows.map((m) => `
     <li>
       <img src="${typeIcon(typeOf(m))}" alt="" width="40" height="40">
-      <span class="st-weak-name">${esc(m.name)}</span>
+      <span class="st-top-name">${esc(m.name)}</span>
       ${bar(m.counts)}
       <b class="st-frac">${done(m.counts)}/${total(m.counts)}</b>
       <span class="sr-only">（已提交 ${pctText(m.counts)}；${detail(m.counts)}）</span>
@@ -112,7 +112,7 @@ async function start() {
   renderOverview(all, meta.updated);
   renderCounties(countyRows(markets));
   renderTypes(typeRows(markets));
-  renderWeak(weakRows(markets));
+  renderTop(topRows(markets));
   delete document.body.dataset.loading;
 }
 

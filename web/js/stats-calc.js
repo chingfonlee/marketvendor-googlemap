@@ -3,7 +3,7 @@
 
 export const KEYS = ["verified", "submitted", "not_submitted"];
 export const TYPES = ["night_market", "traditional_market", "other"];
-export const WEAK_N = 3;          // 待加強市場列幾個（D5）
+export const TOP_N = 3;           // 最強友善力市集列幾個（D5）
 export const MIN_DONUT_SEG = 2;   // 甜甜圈：家數 > 0 的段至少幾 px
 
 export const zero = () => ({ verified: 0, submitted: 0, not_submitted: 0 });
@@ -55,12 +55,12 @@ export function typeRows(markets) {
   return TYPES.filter((t) => g.has(t)).map((type) => ({ type, counts: g.get(type) }));
 }
 
-// 已提交比例最低的 n 個，不含 100%；同比例未提交多的在前
-export function weakRows(markets, n = WEAK_N) {
+// 最強友善力市集：已提交比例最高的 n 個，不含 0%；同比例總數多的在前，再照 ID
+export function topRows(markets, n = TOP_N) {
   return markets
-    .filter((m) => total(m.counts) && ratio(m.counts) < 1)
-    .sort((a, b) => ratio(a.counts) - ratio(b.counts) ||
-      b.counts.not_submitted - a.counts.not_submitted || a.id.localeCompare(b.id))
+    .filter((m) => done(m.counts) > 0)
+    .sort((a, b) => ratio(b.counts) - ratio(a.counts) ||
+      total(b.counts) - total(a.counts) || a.id.localeCompare(b.id))
     .slice(0, n);
 }
 
@@ -77,16 +77,15 @@ export function barWidths(c, minPct = 0) {
   return w;
 }
 
-// 甜甜圈三段：[{ key, len, offset }]，len、offset 是圓周上的長度
+// 甜甜圈三段：[{ key, len, offset }]，len、offset 是圓周上的長度。
+// 家數 > 0 的段至少 MIN_DONUT_SEG，補出來的從最長的段扣回，加起來剛好一圈。
 export function donutSegments(c, circumference) {
   const n = total(c);
-  const out = [];
+  if (!n) return [];
+  const out = KEYS.filter((k) => c[k]).map((key) => ({ key, len: Math.max((c[key] / n) * circumference, MIN_DONUT_SEG) }));
+  const over = out.reduce((s, x) => s + x.len, 0) - circumference;
+  if (over > 0) out.reduce((a, b) => (b.len > a.len ? b : a)).len -= over;
   let acc = 0;
-  for (const k of KEYS) {
-    if (!c[k]) continue;
-    const len = Math.max((c[k] / n) * circumference, MIN_DONUT_SEG);
-    out.push({ key: k, len, offset: acc });
-    acc += len;
-  }
+  for (const x of out) { x.offset = acc; acc += x.len; }
   return out;
 }

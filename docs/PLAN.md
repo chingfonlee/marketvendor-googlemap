@@ -44,7 +44,7 @@
 | ① 全台登錄進度 | 大甜甜圈（綠黃紅三段）、中間已提交比例（小數一位）和「已提交 X／Y 家」、三種狀態圖例、拿地圖的貓 |
 | ② 各縣市提交比例 | 每個縣市一條 100% 堆疊長條（綠黃紅），依已提交比例由高到低排，第一名有皇冠 |
 | ③ 市場類型比較 | 夜市、傳統市場、美食廣場各一個小甜甜圈，配類型圖示 |
-| ④ 待加強市場 | 已提交比例最低的 3 個市場（設定值），每個一條進度條和「已提交／總數」；拿大聲公的貓 |
+| ④ 最強友善力市集 | 已提交比例最高的 3 個市場（設定值，0% 的不列），每個一條進度條和「已提交／總數」；拿大聲公的貓。2026-11-01 從「待加強市場」（最低的 3 個）改過來 |
 
 - 桌機 2×2；手機單欄，順序 ①②③④。
 - 只讀 `web/data/markets.json`，所有數字、列數、排序都由程式算，不寫死。規則見 `stats-page-assets.md` §五。
@@ -159,7 +159,7 @@
 | 14 | 統計頁素材 | 出圖 Codex，驗收 Claude | S01～S03 市場類型圖示、S05 角落樹叢；透明背景、沒有文字；S01～S03 縮到 40×40 分得出來；畫風和吉祥物一致（`stats-page-assets.md` §三、§四） | `design/assets/final/stats/`，驗收見 `design/assets/review/stats/ACCEPTANCE.md` ✅ |
 | 15 | SVG 組件與響應式規格 | Claude | `stats-*.svg`（4 張卡片、`crown`／`pie`／`ratio-bar`／`cloud`、桌機和手機兩頁，含 §二 的特殊狀態示範）；`SVG_COMPONENTS.md`、`RESPONSIVE_LAYOUT.md` 加統計頁，並把「手機不顯示分頁」的舊規則改掉 | `design/tools/build_stats_svg.py` 產生 9 個 SVG；[SVG_COMPONENTS.md](SVG_COMPONENTS.md) §7、[RESPONSIVE_LAYOUT.md](RESPONSIVE_LAYOUT.md) 決定 J、§13；截圖 `design/assets/review/stats/svg/`（本機） ✅ |
 | 16 | 網頁實作 | Claude | `web/stats.html`；只讀 `markets.json`；三頁頁首都有分頁；地圖頁進度卡有「看完整統計 →」；素材轉成 WebP | `web/stats.html`、`web/js/stats.js`、`web/js/stats-calc.js`（純計算，可給 Node 測試）、`web/css/stats.css`；頁首分頁改在 `index.html`、`layout.css`（手機分頁列）、`submit.html`／`submit.css`（「回地圖總覽」換成兩個分頁）；素材由 `scripts/build_web_assets.py` 產生到 `web/assets/stats/`。原有測試 Node 66、瀏覽器 31 項全部通過。✅ 使用者驗收通過（2026-11-01） |
-| 17 | 測試 | Claude | `stats-page-assets.md` §五.6 的 7 項（用假資料測圖表跟著變），原有測試全部通過 | |
+| 17 | 測試 | Claude | `stats-page-assets.md` §五.6 的 7 項（用假資料測圖表跟著變），原有測試全部通過 | Node `tests/stats.test.mjs` 8 項（7 項＋空資料）；瀏覽器 5 項，假資料在 `tests/fixtures/stats-changed`、`stats-done`、`stats-empty`。全部 Node 74、瀏覽器 36 項通過。測試時修了 2 個問題（甜甜圈最小段沒扣回、1024 寬斷點在非整數縮放時失效），見 [TESTING.md](TESTING.md) §2.5.2。驗收時 ④ 改成「最強友善力市集」（§2.1），測試跟著改，全部通過。✅ 使用者驗收通過（2026-11-01） |
 | 18 | 整體驗收 | Claude → 使用者 | `ACCEPTANCE.md` 新增統計頁一節；桌機、手機實際截圖和示意圖並排比較 | |
 | 19 | README、部署 | Claude（部署前先問） | README 加統計頁；`--branch main` 部署 | |
 

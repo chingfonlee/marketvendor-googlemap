@@ -520,6 +520,116 @@ test("開發開關：選「正式 API」時先過 Turnstile（測試金鑰），
   ok(p.$(".sp-done").hidden, "沒有顯示完成");
 });
 
+// ================= 統計報表頁（任務 17，stats-page-assets §五.6） =================
+const S = await import("/web/js/stats-calc.js");
+const fxMarkets = await getJSON("fx/stats-changed/data/markets.json");
+
+// 每條長條：三段加起來等於長條寬，家數 > 0 的段至少「高度一半＋2px」；每個甜甜圈：三段加起來一整圈
+function checkCharts(p) {
+  for (const bar of p.$$(".st-bar")) {
+    const w = bar.getBoundingClientRect().width;
+    const segs = [...bar.children].map((i) => i.getBoundingClientRect().width);
+    const h = bar.getBoundingClientRect().height;
+    ok(Math.abs(segs.reduce((s, v) => s + v, 0) - w) <= 1, `長條三段加起來 ${segs.map(Math.round)}，長條 ${Math.round(w)}px`);
+    ok(segs.every((v) => v >= h / 2 + 2 - 0.5), `長條每段至少 ${h / 2 + 2}px：${segs.map((v) => v.toFixed(1))}`);
+  }
+  const C = 2 * Math.PI * 48;
+  for (const svg of p.$$(".st-donut svg")) {
+    const lens = [...svg.querySelectorAll("circle:not(.seg-bg)")].map((c) => parseFloat(c.getAttribute("stroke-dasharray")));
+    ok(Math.abs(lens.reduce((s, v) => s + v, 0) - C) < 0.01, `甜甜圈三段加起來 ${lens.reduce((s, v) => s + v, 0).toFixed(2)}，一圈 ${C.toFixed(2)}`);
+  }
+}
+const segKeys = (bar) => [...bar.children].map((i) => i.className.replace("seg-", ""));
+const countyRowsShown = (p) => p.$$(".st-county-list li").map((li) => [li.querySelector(".st-name").textContent, li.querySelector(".st-pct").textContent]);
+const crowns = (p) => p.$$(".st-county-list li").filter((li) => li.querySelector(".st-crown svg")).map((li) => li.querySelector(".st-name").textContent);
+const noHScroll = (p, w) => ok(p.doc.documentElement.scrollWidth <= w, `${w} 寬有橫向捲軸（${p.doc.documentElement.scrollWidth}px）`);
+
+test("統計頁（正式資料）：62.5%、審核中、8 個縣市照比例排、皇冠、3 種類型、最強友善力市集 3 個", async () => {
+  const p = await open("web/stats.html", { width: 1440, height: 900 });
+  eq(p.text(".st-big"), "62.5%", "中間大字");
+  eq(p.text(".st-sub"), "已提交 217／347 家", "中間小字");
+  eq(p.$$(".st-legend b").map((b) => b.textContent), ["0", "217", "130"], "圖例家數");
+  ok(p.$(".st-reviewing"), "已完成 0 時有「審核中」");
+  eq(p.text(".st-updated"), "資料更新：2026/10/31", "更新日期");
+  eq(countyRowsShown(p), S.countyRows(markets).map((r) => [r.county, S.pctText(r.counts)]), "縣市列");
+  eq(countyRowsShown(p)[0], ["高雄市", "85%"], "第一名");
+  eq(crowns(p), ["高雄市"], "皇冠");
+  eq(p.$$(".st-type-name").map((s) => s.textContent), ["夜市", "傳統市場", "美食廣場"], "類型");
+  eq(p.$$(".st-type-list b").map((b) => b.textContent), ["61%", "58%", "80%"], "類型百分比");
+  eq(p.text("#st-top-title"), "最強友善力市集", "④ 標題");
+  eq(p.$$(".st-top-name").map((s) => s.textContent), S.topRows(markets).map((m) => m.name), "最強友善力市集");
+  eq(p.$$(".st-frac").map((s) => s.textContent), ["21/21", "20/20", "20/20"], "最強友善力市集分數");
+  ok(p.$(".st-top-empty").hidden, "不顯示「還沒有市場提交」");
+  ok(p.$$(".st-bar i.seg-verified").length === 0, "已完成 0 時不畫綠色段");
+  checkCharts(p);
+  noHScroll(p, 1440);
+});
+
+test("統計頁（假資料）：已完成 > 0、0% 和 100% 的縣市、並列第一、新縣市、新類型都跟著變", async () => {
+  const p = await open("fx/stats-changed/stats.html", { width: 1440, height: 900 });
+  const all = S.overall(fxMarkets);
+  eq(p.text(".st-big"), S.pctText(all, 1), "中間大字照已提交（含已完成）算");
+  eq(p.text(".st-sub"), `已提交 ${S.done(all)}／${S.total(all)} 家`, "中間小字");
+  ok(!p.$(".st-reviewing"), "已完成 > 0 時「審核中」消失");
+  ok(p.$(".st-donut-lg circle.seg-verified"), "大甜甜圈有綠色段");
+  eq(p.text(".st-updated"), "資料更新：2026/11/15", "更新日期跟著 meta.json");
+  eq(countyRowsShown(p), [["新北市", "100%"], ["臺北市", "100%"], ["高雄市", "60%"], ["花蓮縣", "50%"], ["臺南市", "1%"], ["桃園市", "0%"]], "縣市列數和排序");
+  eq(crowns(p), ["新北市", "臺北市"], "並列第一都有皇冠");
+  const bars = Object.fromEntries(p.$$(".st-county-list li").map((li) => [li.querySelector(".st-name").textContent, segKeys(li.querySelector(".st-bar"))]));
+  eq(bars["桃園市"], ["not_submitted"], "0%：全紅");
+  eq(bars["新北市"], ["submitted"], "100%：沒有紅色");
+  eq(bars["臺北市"], ["verified", "submitted"], "有已完成：綠色段出現");
+  eq(bars["臺南市"], ["verified", "not_submitted"], "1 家已完成也看得見");
+  eq(p.$$(".st-type-name").map((s) => s.textContent), ["夜市", "傳統市場", "美食廣場"], "新類型歸到「其他」，沒有多一個");
+  ok(p.$$(".st-type-list img")[2].getAttribute("src").endsWith("type-other.webp"), "其他的圖示");
+  eq(p.$$(".st-top-name").map((s) => s.textContent), ["測試夜市甲", "測試市場乙", "測試夜市己"], "最強友善力市集：同 100% 照 ID，0% 的不列");
+  checkCharts(p);
+});
+
+test("統計頁：沒有市場提交時顯示「還沒有市場提交」；沒有資料時顯示空狀態", async () => {
+  let p = await open("fx/stats-none/stats.html", { width: 1440, height: 900 });
+  eq(p.$$(".st-top-list li").length, 0, "最強友善力市集是空的");
+  ok(!p.$(".st-top-empty").hidden, "顯示提示");
+  eq(p.text(".st-top-empty"), "還沒有市場提交，一起加油！", "提示文字");
+  ok(p.css(".st-megaphone", "display") !== "none", "大聲公貓保留");
+  eq(p.text(".st-big"), "0.0%", "中間大字");
+  checkCharts(p);
+
+  p = await open("fx/stats-empty/stats.html", { width: 1440, height: 900 });
+  ok(p.$(".st-empty"), "空狀態");
+  eq(p.$$(".st-card").length, 0, "不畫圖表");
+  ok(p.$(".st-empty img").getAttribute("src").endsWith("empty-state.webp"), "空狀態插畫");
+});
+
+test("統計頁版面：1440、1280、1024 是 2×2，375 是單欄、手機分頁列、沒有橫向捲軸、貓不擋圖例", async () => {
+  for (const [w, h, cols] of [[1440, 900, 2], [1280, 800, 2], [1024, 768, 2], [375, 812, 1]]) {
+    const p = await open("web/stats.html", { width: w, height: h });
+    const lefts = new Set(p.$$(".st-card").map((c) => Math.round(c.getBoundingClientRect().left)));
+    eq(lefts.size, cols, `${w} 寬的欄數`);
+    noHScroll(p, w);
+    checkCharts(p);
+    eq(p.$('.tab[aria-current="page"]')?.textContent.trim(), "統計報表", `${w} 寬：目前的分頁`);
+    const legend = p.$(".st-legend").getBoundingClientRect();
+    const cat = p.$(".st-cat").getBoundingClientRect();
+    ok(cat.bottom <= legend.top || cat.right <= legend.left || cat.left >= legend.right, `${w} 寬：貓擋住圖例`);
+  }
+  const p = await open("web/stats.html", { width: 375, height: 812 });
+  eq(p.doc.body.dataset.layout, "l", "手機版頁首");
+  const tabs = p.$$(".tab").map((t) => t.getBoundingClientRect());
+  ok(tabs[0].top === tabs[1].top && tabs[0].top >= p.$(".brand").getBoundingClientRect().bottom - 1, "分頁在頁首第二列、兩格同一列");
+  ok(p.$$(".st-legend small").every((s) => p.win.getComputedStyle(s).display === "none"), "手機圖例不顯示百分比");
+});
+
+test("入口：地圖頁進度卡「看完整統計」和兩頁的分頁都連到統計頁", async () => {
+  let p = await open("web/index.html");
+  eq(p.$(".progress-more").getAttribute("href"), "stats.html", "進度卡連結");
+  eq(p.$$(".tab").map((t) => t.getAttribute("href")), ["./", "stats.html"], "總覽頁分頁");
+  p = await open("web/submit.html", { width: 375, height: 812 });
+  eq(p.$$(".sp-tab").map((t) => t.getAttribute("href")), ["./", "stats.html"], "補交頁分頁");
+  p = await open("web/stats.html");
+  eq(p.$$(".tab").map((t) => t.getAttribute("href")), ["./", "stats.html"], "統計頁分頁");
+});
+
 // ================= 正式環境（127.0.0.2） =================
 const EVERYTHING_OFF = { base: false, labels: false, interact: false, stats: false, list: false, submit: "mock" };
 

@@ -28,7 +28,7 @@ TYPES = [  # 市場類型：key、顯示名稱、素材
 ]
 TYPE_NAME = {k: n for k, n, _ in TYPES}
 TYPE_ICON = {k: p for k, _, p in TYPES}
-WEAK_N = 3  # 待加強市場列幾個（D5，設定值）
+TOP_N = 3  # 最強友善力市集列幾個（D5，設定值）
 MIN_SEG = 2  # 家數 > 0 的段至少幾 px
 
 ICONS.update({
@@ -79,11 +79,11 @@ def county_rows(markets):
     return [(name, c, ratio(c) == top) for name, c in rows]
 
 
-def weak_rows(markets):
-    """已提交比例最低的 WEAK_N 個，不含 100%；同比例未提交多的在前。"""
-    rows = [m for m in markets if total(m["counts"]) and ratio(m["counts"]) < 1]
-    rows.sort(key=lambda m: (ratio(m["counts"]), -m["counts"]["not_submitted"], m["id"]))
-    return rows[:WEAK_N]
+def top_rows(markets):
+    """最強友善力市集：已提交比例最高的 TOP_N 個，不含 0%；同比例總數多的在前，再照 ID。"""
+    rows = [m for m in markets if done(m["counts"])]
+    rows.sort(key=lambda m: (-ratio(m["counts"]), -total(m["counts"]), m["id"]))
+    return rows[:TOP_N]
 
 
 def pct(c, digits=0):
@@ -124,11 +124,12 @@ def donut(cx, cy, r, sw, c):
     n = total(c)
     circ = 2 * math.pi * r
     out = [circle(cx, cy, r, stroke=C["line_soft"], sw=sw)]
+    segs = [[k, max(circ * c[k] / n, MIN_SEG)] for k in KEYS if c[k]]
+    over = sum(s for _, s in segs) - circ  # 最小長度補出來的部分，從最長的那段扣回
+    if over > 0:
+        max(segs, key=lambda s: s[1])[1] -= over
     acc = 0.0
-    for k in KEYS:
-        if not c[k]:
-            continue
-        seg = max(circ * c[k] / n, MIN_SEG)
+    for k, seg in segs:
         out.append(circle(cx, cy, r, stroke=ST[k]["main"], sw=sw,
                           extra=f' stroke-dasharray="{f(seg)} {f(circ)}" stroke-dashoffset="{f(-acc)}" '
                                 f'transform="rotate(-90 {f(cx)} {f(cy)})"'))
@@ -251,7 +252,7 @@ def d_types(groups):
     return "".join(out)
 
 
-def weak_row(x, y, w, m, size=16, iconsize=40, h=72):
+def top_row(x, y, w, m, size=16, iconsize=40, h=72):
     c = m["counts"]
     out = [rect(x, y, w, h, 14, "#fff", "#E3EAF2", 1.5),
            image(x + 12, y + (h - iconsize) / 2, iconsize, iconsize, TYPE_ICON.get(m["type"], TYPE_ICON["other"])),
@@ -264,13 +265,13 @@ def weak_row(x, y, w, m, size=16, iconsize=40, h=72):
     return "".join(out)
 
 
-def d_weak(rows):
+def d_top(rows):
     x, y, w, h = CX[1], R2, CW, R2H
-    out = [card(x, y, w, h), card_title(x + 24, y + 48, "target", "待加強市場")]
-    if not rows:  # 全部市場都 100%（stats-page-assets §五.5）
-        out.append(text(x + 24, y + 140, "所有市場都已提交，太棒了！", 20, C["ink"], 900))
+    out = [card(x, y, w, h), card_title(x + 24, y + 48, "crown", "最強友善力市集")]
+    if not rows:  # 沒有任何市場提交（stats-page-assets §五.5）
+        out.append(text(x + 24, y + 140, "還沒有市場提交，一起加油！", 20, C["ink"], 900))
     for i, m in enumerate(rows):
-        out.append(weak_row(x + 24, y + 76 + i * 80, w - 250, m))
+        out.append(top_row(x + 24, y + 76 + i * 80, w - 250, m))
     out.append(image(x + w - 216, y + 110, 200, 159, "final/mascot-cat-megaphone.png"))
     return "".join(out)
 
@@ -284,7 +285,7 @@ def desktop(markets, meta):
         "overview": d_overview(allc, upd),
         "county": d_county(county_rows(markets)),
         "types": d_types(group(markets, "type")),
-        "weak": d_weak(weak_rows(markets)),
+        "top": d_top(top_rows(markets)),
     }
     bg = (rect(0, 0, DW, DH, 0, C["page"]) + cloud(560, 6, 0.8) + cloud(1150, 30, 0.6) +
           bushes(DW, DH, 320, 240))
@@ -363,14 +364,14 @@ def m_types(groups, y):
     return "".join(out), h
 
 
-def m_weak(rows, y):
+def m_top(rows, y):
     h = 72 + 72 * max(len(rows), 1)
-    out = [card(MX, y, MCW, h), card_title(MX + 16, y + 40, "target", "待加強市場", 18),
+    out = [card(MX, y, MCW, h), card_title(MX + 16, y + 40, "crown", "最強友善力市集", 18),
            image(MX + MCW - 84, y + 4, 72, 57, "final/mascot-cat-megaphone.png")]
     if not rows:
-        out.append(text(MX + 16, y + 110, "所有市場都已提交，太棒了！", 16, C["ink"], 900))
+        out.append(text(MX + 16, y + 110, "還沒有市場提交，一起加油！", 16, C["ink"], 900))
     for i, m in enumerate(rows):
-        out.append(weak_row(MX + 12, y + 64 + i * 72, MCW - 24, m, 15, 36, 64))
+        out.append(top_row(MX + 12, y + 64 + i * 72, MCW - 24, m, 15, 36, 64))
     return "".join(out), h
 
 
@@ -384,7 +385,7 @@ def mobile(markets, meta):
     for key, fn in [("overview", lambda y: m_overview(allc, upd, y)),
                     ("county", lambda y: m_county(county_rows(markets), y)),
                     ("types", lambda y: m_types(group(markets, "type"), y)),
-                    ("weak", lambda y: m_weak(weak_rows(markets), y))]:
+                    ("top", lambda y: m_top(top_rows(markets), y))]:
         body, h = fn(y)
         parts[key] = (body, y, h)
         y += h + 16
@@ -423,9 +424,9 @@ def atoms():
              rect(430, y1 + 10, 120, 52, 8, C["page"]), cloud(450, y1 + 16, 1.0, 1),
              text(566, y1 + 42, "cloud（背景裝飾）", 14, C["body"])]
     y2 = 690
-    body += [text(24, y2, "待加強市場：全部 100% 時的空狀態", 18, C["ink"], 900),
+    body += [text(24, y2, "最強友善力市集：沒有任何市場提交時的空狀態", 18, C["ink"], 900),
              rect(24, y2 + 16, 520, 64, 14, "#fff", "#E3EAF2", 1.5),
-             text(44, y2 + 55, "所有市場都已提交，太棒了！", 18, C["ink"], 900)]
+             text(44, y2 + 55, "還沒有市場提交，一起加油！", 18, C["ink"], 900)]
     y3 = 800
     body += [text(24, y3, "地圖頁進度卡的入口連結（入口 B）", 18, C["ink"], 900),
              rect(24, y3 + 16, 300, 44, 12, C["primary_soft"]),
@@ -441,9 +442,9 @@ def main():
     head = d_header()
     write("pages/stats-desktop.svg", svg((0, 0, DW, DH), bg + head + "".join(parts.values()), "統計報表・桌機 1440x900"))
     boxes = {"overview": (CX[0], R1, CW, R1H), "county": (CX[1], R1, CW, R1H),
-             "types": (CX[0], R2, CW, R2H), "weak": (CX[1], R2, CW, R2H)}
+             "types": (CX[0], R2, CW, R2H), "top": (CX[1], R2, CW, R2H)}
     names = {"overview": "全台登錄進度 StatsOverviewCard", "county": "各縣市提交比例 CountyRatioCard",
-             "types": "市場類型比較 MarketTypeCard", "weak": "待加強市場 WeakMarketsCard"}
+             "types": "市場類型比較 MarketTypeCard", "top": "最強友善力市集 TopMarketsCard"}
     for k, (x, y, w, h) in boxes.items():
         write(f"components/stats-{k}-card.svg", svg((x - 12, y - 10, w + 24, h + 30), parts[k], names[k], C["page"]))
     write("components/stats-header.svg", svg((0, 0, DW, HEAD + 2), head, "頁首（統計報表分頁選中）"))

@@ -111,25 +111,32 @@ body.stats-page::after { right: 0; transform: scaleX(-1); }
 .st-type-list img { width: 80px; height: 80px; }
 .st-type-name { font-weight: 700; font-size: 17px; }
 
-/* ---------- ④ 待加強市場 ---------- */
-.st-weak-body { display: grid; grid-template-columns: minmax(0, 1fr) 200px; align-items: center; gap: 16px; flex: 1; }
-.st-weak-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
-.st-weak-list li {
+/* ---------- ④ 最強友善力市集 ---------- */
+.st-top-body { display: grid; grid-template-columns: minmax(0, 1fr) 200px; align-items: center; gap: 16px; flex: 1; }
+.st-top-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.st-top-list li {
   display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; grid-template-rows: auto auto;
   column-gap: 12px; row-gap: 6px; align-items: center;
   padding: 12px 16px 12px 12px; border: 1.5px solid #E3EAF2; border-radius: 14px; background: #fff;
 }
-.st-weak-list img { grid-row: 1 / 3; width: 40px; height: 40px; }
-.st-weak-name { grid-column: 2 / 4; font-weight: 700; font-size: 16px; overflow-wrap: anywhere; }
-.st-weak-list .st-bar { --bar-h: 12px; }
+.st-top-list img { grid-row: 1 / 3; width: 40px; height: 40px; }
+.st-top-name { grid-column: 2 / 4; font-weight: 700; font-size: 16px; overflow-wrap: anywhere; }
+.st-top-list .st-bar { --bar-h: 12px; }
 .st-frac { font-weight: 800; font-size: 16px; }
-.st-weak-empty { margin: 0; font-size: 20px; font-weight: 900; }
+.st-top-empty { margin: 0; font-size: 20px; font-weight: 900; }
 .st-megaphone { width: 200px; pointer-events: none; }
 
 .st-empty { grid-column: 1 / -1; text-align: center; font-weight: 700; color: var(--body); }
 
-/* ---------- 窄的 2×2（1024～1279）：卡片約 430 寬，甜甜圈和貓縮小，圖例才放得下 ---------- */
-@media (min-width: 1024px) and (max-width: 1279px) {
+/* 1280～1439：圖例的「審核中」會換行、圖例變高，貓縮小才不壓到圖例 */
+@media (max-width: 1439px) {
+  .st-cat { width: 180px; }
+}
+
+/* ---------- 窄的 2×2（1024～1279）：卡片約 430 寬，甜甜圈和貓縮小，圖例才放得下 ----------
+   不寫 min-width: 1024px：螢幕縮放不是整數時寬度可能是 1023.5，會兩組都不符合。
+   1023 以下由後面的單欄設定蓋過去。 */
+@media (max-width: 1279px) {
   .st-donut-lg { width: 190px; height: 190px; }
   .st-overview-body .st-donut-lg { margin-left: 0; }
   .st-overview-body { gap: 20px; }
@@ -139,7 +146,7 @@ body.stats-page::after { right: 0; transform: scaleX(-1); }
   .st-legend { padding: 10px 12px; }
   .st-legend li { grid-template-columns: 16px minmax(0, 1fr) auto 36px; gap: 8px; }
   .st-legend .dot { width: 16px; height: 16px; }
-  .st-weak-body { grid-template-columns: minmax(0, 1fr) 140px; }
+  .st-top-body { grid-template-columns: minmax(0, 1fr) 140px; }
   .st-megaphone { width: 140px; }
 }
 
@@ -163,7 +170,8 @@ body.stats-page::after { right: 0; transform: scaleX(-1); }
   .st-sub { font-size: 12px; margin-top: 2px; display: flex; flex-direction: column; }
   .st-legend { margin: 0; padding: 0; border: 0; background: none; gap: 12px; }
   /* 窄螢幕不顯示百分比，避免和「審核中」重疊（RESPONSIVE_LAYOUT §13.2） */
-  .st-legend li { grid-template-columns: 18px minmax(0, 1fr) auto; }
+  .st-legend li { grid-template-columns: 18px minmax(0, 1fr) auto; gap: 10px; }
+  .st-legend .dot { width: 18px; height: 18px; }
   .st-legend small { display: none; }
   .st-legend b { font-size: 16px; }
   .st-county-list li { grid-template-columns: 18px 4em minmax(0, 1fr) 3em; gap: 6px; }
@@ -174,11 +182,11 @@ body.stats-page::after { right: 0; transform: scaleX(-1); }
   .st-type-name { font-size: 14px; }
   .st-donut-sm { width: 68px; height: 68px; }
   .st-donut-sm b { font-size: 17px; }
-  .st-weak { position: relative; }
-  .st-weak-body { grid-template-columns: minmax(0, 1fr); }
+  .st-top { position: relative; }
+  .st-top-body { grid-template-columns: minmax(0, 1fr); }
   .st-megaphone { position: absolute; right: 12px; top: 4px; width: 72px; }
-  .st-weak-list li { grid-template-columns: 36px minmax(0, 1fr) auto; padding: 10px 12px 10px 10px; }
-  .st-weak-list img { width: 36px; height: 36px; }
-  .st-weak-name { font-size: 15px; }
+  .st-top-list li { grid-template-columns: 36px minmax(0, 1fr) auto; padding: 10px 12px 10px 10px; }
+  .st-top-list img { width: 36px; height: 36px; }
+  .st-top-name { font-size: 15px; }
   .st-frac { font-size: 15px; }
 }
