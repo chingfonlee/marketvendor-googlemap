@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>統計報表・國際友善力提升輔導・臺灣攤商地圖</title>
+<meta name="description" content="各縣市、各市場類型的 Google 地圖登錄比例">
+<link rel="icon" href="assets/logo.webp">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/stats.css">
+<script type="module" src="js/stats.js"></script>
+</head>
+<body class="stats-page" data-loading>
+<a class="skip-link" href="#st-overview-title">跳到統計內容</a>
+
+<header class="site-header">
+  <a class="brand" href="./" aria-label="國際友善力提升輔導・臺灣攤商地圖 首頁">
+    <img class="brand-logo" src="assets/logo.webp" alt="" width="48" height="48">
+    <span class="brand-text">
+      <span class="brand-title"><span class="brand-line">國際友善力<wbr>提升輔導<span class="brand-dot">・</span></span><span class="brand-line">臺灣攤商地圖</span></span>
+      <span class="brand-sub">夜市與市場 Google 地圖登錄成果平台</span>
+    </span>
+  </a>
+  <nav class="tabs" aria-label="分頁">
+    <a class="tab" href="./"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#home"/></svg>地圖總覽</a>
+    <a class="tab" href="stats.html" aria-current="page"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#chart"/></svg>統計報表</a>
+  </nav>
+  <a class="btn btn-primary submit-link" href="submit.html">
+    <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#link"/></svg>
+    <span class="label-long">我是攤商，確認或補交 Google 地圖連結</span>
+    <span class="label-short">確認連結</span>
+  </a>
+</header>
+
+<main class="stats-main">
+  <section class="card st-card st-overview" aria-labelledby="st-overview-title">
+    <div class="st-head">
+      <h2 id="st-overview-title" class="st-title" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#chart"/></svg>全台登錄進度</h2>
+      <p class="st-updated"></p>
+    </div>
+    <img class="st-cat" src="assets/mascots/cat-camera.webp" alt="" aria-hidden="true">
+    <div class="st-overview-body">
+      <div class="st-donut st-donut-lg" role="img"></div>
+      <ul class="st-legend"></ul>
+    </div>
+  </section>
+
+  <section class="card st-card st-county" aria-labelledby="st-county-title">
+    <div class="st-head">
+      <h2 id="st-county-title" class="st-title"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#chart"/></svg>各縣市提交比例</h2>
+    </div>
+    <ol class="st-county-list"></ol>
+  </section>
+
+  <section class="card st-card st-types" aria-labelledby="st-types-title">
+    <div class="st-head">
+      <h2 id="st-types-title" class="st-title"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#pie"/></svg>市場類型比較</h2>
+    </div>
+    <ul class="st-type-list"></ul>
+  </section>
+
+  <section class="card st-card st-top" aria-labelledby="st-top-title">
+    <div class="st-head">
+      <h2 id="st-top-title" class="st-title"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#crown"/></svg>最強友善力市集</h2>
+    </div>
+    <div class="st-top-body">
+      <ul class="st-top-list"></ul>
+      <p class="st-top-empty" hidden>還沒有市場提交，一起加油！</p>
+      <img class="st-megaphone" src="assets/mascots/cat-megaphone.webp" alt="" aria-hidden="true">
+    </div>
+  </section>
+</main>
+
+<p class="load-error" role="alert" hidden>資料載入失敗，請重新整理頁面。</p>
+</body>
+</html>

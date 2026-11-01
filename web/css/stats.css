@@ -1,0 +1,193 @@
+/* 統計報表頁（docs/RESPONSIVE_LAYOUT.md §13；參考 design/svg/pages/stats-desktop.svg、stats-mobile.svg）
+   頁首沿用 layout.css 的 D／L 樣式；內容 ≥ 1024 寬是 2×2，以下是單欄。 */
+
+/* layout.css 的 D 版會把 body 變成三欄 grid、固定高度：統計頁不用，改回一般捲動 */
+body.stats-page[data-layout] {
+  display: block;
+  height: auto;
+  min-height: 100dvh;
+  overflow: visible;
+  padding: 0;
+  position: relative;
+  --bar-h: 18px;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 40'%3E%3Cg fill='%23fff' opacity='.9'%3E%3Ccircle cx='20' cy='22' r='14'/%3E%3Ccircle cx='40' cy='14' r='16'/%3E%3Ccircle cx='60' cy='22' r='13'/%3E%3Crect x='6' y='22' width='68' height='14' rx='7'/%3E%3C/g%3E%3C/svg%3E") no-repeat 38% 76px / 64px auto,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 40'%3E%3Cg fill='%23fff' opacity='.8'%3E%3Ccircle cx='20' cy='22' r='14'/%3E%3Ccircle cx='40' cy='14' r='16'/%3E%3Ccircle cx='60' cy='22' r='13'/%3E%3Crect x='6' y='22' width='68' height='14' rx='7'/%3E%3C/g%3E%3C/svg%3E") no-repeat 82% 92px / 48px auto,
+    var(--page);
+}
+body.stats-page[data-layout="d"] .site-header { margin: 0; }
+body.stats-page[data-loading] .stats-main { visibility: hidden; }
+
+/* 角落樹叢：在卡片後面，貼著頁面最底下 */
+body.stats-page::before,
+body.stats-page::after {
+  content: ""; position: absolute; bottom: 0; z-index: 0; pointer-events: none;
+  width: 320px; height: 240px;
+  background: url("../assets/stats/bush.webp") no-repeat left bottom / contain;
+}
+body.stats-page::before { left: 0; }
+body.stats-page::after { right: 0; transform: scaleX(-1); }
+
+.stats-main {
+  position: relative; z-index: 1;
+  max-width: 1440px; margin: 0 auto;
+  padding: 16px 24px 56px;
+  display: grid; gap: var(--gap);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* ---------- 卡片共用 ---------- */
+.st-card { padding: 24px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.st-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.st-title {
+  margin: 0; display: inline-flex; align-items: center; gap: 10px;
+  padding: 6px 20px 6px 14px; border-radius: 999px; background: #EEF6FD;
+  font-size: 22px; font-weight: 900;
+}
+.st-title .icon { width: 24px; height: 24px; color: var(--primary); stroke-width: 2.4; }
+.st-updated { margin: 0; color: var(--muted); font-size: 13px; }
+
+.seg-verified { --c: var(--verified); }
+.seg-submitted { --c: var(--submitted); }
+.seg-not_submitted { --c: var(--not-submitted); }
+
+/* 甜甜圈 */
+.st-donut { position: relative; flex: none; }
+.st-donut svg { display: block; width: 100%; height: 100%; }
+.st-donut circle { fill: none; stroke: var(--c); stroke-width: 20; }
+.st-donut .seg-bg { stroke: var(--line-soft); }
+.st-donut-center {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center; line-height: 1.1;
+}
+.st-donut-lg { width: 264px; height: 264px; }
+.st-donut-lg circle { stroke-width: 18; }
+.st-big { font-size: 44px; font-weight: 900; }
+.st-sub { margin-top: 6px; font-size: 15px; color: var(--body); font-weight: 500; }
+.st-donut-sm { width: 100px; height: 100px; }
+.st-donut-sm circle { stroke-width: 22; }
+.st-donut-sm b { font-size: 24px; font-weight: 900; }
+
+/* 100% 堆疊長條：段的寬度用原始比例；太窄的段至少「高度一半＋2px」，不會被圓角切掉 */
+.st-bar {
+  display: flex; height: var(--bar-h); border-radius: calc(var(--bar-h) / 2);
+  overflow: hidden; background: var(--line-soft); min-width: 0;
+}
+.st-bar i { flex: 0 1 var(--w); min-width: calc(var(--bar-h) / 2 + 2px); background: var(--c); }
+
+/* ---------- ① 全台登錄進度 ---------- */
+.st-overview { position: relative; }
+.st-cat { position: absolute; right: 48px; top: 60px; width: 220px; pointer-events: none; }
+/* 桌機：圖例貼底，上面留給貓 */
+.st-overview-body { display: flex; align-items: flex-end; gap: 32px; flex: 1; }
+.st-overview-body .st-donut-lg { margin-left: 16px; }
+.st-legend {
+  list-style: none; margin: 0; padding: 12px 18px; flex: 1; min-width: 0;
+  display: grid; gap: 8px; border: 1px solid #E8EEF4; border-radius: 14px; background: #FAFBFC;
+}
+.st-legend li { display: grid; grid-template-columns: 18px minmax(0, 1fr) auto 44px; align-items: center; gap: 10px; }
+.st-legend .dot { width: 18px; height: 18px; border-radius: 50%; background: var(--c); }
+.st-legend-name { font-weight: 700; color: var(--body); display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.st-legend b { font-size: 18px; font-weight: 900; text-align: right; }
+.st-legend small { color: var(--muted); font-size: 13px; text-align: right; }
+.st-reviewing {
+  font-size: 12px; font-weight: 700; padding: 1px 8px; border-radius: 999px;
+  background: var(--verified-soft); color: var(--verified-text);
+}
+
+/* ---------- ② 各縣市提交比例 ---------- */
+.st-county-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.st-county-list li { display: grid; grid-template-columns: 24px 4.5em minmax(0, 1fr) 3.5em; align-items: center; gap: 8px; min-height: 30px; }
+.st-crown .icon { width: 22px; height: 22px; color: #E6A400; stroke-width: 2.2; display: block; }
+.st-name { font-weight: 700; font-size: 16px; }
+.st-pct { font-size: 18px; font-weight: 900; text-align: right; }
+
+/* ---------- ③ 市場類型比較 ---------- */
+.st-type-list {
+  list-style: none; margin: 0; padding: 0; flex: 1;
+  display: grid; grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); gap: 8px; align-items: start;
+}
+.st-type-list li { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.st-type-list img { width: 80px; height: 80px; }
+.st-type-name { font-weight: 700; font-size: 17px; }
+
+/* ---------- ④ 最強友善力市集 ---------- */
+.st-top-body { display: grid; grid-template-columns: minmax(0, 1fr) 200px; align-items: center; gap: 16px; flex: 1; }
+.st-top-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.st-top-list li {
+  display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; grid-template-rows: auto auto;
+  column-gap: 12px; row-gap: 6px; align-items: center;
+  padding: 12px 16px 12px 12px; border: 1.5px solid #E3EAF2; border-radius: 14px; background: #fff;
+}
+.st-top-list img { grid-row: 1 / 3; width: 40px; height: 40px; }
+.st-top-name { grid-column: 2 / 4; font-weight: 700; font-size: 16px; overflow-wrap: anywhere; }
+.st-top-list .st-bar { --bar-h: 12px; }
+.st-frac { font-weight: 800; font-size: 16px; }
+.st-top-empty { margin: 0; font-size: 20px; font-weight: 900; }
+.st-megaphone { width: 200px; pointer-events: none; }
+
+.st-empty { grid-column: 1 / -1; text-align: center; font-weight: 700; color: var(--body); }
+
+/* 1280～1439：圖例的「審核中」會換行、圖例變高，貓縮小才不壓到圖例 */
+@media (max-width: 1439px) {
+  .st-cat { width: 180px; }
+}
+
+/* ---------- 窄的 2×2（1024～1279）：卡片約 430 寬，甜甜圈和貓縮小，圖例才放得下 ----------
+   不寫 min-width: 1024px：螢幕縮放不是整數時寬度可能是 1023.5，會兩組都不符合。
+   1023 以下由後面的單欄設定蓋過去。 */
+@media (max-width: 1279px) {
+  .st-donut-lg { width: 190px; height: 190px; }
+  .st-overview-body .st-donut-lg { margin-left: 0; }
+  .st-overview-body { gap: 20px; }
+  .st-big { font-size: 34px; }
+  /* 圓環內圈約 134px，「已提交 217／347 家」一行會貼到圓環：分成兩行 */
+  .st-sub { font-size: 13px; display: flex; flex-direction: column; }
+  .st-cat { width: 150px; right: 24px; top: 60px; }
+  .st-legend { padding: 10px 12px; }
+  .st-legend li { grid-template-columns: 16px minmax(0, 1fr) auto 36px; gap: 8px; }
+  .st-legend .dot { width: 16px; height: 16px; }
+  .st-top-body { grid-template-columns: minmax(0, 1fr) 140px; }
+  .st-megaphone { width: 140px; }
+}
+
+/* ---------- 單欄（< 1024） ---------- */
+@media (max-width: 1023px) {
+  body.stats-page[data-layout] { --bar-h: 14px; }
+  body.stats-page::before, body.stats-page::after { width: 160px; height: 120px; }
+  .stats-main { grid-template-columns: minmax(0, 1fr); padding: 16px 16px 48px; max-width: none; }
+  .st-card { padding: 16px; gap: 12px; }
+  .st-title { font-size: 18px; padding: 4px 16px 4px 12px; }
+  .st-title .icon { width: 20px; height: 20px; }
+  .st-head { padding-right: 96px; }
+  .st-updated { order: 3; }
+  .st-cat { width: 92px; right: 12px; top: 8px; }
+  .st-overview-body { gap: 16px; align-items: center; }
+  .st-overview-body .st-donut-lg { margin-left: 0; }
+  .st-donut-lg { width: 150px; height: 150px; }
+  .st-donut-lg circle { stroke-width: 20; }
+  .st-big { font-size: 26px; }
+  /* 圓環中間只有約 95px 寬：「已提交」和家數分成兩行 */
+  .st-sub { font-size: 12px; margin-top: 2px; display: flex; flex-direction: column; }
+  .st-legend { margin: 0; padding: 0; border: 0; background: none; gap: 12px; }
+  /* 窄螢幕不顯示百分比，避免和「審核中」重疊（RESPONSIVE_LAYOUT §13.2） */
+  .st-legend li { grid-template-columns: 18px minmax(0, 1fr) auto; gap: 10px; }
+  .st-legend .dot { width: 18px; height: 18px; }
+  .st-legend small { display: none; }
+  .st-legend b { font-size: 16px; }
+  .st-county-list li { grid-template-columns: 18px 4em minmax(0, 1fr) 3em; gap: 6px; }
+  .st-crown .icon { width: 18px; height: 18px; }
+  .st-name { font-size: 14px; }
+  .st-pct { font-size: 15px; }
+  .st-type-list img { width: 56px; height: 56px; }
+  .st-type-name { font-size: 14px; }
+  .st-donut-sm { width: 68px; height: 68px; }
+  .st-donut-sm b { font-size: 17px; }
+  .st-top { position: relative; }
+  .st-top-body { grid-template-columns: minmax(0, 1fr); }
+  .st-megaphone { position: absolute; right: 12px; top: 4px; width: 72px; }
+  .st-top-list li { grid-template-columns: 36px minmax(0, 1fr) auto; padding: 10px 12px 10px 10px; }
+  .st-top-list img { width: 36px; height: 36px; }
+  .st-top-name { font-size: 15px; }
+  .st-frac { font-size: 15px; }
+}

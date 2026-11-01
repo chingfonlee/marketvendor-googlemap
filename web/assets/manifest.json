@@ -37,6 +37,24 @@
     "traditional_market": "market-type/traditional_market.webp",
     "other": "market-type/other.webp"
   },
+  "stats": {
+    "stats/type-night_market.webp": [
+      160,
+      160
+    ],
+    "stats/type-traditional_market.webp": [
+      160,
+      160
+    ],
+    "stats/type-other.webp": [
+      160,
+      160
+    ],
+    "stats/bush.webp": [
+      640,
+      480
+    ]
+  },
   "icons": [
     "home",
     "users",
@@ -63,6 +81,8 @@
     "edit",
     "note",
     "phone",
-    "cart"
+    "cart",
+    "crown",
+    "pie"
   ]
 }

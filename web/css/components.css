@@ -55,6 +55,14 @@
   body[data-layout="d"] .progress-legend li { grid-template-columns: 10px 1fr; row-gap: 0; }
   body[data-layout="d"] .progress-legend li b { grid-column: 2; }
 }
+/* 入口 B：連到統計頁，整列可點（PLAN §2） */
+.progress-more {
+  margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 2px;
+  min-height: 44px; border-radius: 12px; background: var(--primary-soft); color: var(--primary);
+  font-weight: 800; text-decoration: none;
+}
+.progress-more:hover { background: #D6E6FF; }
+.progress-more .icon { stroke-width: 2.4; }
 .progress-girl, .progress-cat { position: absolute; right: 12px; top: 8px; pointer-events: none; }
 .progress-girl { width: 112px; display: none; }
 .progress-cat { width: 72px; display: none; }

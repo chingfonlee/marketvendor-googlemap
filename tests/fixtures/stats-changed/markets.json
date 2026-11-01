@@ -1,0 +1,74 @@
+[
+ {
+  "id": "s01",
+  "name": "測試夜市甲",
+  "county": "臺北市",
+  "type": "night_market",
+  "vendor_count": 20,
+  "counts": {
+   "verified": 10,
+   "submitted": 10,
+   "not_submitted": 0
+  }
+ },
+ {
+  "id": "s02",
+  "name": "測試市場乙",
+  "county": "新北市",
+  "type": "traditional_market",
+  "vendor_count": 20,
+  "counts": {
+   "verified": 0,
+   "submitted": 20,
+   "not_submitted": 0
+  }
+ },
+ {
+  "id": "s03",
+  "name": "測試市場丙",
+  "county": "桃園市",
+  "type": "traditional_market",
+  "vendor_count": 15,
+  "counts": {
+   "verified": 0,
+   "submitted": 0,
+   "not_submitted": 15
+  }
+ },
+ {
+  "id": "s04",
+  "name": "測試廣場丁",
+  "county": "臺南市",
+  "type": "other",
+  "vendor_count": 100,
+  "counts": {
+   "verified": 1,
+   "submitted": 0,
+   "not_submitted": 99
+  }
+ },
+ {
+  "id": "s05",
+  "name": "測試小吃戊",
+  "county": "花蓮縣",
+  "type": "street_food",
+  "vendor_count": 10,
+  "counts": {
+   "verified": 2,
+   "submitted": 3,
+   "not_submitted": 5
+  }
+ },
+ {
+  "id": "s06",
+  "name": "測試夜市己",
+  "county": "高雄市",
+  "type": "night_market",
+  "vendor_count": 10,
+  "counts": {
+   "verified": 0,
+   "submitted": 6,
+   "not_submitted": 4
+  }
+ }
+]

@@ -48,8 +48,8 @@
 
 | 元件 | 來源 | 形式 | 要改的地方 | 開關 |
 |---|---|---|---|---|
-| 頁首 | `components/header.svg` | HTML | 標題改成「國際友善力提升輔導・臺灣攤商地圖」（2026-11-01 從「國際友善力・台灣攤商地圖」改名），副標「夜市與市場 Google 地圖登錄成果平台」。分頁只放「地圖總覽」；「統計報表」「資料管理」2026-11-01 決定先不顯示，要做時再加回（PLAN §7）。右上主按鈕連到補交頁。手機和平板直向不顯示分頁 | — |
-| 進度卡 | `components/progress-card.svg` | HTML＋SVG 圓環 | 圓環從 6 段改成 3 段（已完成、待確認、未提交）；中間是總攤商數；右側 3 行圖例，顯示數量和百分比；「最後更新」時間；插畫從廚師改成女孩 | 統計 |
+| 頁首 | `components/header.svg` | HTML | 標題改成「國際友善力提升輔導・臺灣攤商地圖」（2026-11-01 從「國際友善力・台灣攤商地圖」改名），副標「夜市與市場 Google 地圖登錄成果平台」。分頁放「地圖總覽」「統計報表」（統計報表 2026-11-01 加回，PLAN §2.1）；「資料管理」先不顯示（PLAN §7）。右上主按鈕連到補交頁。~~手機和平板直向不顯示分頁~~ **2026-11-01 改：手機和平板直向也顯示精簡版分頁**，在頁首下方一列（RESPONSIVE_LAYOUT 決定 J、§13.3；參考 `components/stats-header-mobile.svg`） | — |
+| 進度卡 | `components/progress-card.svg` | HTML＋SVG 圓環 | 圓環從 6 段改成 3 段（已完成、待確認、未提交）；中間是總攤商數；右側 3 行圖例，顯示數量和百分比；「最後更新」時間；插畫從廚師改成女孩；**2026-11-01 加「看完整統計 →」連結到 `stats.html`**（PLAN §2，任務 16 實作） | 統計 |
 | 狀態徽章 | `atoms/status-badges.svg` | HTML `<span data-status>` | 只留 3 種：已完成（綠）、待確認（黃）、未提交（紅），配色照畫面圖 | 清單 |
 | 篩選面板 | `components/filter-panel.svg` | HTML | 搜尋框、縣市選單、**市場選單**（新增）、4 個狀態按鈕（全部、已完成、待確認、未提交），每個按鈕下方顯示數量；拿掉市場類型篩選 | 清單 |
 | 攤商清單 | `components/merchant-table.svg` | HTML `<template>` | 搬到右下；標題「市場名・攤商清單 (N)」；欄位是攤商名稱、狀態、操作；有連結的顯示「開啟 Google 地圖」圖示，沒有連結的顯示「補交」圖示，連到補交頁並預先選好這家店；**不分頁**，全部列出、往下捲動，表頭固定（任務 5 決定 I） | 清單 |
@@ -113,3 +113,37 @@
 - 開啟方式：本機預覽時畫面左下角有「開發」按鈕，點開是開關面板。有開關不是預設值時按鈕上有橘點；底圖和 `county-labels.json` 的 SHA-256 不一致時按鈕上有紅色驚嘆號，面板裡顯示警告。
 - 設定存在瀏覽器（`localStorage` 的 `gm-dev`），總覽頁和補交頁共用，重新整理後還在。補交頁換送出方式會自動重新載入。
 - 「開發環境」指網址是 `localhost`、`127.0.0.1`、`[::1]`、`*.localhost`、`*.test`（`web/js/env.js`）。其他網址一律是正式環境：不載入 `devtools.js`、不讀存著的設定、補交頁不能送出（任務 12 建好後端後改成正式 API）。
+
+## 7. 統計報表頁（第二版，2026-11-01，PLAN 任務 15）
+
+由 `design/tools/build_stats_svg.py` 產生，數字直接讀 `web/data/markets.json`，計算規則照 `design/asset-briefs/stats-page-assets.md` §五（這支程式也是網頁計算的樣本）。改設計請改產生器再重跑：
+
+```bash
+python design/tools/build_stats_svg.py
+```
+
+| 元件 | 來源 | 形式 | 內容 | 開關 |
+|---|---|---|---|---|
+| 頁首（統計報表選中） | `components/stats-header.svg`、`stats-header-mobile.svg` | HTML | 和地圖頁共用同一個頁首；手機多一列精簡版分頁 | — |
+| ① 全台登錄進度 | `components/stats-overview-card.svg` | HTML＋SVG 甜甜圈 | 甜甜圈（綠黃紅）、中間已提交比例（小數一位）、「已提交 X／Y 家」、3 列圖例（家數、百分比；已完成 = 0 時加「審核中」）、資料更新日期（`meta.json` 的 `updated`）、拿地圖的貓 | — |
+| ② 各縣市提交比例 | `components/stats-county-card.svg` | HTML `<template>` | 每個縣市一列：皇冠（並列第一都有）、縣市名、比例條、百分比；列數和排序由資料決定 | — |
+| ③ 市場類型比較 | `components/stats-types-card.svg` | HTML＋SVG 甜甜圈 | 每個類型一欄：類型圖示（`final/stats/stats-type-*.png`）、名稱、小甜甜圈；沒有市場的類型不顯示 | — |
+| ④ 最強友善力市集 | `components/stats-top-card.svg` | HTML `<template>` | 已提交比例最高的 3 個市場（不含 0%）：類型圖示、市場名、比例條、「已提交/總數」；全部 0% 時顯示「還沒有市場提交，一起加油！」；拿大聲公的貓。2026-11-01 從「待加強市場」改過來 | — |
+| 比例條 RatioBar | `atoms/stats-atoms.svg` | HTML（3 個 `<span>`，外層 `overflow: hidden` 加圓角） | 綠黃紅 100% 堆疊；0%、29%、85%、100%、三段、很小的段 | — |
+| 甜甜圈 Donut | `atoms/stats-atoms.svg` | SVG `circle` ＋ `stroke-dasharray` | 已完成 = 0／> 0 兩種示範 | — |
+| 圖示 `crown`、`pie` | `atoms/stats-atoms.svg` | 加進 `web/assets/icons.svg` | 第一名、市場類型卡標題 | — |
+| 雲朵 | `atoms/stats-atoms.svg` | CSS 或內嵌 SVG | 背景裝飾 | — |
+| 角落樹叢 | `final/stats/stats-corner-bush.png` | PNG→WebP，CSS 背景 | 左下原圖，右下 `scaleX(-1)` | — |
+| 地圖頁進度卡的入口 | `atoms/stats-atoms.svg` 最下面 | HTML `<a>` | 「看完整統計 ›」，放在進度卡底部，整列可點，44 高 | 統計 |
+
+### 和示意圖不同的地方
+
+| 項目 | 示意圖 v2 | SVG（以這裡為準） | 原因 |
+|---|---|---|---|
+| ④ 卡片內容 | 「待加強市場」：比例最低的 3 個 | **「最強友善力市集」：比例最高的 3 個** | 2026-11-01 使用者決定改成正面的排行。標題圖示從標靶改成皇冠（舊紀錄：示意圖的第三個待加強市場臺東 43% 是手選的，照規則應是鄭仔寮 35%，改版後已無關） |
+| 頁首 | 「臺灣攤商地圖・統計報表」 | 和地圖頁相同的頁首，分頁「統計報表」選中 | 三頁共用頁首（PLAN §2） |
+| 右上街景 | 有 | 沒有 | D4：S04 不做 |
+| 甜甜圈圖例 | 只有家數 | 桌機加百分比；已完成 = 0 時加「審核中」 | stats-page-assets §二 特殊狀態 1 |
+| 手機分頁 | 沒有 | 頁首下方一列 | 決定 J |
+| ④ 每列左邊的小攤位 | 三種顏色的攤位 | 照市場類型的圖示 S01～S03 | stats-page-assets §一 |
+
