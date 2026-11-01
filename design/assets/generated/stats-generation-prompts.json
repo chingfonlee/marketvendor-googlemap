@@ -1,0 +1,57 @@
+{
+  "tool": "built-in image_gen",
+  "postprocessing": "Resized to requested dimensions with System.Drawing; transparency retained. No creative content edits.",
+  "status": "candidates awaiting user review",
+  "skipped": "S04 per D4",
+  "assets": [
+    {
+      "id": "S01",
+      "file": "stats-type-night_market.png",
+      "size": "512x512",
+      "prompt": "cute chibi illustration matching the attached cat mascot and stall-cart logo exactly: thick dark-brown outlines (#3B2A1A), flat colors with soft cel shading, rounded chunky shapes, warm friendly palette (orange #F08A3C, lantern red #E5484D, warm yellow #F2B200, cream #FFF8E6, grass green #7CC46A, sky blue #6DD7F2), clean crisp line art, isolated single object on a fully transparent background, no ground shadow, no text, no letters, no numbers, no logos. A single round red Chinese paper lantern with a golden top cap and a short yellow tassel, glowing softly, with 4 short yellow sparkle strokes around it. Front view, centered. This is one of a coordinated set of three small web icons. Square canvas 512×512. Center the entire object with approximately 10% transparent padding on all four sides. Front view slightly from above, thick consistent dark-brown outlines, simple large shapes readable at 40×40 and 72×72. Keep the visible object's overall size comparable to the lantern, vegetable basket, and table icons in reference image 3. Do not include any chart, text, cards, cat, logo, or scene from the references. All four corner pixels completely transparent. The glow is represented only by flat yellow sparkle strokes, with no halo or translucent glow. Avoid text, letters, words, Chinese characters, numbers, logo, watermark, signature, opaque background, white background, scenery, frame, border, drop shadow, realistic, photorealistic, 3D render, glossy gradient, thin sketchy lines, blurry, cropped object. No white fringe or glow. Actual transparent alpha background, not a painted checkerboard.",
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "S02",
+      "file": "stats-type-traditional_market.png",
+      "size": "512x512",
+      "prompt": "cute chibi illustration matching the attached cat mascot and stall-cart logo exactly: thick dark-brown outlines (#3B2A1A), flat colors with soft cel shading, rounded chunky shapes, warm friendly palette (orange #F08A3C, lantern red #E5484D, warm yellow #F2B200, cream #FFF8E6, grass green #7CC46A, sky blue #6DD7F2), clean crisp line art, isolated single object on a fully transparent background, no ground shadow, no text, no letters, no numbers, no logos. A single woven bamboo basket full of fresh vegetables and fruits: green leafy greens, a carrot, red tomatoes, a bell pepper. Front view slightly from above, centered. This is one of a coordinated set of three small web icons. Square canvas 512×512. Center the entire object with approximately 10% transparent padding on all four sides. Front view slightly from above, thick consistent dark-brown outlines, simple large shapes readable at 40×40 and 72×72. Keep the visible object's overall size comparable to the lantern, vegetable basket, and table icons in reference image 3. Do not include any chart, text, cards, cat, logo, or scene from the references. All four corner pixels completely transparent. Dominant green vegetables and warm bamboo basket. Simplified weaving, no tiny intricate detail. Avoid text, letters, words, Chinese characters, numbers, logo, watermark, signature, opaque background, white background, scenery, frame, border, drop shadow, realistic, photorealistic, 3D render, glossy gradient, thin sketchy lines, blurry, cropped object. No white fringe or glow. Actual transparent alpha background, not a painted checkerboard.",
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "S03",
+      "file": "stats-type-other.png",
+      "size": "512x512",
+      "prompt": "cute chibi illustration matching the attached cat mascot and stall-cart logo exactly: thick dark-brown outlines (#3B2A1A), flat colors with soft cel shading, rounded chunky shapes, warm friendly palette (orange #F08A3C, lantern red #E5484D, warm yellow #F2B200, cream #FFF8E6, grass green #7CC46A, sky blue #6DD7F2), clean crisp line art, isolated single object on a fully transparent background, no ground shadow, no text, no letters, no numbers, no logos. A small round wooden food-court table with three round wooden stools around it, a small cup holder with chopsticks on the table. Front view slightly from above, centered. This is one of a coordinated set of three small web icons. Square canvas 512×512. Center the entire object with approximately 10% transparent padding on all four sides. Front view slightly from above, thick consistent dark-brown outlines, simple large shapes readable at 40×40 and 72×72. Keep the visible object's overall size comparable to the lantern, vegetable basket, and table icons in reference image 3. Do not include any chart, text, cards, cat, logo, or scene from the references. All four corner pixels completely transparent. Warm wood brown dominant. Three stools must read clearly as stools, with simple chunky legs. Avoid text, letters, words, Chinese characters, numbers, logo, watermark, signature, opaque background, white background, scenery, frame, border, drop shadow, realistic, photorealistic, 3D render, glossy gradient, thin sketchy lines, blurry, cropped object. No white fringe or glow. Actual transparent alpha background, not a painted checkerboard.",
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "S05",
+      "file": "stats-corner-bush.png",
+      "size": "640x480",
+      "prompt": "cute chibi illustration matching the attached cat mascot and stall-cart logo exactly: thick dark-brown outlines (#3B2A1A), flat colors with soft cel shading, rounded chunky shapes, warm friendly palette (orange #F08A3C, lantern red #E5484D, warm yellow #F2B200, cream #FFF8E6, grass green #7CC46A, sky blue #6DD7F2), clean crisp line art, isolated single object on a fully transparent background, no ground shadow, no text, no letters, no numbers, no logos. A cluster of round fluffy green bushes for the bottom-left corner of a web page, with a few small white five-petal flowers. The bushes touch the left edge and the bottom edge of the image and fade into rounded shapes toward the upper right. The upper-right half of the image is completely empty and transparent. Landscape canvas 640×480. Flat even illumination, no directional details, suitable for horizontal mirroring. The cluster is concentrated in the lower-left triangular half, the top-right triangular half must remain fully transparent. Follow the document's transparent-corner requirement: the extreme four corner pixels remain transparent; the bush contour contacts left and bottom edges away from the corner pixels. Unlike the three icons this corner decoration intentionally meets the left and bottom edges. Avoid text, letters, words, Chinese characters, numbers, logo, watermark, signature, opaque background, white background, scenery, frame, border, drop shadow, realistic, photorealistic, 3D render, glossy gradient, thin sketchy lines, blurry. No white fringe or glow. Actual transparent alpha background, not a painted checkerboard.",
+      "cornerAlpha": [
+        0,
+        0,
+        253,
+        0
+      ]
+    }
+  ],
+  "knownIssue": "S05 bottom-left corner is not fully transparent (alpha 253); candidate needs review against acceptance item 1. Other three corners are transparent."
+}

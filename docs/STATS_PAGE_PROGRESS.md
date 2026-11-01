@@ -12,7 +12,7 @@
 
 ## 1. 現在在哪裡
 
-> **第 0 階段（設計基準）的示意圖已完成，第 2 階段（元件盤點）和第 3 階段（素材需求）的規格草稿已完成。§4 的 D1～D7 和 §4.1 入口（A＋B）都已決定（2026-11-01）。設計基準已 commit（分支 `claude/stats-page`，`e8254d6`）。第 1 階段 PLAN 已更新（§1、§2、§2.1、§3、§6 任務 13～19、§7），`SVG_COMPONENTS.md` 的分頁和進度卡規則也改了，等使用者驗收、還沒 commit。下一步：§5 第 4 項，請 Codex 生成 S01～S03、S05。**
+> **第 0 階段（設計基準）的示意圖已完成，第 2 階段（元件盤點）和第 3 階段（素材需求）的規格草稿已完成。§4 的 D1～D7 和 §4.1 入口（A＋B）都已決定（2026-11-01）。設計基準已 commit（分支 `claude/stats-page`，`e8254d6`）。第 1 階段 PLAN 已更新並 commit（`d2e9752`），`SVG_COMPONENTS.md` 的分頁和進度卡規則也改了。素材 S01～S03、S05 已生成並驗收（`design/assets/review/stats/ACCEPTANCE.md`，4 張都可用），使用者確認（2026-11-01），已存到 `design/assets/final/stats/`。下一步：§5 第 6 項 SVG 組件（PLAN 任務 15）。**
 > 之後的任務編號以 PLAN §6 為準（任務 13～19），本文件 §5 的對照見該表最後一欄。
 
 ---
@@ -40,9 +40,9 @@
 | # | 階段 | 統計頁的狀態 | 說明 |
 |---|---|---|---|
 | 0 | 設計基準 | ✅ 示意圖已定，已 commit `e8254d6` | v2 是設計基準。SVG 產生器還沒做，放在第 2 階段一起做 |
-| 1 | 計畫 | 🟡 已更新，等驗收 | PLAN §1、§2、§2.1、§3（已提交比例的定義）、§6 任務 13～19、§7 |
+| 1 | 計畫 | ✅ 已 commit `d2e9752` | PLAN §1、§2、§2.1、§3（已提交比例的定義）、§6 任務 13～19、§7 |
 | 2 | SVG 審查與元件盤點 | 🟡 草稿完成 | `stats-page-assets.md` §一、§二。驗收後要搬進 `docs/SVG_COMPONENTS.md` 新的一節，並用 `design/tools/build_svg.py` 產生 SVG |
-| 3 | 底圖與素材 | 🟡 提示詞完成 | 要做 S01～S03、S05；S04 不做（D4） |
+| 3 | 底圖與素材 | ✅ 定稿，存在 `design/assets/final/stats/` | S01～S03、S05 在 `design/assets/generated/`，驗收見 `design/assets/review/stats/ACCEPTANCE.md`；S04 不做（D4） |
 | 4 | 圖層架構與共用狀態 | ✅ 已決定 | 獨立頁、不跟縣市篩選連動（D1、D3），沒有共用狀態，不用另寫文件 |
 | 5 | 疊圖座標 | — 不需要 | 統計頁沒有疊在底圖上的元素 |
 | 6 | 響應式版面 | ⬜ | 手機版照 v2 手機示意圖，單欄，順序 ①②③④。要寫進 `docs/RESPONSIVE_LAYOUT.md`。舊規則「手機不顯示分頁」已在 `SVG_COMPONENTS.md` 標成作廢，RESPONSIVE_LAYOUT 在 PLAN 任務 15 改 |
@@ -100,9 +100,9 @@
 |---|---|---|---|
 | 1 | 回答 §4 的 D1～D7、§4.1 入口 | 使用者 | ✅ 2026-11-01 全部照建議，入口 A＋B |
 | 2 | commit 設計基準 | Claude（先問過再 commit） | ✅ 2026-11-01 `e8254d6`，分支 `claude/stats-page` |
-| 3 | 更新 PLAN | Claude | ✅ 2026-11-01 PLAN 和 SVG_COMPONENTS 已改，等驗收、還沒 commit（對應 PLAN 任務 13） |
-| 4 | 生成 S01～S03（＋D4 決定要做的） | Codex | 照 `stats-page-assets.md` §三、§四；候選圖存到 `design/assets/generated/stats-*.png` |
-| 5 | 素材驗收 | Claude → 使用者 | 對照 §四 的 6 條，做三張並排圖和 40×40 縮小預覽；使用者確認後存到 `design/assets/final/stats/` |
+| 3 | 更新 PLAN | Claude | ✅ 2026-11-01 PLAN 和 SVG_COMPONENTS 已改，commit `d2e9752`（對應 PLAN 任務 13） |
+| 4 | 生成 S01～S03（＋D4 決定要做的） | Codex | ✅ 2026-11-01 S01～S03、S05 已生成，S04 跳過 |
+| 5 | 素材驗收 | Claude → 使用者 | ✅ 2026-11-01 使用者確認，定稿存到 `design/assets/final/stats/`（驗收 `design/assets/review/stats/ACCEPTANCE.md`）。S03 偏小，轉 WebP 時統一裁邊處理 |
 | 6 | SVG 組件 | Claude | 用 `design/tools/build_svg.py` 產生 `stats-*.svg`，含 §二 的 4 種特殊狀態示範；更新 `docs/SVG_COMPONENTS.md` |
 | 7 | 響應式規格 | Claude | `docs/RESPONSIVE_LAYOUT.md` 加統計頁一節：桌機 2×2、手機單欄、分頁規則（D2） |
 | 8 | 網頁實作 | Claude | `web/stats.html`，只讀 `markets.json`，不寫死數字；素材由 `scripts/build_web_assets.py` 轉成 WebP；三頁頁首都有「地圖總覽／統計報表」分頁；地圖頁進度卡加「看完整統計 →」連結 |

@@ -155,8 +155,8 @@
 
 | # | 任務 | 誰做 | 驗收標準 | 狀態 |
 |---|---|---|---|---|
-| 13 | 設計基準與決定 | Claude | 示意圖 v2（桌機＋手機）確認；拆分、素材、資料規則寫進 `stats-page-assets.md`；D1～D7 和入口 A＋B 決定；本計畫更新 | `e8254d6`；本計畫 §2.1、§3 ✅ 等驗收 |
-| 14 | 統計頁素材 | 出圖 Codex，驗收 Claude | S01～S03 市場類型圖示、S05 角落樹叢；透明背景、沒有文字；S01～S03 縮到 40×40 分得出來；畫風和吉祥物一致（`stats-page-assets.md` §三、§四） | |
+| 13 | 設計基準與決定 | Claude | 示意圖 v2（桌機＋手機）確認；拆分、素材、資料規則寫進 `stats-page-assets.md`；D1～D7 和入口 A＋B 決定；本計畫更新 | `e8254d6`、`d2e9752`；本計畫 §2.1、§3 ✅ |
+| 14 | 統計頁素材 | 出圖 Codex，驗收 Claude | S01～S03 市場類型圖示、S05 角落樹叢；透明背景、沒有文字；S01～S03 縮到 40×40 分得出來；畫風和吉祥物一致（`stats-page-assets.md` §三、§四） | `design/assets/final/stats/`，驗收見 `design/assets/review/stats/ACCEPTANCE.md` ✅ |
 | 15 | SVG 組件與響應式規格 | Claude | `stats-*.svg`（4 張卡片、`crown`／`pie`／`ratio-bar`／`cloud`、桌機和手機兩頁，含 §二 的特殊狀態示範）；`SVG_COMPONENTS.md`、`RESPONSIVE_LAYOUT.md` 加統計頁，並把「手機不顯示分頁」的舊規則改掉 | |
 | 16 | 網頁實作 | Claude | `web/stats.html`；只讀 `markets.json`；三頁頁首都有分頁；地圖頁進度卡有「看完整統計 →」；素材轉成 WebP | |
 | 17 | 測試 | Claude | `stats-page-assets.md` §五.6 的 7 項（用假資料測圖表跟著變），原有測試全部通過 | |
