@@ -12,7 +12,7 @@
 
 ## 1. 現在在哪裡
 
-> **第 0 階段（設計基準）的示意圖已完成，第 2 階段（元件盤點）和第 3 階段（素材需求）的規格草稿已完成。§4 的 D1～D7 和 §4.1 入口（A＋B）都已決定（2026-11-01）。設計基準已 commit（分支 `claude/stats-page`，`e8254d6`）。第 1 階段 PLAN 已更新並 commit（`d2e9752`），`SVG_COMPONENTS.md` 的分頁和進度卡規則也改了。素材 S01～S03、S05 已生成並驗收（`design/assets/review/stats/ACCEPTANCE.md`，4 張都可用），使用者確認（2026-11-01），已存到 `design/assets/final/stats/`，commit `b624506`。SVG 組件和響應式規格（PLAN 任務 15）已完成，使用者驗收通過（2026-11-01），commit `7011cc7`：`design/tools/build_stats_svg.py` 產生 9 個 SVG，截圖在 `design/assets/review/stats/svg/`。網頁（PLAN 任務 16）已完成，使用者驗收通過（2026-11-01），commit `911ab65`。測試（PLAN 任務 17）已完成；驗收時使用者把 ④ 改成「最強友善力市集」（§4.2），已改完、測試全過，使用者驗收通過（2026-11-01），commit `4b57617`。整體驗收（PLAN 任務 18）已完成，使用者驗收通過（2026-11-01），已 commit（`docs/ACCEPTANCE.md` §5）。下一步：§5 第 11 項 README 和部署（PLAN 任務 19，部署前先問）。**
+> **第 0 階段（設計基準）的示意圖已完成，第 2 階段（元件盤點）和第 3 階段（素材需求）的規格草稿已完成。§4 的 D1～D7 和 §4.1 入口（A＋B）都已決定（2026-11-01）。設計基準已 commit（分支 `claude/stats-page`，`e8254d6`）。第 1 階段 PLAN 已更新並 commit（`d2e9752`），`SVG_COMPONENTS.md` 的分頁和進度卡規則也改了。素材 S01～S03、S05 已生成並驗收（`design/assets/review/stats/ACCEPTANCE.md`，4 張都可用），使用者確認（2026-11-01），已存到 `design/assets/final/stats/`，commit `b624506`。SVG 組件和響應式規格（PLAN 任務 15）已完成，使用者驗收通過（2026-11-01），commit `7011cc7`：`design/tools/build_stats_svg.py` 產生 9 個 SVG，截圖在 `design/assets/review/stats/svg/`。網頁（PLAN 任務 16）已完成，使用者驗收通過（2026-11-01），commit `911ab65`。測試（PLAN 任務 17）已完成；驗收時使用者把 ④ 改成「最強友善力市集」（§4.2），已改完、測試全過，使用者驗收通過（2026-11-01），commit `4b57617`。整體驗收（PLAN 任務 18）已完成，使用者驗收通過（2026-11-01），commit `185a80e`（`docs/ACCEPTANCE.md` §5）。下一步：§5 第 11 項 README 和部署（PLAN 任務 19，部署前先問）。**
 > 之後的任務編號以 PLAN §6 為準（任務 13～19），本文件 §5 的對照見該表最後一欄。
 
 ---
@@ -101,6 +101,11 @@
 
 ---
 
+### 4.3 ③「其他」類型改名「美食商圈」（2026-11-01，任務 19 時使用者決定）
+
+- 原本叫「美食廣場」。「其他」類型目前有瑞芳美食廣場（新北）和西門淺草（臺南），西門淺草是商圈，所以改成「美食商圈」。
+- 改到的地方：`web/js/stats.js` 的 `TYPE_NAME`、`build_stats_svg.py`（SVG 重新產生）、瀏覽器測試、PLAN §2.1、stats-page-assets §一、README。示意圖、生圖提示詞是當時的紀錄，不改。
+
 ## 5. 接下來的任務（照順序，每項做完都停下來驗收）
 
 | # | 任務 | 誰做 | 驗收標準 |
@@ -114,8 +119,8 @@
 | 7 | 響應式規格 | Claude | ✅ 2026-11-01：`RESPONSIVE_LAYOUT.md` 決定 J、§13 |
 | 8 | 網頁實作 | Claude | ✅ 2026-11-01 完成，使用者驗收通過，commit `911ab65`。`web/stats.html`，只讀 `markets.json`，不寫死數字；素材由 `scripts/build_web_assets.py` 轉成 WebP；三頁頁首都有「地圖總覽／統計報表」分頁；地圖頁進度卡加「看完整統計 →」連結 |
 | 9 | 測試 | Claude | ✅ 2026-11-01 完成，使用者驗收通過，commit `4b57617`。Node `tests/stats.test.mjs`、瀏覽器 5 項（假資料 `tests/fixtures/stats-*`）；Node 74、瀏覽器 36 項全部通過 |
-| 10 | 整體驗收 | Claude → 使用者 | ✅ 2026-11-01 完成，使用者驗收通過。`docs/ACCEPTANCE.md` §5；截圖和對照圖在 `design/assets/review/stats/web/`（不進 git）；修了 3 個 CSS 小問題 |
-| 11 | README、部署 | Claude（部署前先問） | README 加統計頁；部署指令要加 `--branch main` |
+| 10 | 整體驗收 | Claude → 使用者 | ✅ 2026-11-01 完成，使用者驗收通過，commit `185a80e`。`docs/ACCEPTANCE.md` §5；截圖和對照圖在 `design/assets/review/stats/web/`（不進 git）；修了 3 個 CSS 小問題 |
+| 11 | README、部署 | Claude（部署前先問） | 🟡 2026-11-01 README 已加統計頁（網址、資料夾、§3.3、可調設定、文件表），還沒 commit。部署和合併回 main 等使用者決定 |
 
 和 PLAN §6 的編號對照：本表 1～3 → 任務 13；4～5 → 任務 14；6～7 → 任務 15；8 → 任務 16；9 → 任務 17；10 → 任務 18；11 → 任務 19。
 

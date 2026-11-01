@@ -7,7 +7,7 @@ import {
 
 const $ = (sel) => document.querySelector(sel);
 const LABEL = { verified: "已完成", submitted: "待確認", not_submitted: "未提交" };
-const TYPE_NAME = { night_market: "夜市", traditional_market: "傳統市場", other: "美食廣場" };
+const TYPE_NAME = { night_market: "夜市", traditional_market: "傳統市場", other: "美食商圈" };
 const typeIcon = (t) => `assets/stats/type-${TYPES.includes(t) ? t : "other"}.webp`;
 const esc = (s) => String(s).replace(/[&<>"]/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[ch]);
 

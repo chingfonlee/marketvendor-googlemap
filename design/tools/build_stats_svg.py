@@ -24,7 +24,7 @@ KEYS = [k for k, *_ in STATUS]
 TYPES = [  # 市場類型：key、顯示名稱、素材
     ("night_market", "夜市", "final/stats/stats-type-night_market.png"),
     ("traditional_market", "傳統市場", "final/stats/stats-type-traditional_market.png"),
-    ("other", "美食廣場", "final/stats/stats-type-other.png"),
+    ("other", "美食商圈", "final/stats/stats-type-other.png"),
 ]
 TYPE_NAME = {k: n for k, n, _ in TYPES}
 TYPE_ICON = {k: p for k, _, p in TYPES}

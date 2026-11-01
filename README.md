@@ -1,8 +1,9 @@
 # 國際友善力提升輔導・臺灣攤商地圖
 
-夜市與市場攤商的 Google 地圖登錄成果平台。地圖上看各縣市、各市場有多少攤商已經在 Google 地圖上完成登錄；攤商可以自己確認或補交店家的 Google 地圖連結，不用註冊。
+夜市與市場攤商的 Google 地圖登錄成果平台。地圖上看各縣市、各市場有多少攤商已經在 Google 地圖上完成登錄；統計報表頁用圖表比較各縣市、各市場類型的提交比例；攤商可以自己確認或補交店家的 Google 地圖連結，不用註冊。
 
 - 正式網址：<https://googlemap-store.pages.dev/>
+- 統計報表：<https://googlemap-store.pages.dev/stats>
 - 補交頁：<https://googlemap-store.pages.dev/submit>
 - 原始碼：<https://github.com/chingfonlee/marketvendor-googlemap>
 
@@ -38,6 +39,7 @@
 ```
 web/            網站本身（部署的就是這個資料夾）
   index.html      總覽頁（地圖、進度、清單）
+  stats.html      統計報表頁（全台、縣市、市場類型、最強友善力市集）
   submit.html     補交／確認連結頁
   css/  js/       樣式和程式
   data/           網頁讀的 JSON（匯入程式產生，不要手改）
@@ -96,6 +98,15 @@ wrangler.toml   Cloudflare 設定（Pages 專案、D1）
 
 規則（防重複、每小時上限、Turnstile）見 [docs/BACKEND.md](docs/BACKEND.md)。
 
+### 3.3 統計報表頁
+
+統計頁（`web/stats.html`）**不用另外維護**：網頁只讀 `web/data/markets.json` 和 `meta.json`，所有數字、縣市列數、排序、皇冠、最強友善力市集都是打開頁面時算的（`web/js/stats-calc.js`）。重新匯入 Excel、部署之後就會更新。
+
+- **已提交比例** =（已完成＋待確認）÷ 總數。和總覽頁進度卡的「完成率」（只算已完成）是兩個不同的數字（[docs/PLAN.md](docs/PLAN.md) §3）。
+- **四張卡片**：① 全台登錄進度（甜甜圈）② 各縣市提交比例（比例最高的縣市有皇冠，並列都有）③ 市場類型比較 ④ 最強友善力市集（已提交比例最高的 3 個市場，0% 的不列）。
+- 計算規則、排序和特殊狀況見 [design/asset-briefs/stats-page-assets.md](design/asset-briefs/stats-page-assets.md) §五；版面見 [docs/RESPONSIVE_LAYOUT.md](docs/RESPONSIVE_LAYOUT.md) §13。
+- 設計稿（SVG）要跟著資料重畫時：`python design/tools/build_stats_svg.py`。網頁本身不需要。
+
 ---
 
 ## 4. 本機開發與測試
@@ -140,7 +151,7 @@ npx wrangler pages deploy --branch main
 
 | 要改的 | 檔案 |
 |---|---|
-| 網站名稱 | `web/index.html`、`web/submit.html` 的 `<title>`、頁首標題、`aria-label`（兩個檔案各 3 處） |
+| 網站名稱 | `web/index.html`、`web/submit.html`、`web/stats.html` 的 `<title>`、頁首標題、`aria-label`（三個檔案各 3 處） |
 | 副標、說明文字 | `web/index.html`（「夜市與市場 Google 地圖登錄成果平台」等）、`web/submit.html` |
 | Logo、吉祥物 | 換 `design/assets/` 裡的原圖，再跑 `python scripts/build_web_assets.py` |
 | 配色 | `web/css/tokens.css` |
@@ -154,7 +165,7 @@ npx wrangler pages deploy --branch main
   - 之後每個市場一個分頁，分頁名稱開頭是總表序號（例如 `1-永春市場`）。第 2 列是欄位名稱，要有「序號」「市場/攤鋪名稱」「地圖狀態」「Google 地圖連結」「Place ID」「Google 上的名稱」「相似度」。
   - 地圖狀態只認「已完成」「待確認」「未找到」，對應網站的已完成、待確認、未提交。
 - 格式不同的話，改 `scripts/import_excel.py` 讀 Excel 的部分。
-- **市場類型**（夜市／傳統市場／其他，決定市場縮圖）寫在 `scripts/import_excel.py` 的 `TYPES`，換市場時要跟著改。
+- **市場類型**（夜市／傳統市場／其他，決定市場縮圖和統計頁的類型圖示）寫在 `scripts/import_excel.py` 的 `TYPES`，換市場時要跟著改。統計頁遇到不認得的類型，會算進「美食商圈」（其他）。目前是「其他」的市場：瑞芳美食廣場、西門淺草。
 - **全新的一批資料**：清空 `data/id-map.json`（改成 `{}`）和 `data/review-decisions.csv`（只留表頭），讓 ID 重新編號（照總表序號給 `m01`、`m02`…）。`TYPES` 也要照新的 ID 重填：匯入程式只會在 ID 沒列在 `TYPES` 時停下來提醒，ID 剛好和舊的重複時不會發現類型填錯。
 - 匯入後更新 `tests/data-snapshot.test.mjs` 的家數。
 
@@ -189,6 +200,8 @@ npx wrangler pages deploy --branch main
 | 哪些網址算開發環境 | `web/js/env.js` 的 `IS_DEV` |
 | 網址格式檢查（接受哪些 Google 地圖網址） | `web/js/urlcheck.js`；匯入程式的 `check_url` 要跟著改 |
 | 手機、平板、桌機的版面切換寬度 | `web/css/layout.css`，規格在 [docs/RESPONSIVE_LAYOUT.md](docs/RESPONSIVE_LAYOUT.md) |
+| 統計頁「最強友善力市集」列幾個（3 個） | `web/js/stats-calc.js` 的 `TOP_N`（設計稿的產生器 `design/tools/build_stats_svg.py` 也有一個） |
+| 統計頁卡片的版面切換寬度（1279、1023） | `web/css/stats.css` |
 
 ---
 
@@ -211,7 +224,9 @@ npx wrangler pages deploy --branch main
 | [docs/SVG_COMPONENTS.md](docs/SVG_COMPONENTS.md) | 畫面元件、開發開關 |
 | [docs/COUNTY_LABELS.md](docs/COUNTY_LABELS.md) | 縣市標籤的位置 |
 | [docs/TESTING.md](docs/TESTING.md) | 測試內容和結果 |
-| [docs/ACCEPTANCE.md](docs/ACCEPTANCE.md) | 網頁整體驗收紀錄 |
+| [docs/ACCEPTANCE.md](docs/ACCEPTANCE.md) | 網頁整體驗收紀錄（§5 是統計報表頁） |
+| [docs/STATS_PAGE_PROGRESS.md](docs/STATS_PAGE_PROGRESS.md) | 統計報表頁的進度和決定 |
+| [design/asset-briefs/stats-page-assets.md](design/asset-briefs/stats-page-assets.md) | 統計報表頁的拆分、素材、計算規則 |
 | [docs/DATA_ISSUES.md](docs/DATA_ISSUES.md) | 資料問題和處理結果 |
 | [design/README.md](design/README.md) | 設計稿和素材 |
 

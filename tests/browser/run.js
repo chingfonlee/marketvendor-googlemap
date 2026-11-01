@@ -554,7 +554,7 @@ test("統計頁（正式資料）：62.5%、審核中、8 個縣市照比例排�
   eq(countyRowsShown(p), S.countyRows(markets).map((r) => [r.county, S.pctText(r.counts)]), "縣市列");
   eq(countyRowsShown(p)[0], ["高雄市", "85%"], "第一名");
   eq(crowns(p), ["高雄市"], "皇冠");
-  eq(p.$$(".st-type-name").map((s) => s.textContent), ["夜市", "傳統市場", "美食廣場"], "類型");
+  eq(p.$$(".st-type-name").map((s) => s.textContent), ["夜市", "傳統市場", "美食商圈"], "類型");
   eq(p.$$(".st-type-list b").map((b) => b.textContent), ["61%", "58%", "80%"], "類型百分比");
   eq(p.text("#st-top-title"), "最強友善力市集", "④ 標題");
   eq(p.$$(".st-top-name").map((s) => s.textContent), S.topRows(markets).map((m) => m.name), "最強友善力市集");
@@ -580,7 +580,7 @@ test("統計頁（假資料）：已完成 > 0、0% 和 100% 的縣市、並列�
   eq(bars["新北市"], ["submitted"], "100%：沒有紅色");
   eq(bars["臺北市"], ["verified", "submitted"], "有已完成：綠色段出現");
   eq(bars["臺南市"], ["verified", "not_submitted"], "1 家已完成也看得見");
-  eq(p.$$(".st-type-name").map((s) => s.textContent), ["夜市", "傳統市場", "美食廣場"], "新類型歸到「其他」，沒有多一個");
+  eq(p.$$(".st-type-name").map((s) => s.textContent), ["夜市", "傳統市場", "美食商圈"], "新類型歸到「其他」，沒有多一個");
   ok(p.$$(".st-type-list img")[2].getAttribute("src").endsWith("type-other.webp"), "其他的圖示");
   eq(p.$$(".st-top-name").map((s) => s.textContent), ["測試夜市甲", "測試市場乙", "測試夜市己"], "最強友善力市集：同 100% 照 ID，0% 的不列");
   checkCharts(p);
