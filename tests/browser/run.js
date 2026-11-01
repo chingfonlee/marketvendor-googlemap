@@ -223,10 +223,19 @@ test("L 版（375 寬）：不放地圖，9 張縣市卡片", async () => {
   eq(p.$$(".county-label").length, 0, "不建立地圖標籤");
   eq(p.$$(".county-tile").map((t) => t.querySelector(".tile-head").textContent.trim()), ["全台", ...counties], "縣市卡片");
   const shown = p.$$(".submit-link span").filter((s) => p.win.getComputedStyle(s).display !== "none");
-  eq(shown.map((s) => s.textContent), ["確認或補交連結"], "頁首按鈕文字");
+  eq(shown.map((s) => s.textContent), ["確認連結"], "頁首按鈕文字");
   const title = p.$(".brand-title");
   ok(title.scrollWidth <= title.clientWidth + 1, "頁首標題沒有被切掉（放不下時在「・」後面換行）");
   ok(p.$(".brand").getBoundingClientRect().right < p.$(".submit-link").getBoundingClientRect().left, "標題和按鈕不重疊");
+  eq(p.$$(".brand-line").map((l) => Math.round(l.getBoundingClientRect().top)).filter((v, i, a) => a.indexOf(v) === i).length, 2, "標題兩行");
+
+  // 手機字體放大（約 1.5 倍）：標題變三行時，頁首跟著長高，第一行不會被切掉
+  const big = p.doc.head.appendChild(p.doc.createElement("style"));
+  big.textContent = ".brand-title { font-size: 22px !important; }";
+  const hdr = p.$(".site-header").getBoundingClientRect();
+  const t = title.getBoundingClientRect();
+  ok(t.top >= hdr.top && t.bottom <= hdr.bottom, `字體放大時標題在頁首裡：標題 ${Math.round(t.top)}～${Math.round(t.bottom)}，頁首 ${Math.round(hdr.top)}～${Math.round(hdr.bottom)}`);
+  big.remove();
 });
 
 test("L 版點縣市卡片：市場清單和攤商清單換成該縣市，點「全台」回去", async () => {

@@ -132,13 +132,14 @@ body[data-layout="l"] [id] { scroll-margin-top: calc(var(--hdr) + 16px); }
   body[data-layout="d"] .submit-link { padding: 0 12px; gap: 6px; }
 }
 
-body[data-layout="l"] .site-header { padding: 0 16px; gap: 8px; }
+/* 手機的字體設定放大時，標題可能換成三行：頁首跟著長高，不要把字切掉 */
+body[data-layout="l"] .site-header { height: auto; min-height: var(--hdr); padding: 4px 16px; gap: 8px; }
 body[data-layout="l"] .tabs { display: none; }
 body[data-layout="l"] .brand-logo { width: 40px; height: 40px; }
 body[data-layout="l"] .brand-title { font-size: 15px; }
 body[data-layout="l"] .brand-sub { display: none; }
 body[data-layout="l"] .submit-link { margin-left: auto; min-width: 72px; justify-content: center; padding: 0 12px; }
-/* 手機：按鈕是「確認或補交連結」，標題放不下一行，在「・」後面換行 */
+/* 手機：按鈕是「確認連結」，標題放不下一行，在「・」後面換行 */
 @media (max-width: 767px) {
   body[data-layout="l"] .brand-title { white-space: normal; line-height: 1.2; }
   body[data-layout="l"] .brand-line { display: inline-block; white-space: nowrap; }

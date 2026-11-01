@@ -26,7 +26,7 @@ img { max-width: 100%; }
 /* ---------- 頁首 ---------- */
 .sp-header {
   position: sticky; top: 0; z-index: 10;
-  height: 64px; display: flex; align-items: center; gap: 12px; padding: 0 16px;
+  min-height: 64px; display: flex; align-items: center; gap: 12px; padding: 4px 16px;   /* 字體放大時跟著長高 */
   background: rgb(255 255 255 / 0.92); backdrop-filter: blur(6px);
   box-shadow: 0 1px 0 rgb(11 59 91 / 0.08);
 }
