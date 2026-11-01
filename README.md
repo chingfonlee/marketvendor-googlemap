@@ -216,3 +216,11 @@ npx wrangler pages deploy --branch main
 | [docs/DATA_ISSUES.md](docs/DATA_ISSUES.md) | 資料問題和處理結果 |
 | [design/README.md](design/README.md) | 設計稿和素材 |
 | [skills/image-svg-web-pipeline/SKILL.md](skills/image-svg-web-pipeline/SKILL.md) | 這整套流程（設計圖 → SVG → 網頁 → 測試 → 後端上線）整理成的 Claude skill。複製到 `~/.claude/skills/` 就能在新專案重複使用 |
+
+---
+
+## 9. 授權
+
+[MIT License](LICENSE)：可以自由使用、修改、再散布，包括商業用途，只要保留版權和授權聲明。
+
+圖片：`design/assets/` 和 `web/assets/` 裡的插畫（背景、吉祥物、Logo、地圖底圖等 PNG／WebP）由 ChatGPT 生成。`design/svg/` 的設計稿和元件由 `design/tools/` 的程式產生。
