@@ -349,10 +349,15 @@ function renderVendors(s, scoped, prev) {
   $(".empty-state").hidden = !empty;
   if (empty) {
     const byKeyword = s.keyword && scoped.length === 0;
+    // 範圍本身沒有攤商（例如攤商全部被排除的市場）：已經是「全部」，沒有按鈕可以按
+    const noVendors = !byKeyword && s.status === "all";
     $(".empty-text").textContent = byKeyword
       ? `找不到符合「${s.keyword}」的攤商`
-      : `這個範圍還沒有${LABEL[s.status]}的攤商`;
+      : noVendors
+        ? `${s.marketId ? "這個市場" : s.county ? "這個縣市" : "目前"}還沒有攤商`
+        : `這個範圍還沒有${LABEL[s.status]}的攤商`;
     $(".empty-action").textContent = byKeyword ? "清除搜尋" : "顯示全部狀態";
+    $(".empty-action").hidden = noVendors;
   }
 
   // 範圍或篩選改變時，D 版清單捲回最上面

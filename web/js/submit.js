@@ -95,9 +95,9 @@ function renderSelects() {
   $("#sp-market").disabled = !sel.county;
 
   const vendors = sel.marketId ? data.vendorsByMarket.get(sel.marketId) : [];
-  fillSelect($("#sp-vendor"), sel.marketId ? "請選擇攤商" : "請先選市場",
+  fillSelect($("#sp-vendor"), !sel.marketId ? "請先選市場" : vendors.length ? "請選擇攤商" : "這個市場沒有攤商",
     vendors.map((v) => [v.id, `${v.name}（${LABEL[v.status]}）`]), sel.vendorId);
-  $("#sp-vendor").disabled = !sel.marketId;
+  $("#sp-vendor").disabled = !sel.marketId || !vendors.length;
 }
 
 function currentVendor() {

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "m01",
+    "name": "全完成市場",
+    "county": "臺北市",
+    "type": "traditional_market",
+    "vendor_count": 3,
+    "counts": { "verified": 3, "submitted": 0, "not_submitted": 0 }
+  },
+  {
+    "id": "m02",
+    "name": "空市場",
+    "county": "臺北市",
+    "type": "night_market",
+    "vendor_count": 0,
+    "counts": { "verified": 0, "submitted": 0, "not_submitted": 0 }
+  },
+  {
+    "id": "m03",
+    "name": "臺東混合市場",
+    "county": "臺東縣",
+    "type": "other",
+    "vendor_count": 3,
+    "counts": { "verified": 1, "submitted": 1, "not_submitted": 1 }
+  }
+]

@@ -1,0 +1,8 @@
+[
+  { "id": "m01-v001", "market_id": "m01", "name": "完成甲", "status": "verified", "url": "https://maps.google.com/?cid=1001" },
+  { "id": "m01-v002", "market_id": "m01", "name": "完成乙", "status": "verified", "url": "https://maps.google.com/?cid=1002" },
+  { "id": "m01-v003", "market_id": "m01", "name": "Done \"丙\", 逗號", "status": "verified", "url": "https://maps.google.com/?cid=1003" },
+  { "id": "m03-v001", "market_id": "m03", "name": "混合完成", "status": "verified", "url": "https://maps.google.com/?cid=3001" },
+  { "id": "m03-v002", "market_id": "m03", "name": "混合待確認", "status": "submitted", "url": "https://maps.google.com/?cid=3002" },
+  { "id": "m03-v003", "market_id": "m03", "name": "混合未提交", "status": "not_submitted", "url": null }
+]

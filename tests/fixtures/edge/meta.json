@@ -1,0 +1,10 @@
+{
+  "updated": "2026-11-01T00:00:00Z",
+  "source": "tests/fixtures/edge（測試用，不是正式資料）",
+  "source_sha256": "",
+  "decisions": 0,
+  "total": 6,
+  "counts": { "verified": 4, "submitted": 1, "not_submitted": 1 },
+  "markets": 3,
+  "counties": 2
+}
